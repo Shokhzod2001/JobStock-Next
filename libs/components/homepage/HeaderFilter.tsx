@@ -21,13 +21,15 @@ const style = {
 	bgcolor: 'background.paper',
 	borderRadius: '12px',
 	outline: 'none',
-	boxShadow: 24,
+	boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
 };
 
 const MenuProps = {
 	PaperProps: {
 		style: {
 			maxHeight: '200px',
+			borderRadius: '8px',
+			boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
 		},
 	},
 };
@@ -52,7 +54,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const [jobLocation, setJobLocation] = useState<JobLocation[]>(Object.values(JobLocation));
 	const [jobType, setJobType] = useState<JobType[]>(Object.values(JobType));
 	const [jobCategory, setJobCategory] = useState<JobCategory[]>(Object.values(JobCategory));
-	const [salaryCheck, setSalaryCheck] = useState({ start: 0, end: 2000000 });
+	const [salaryCheck, setSalaryCheck] = useState({ start: 0, end: 300000 });
 	const [optionCheck, setOptionCheck] = useState('all');
 
 	/** LIFECYCLES **/
@@ -231,7 +233,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const resetFilterHandler = () => {
 		setSearchFilter(initialInput);
 		setOptionCheck('all');
-		setSalaryCheck({ start: 0, end: 2000000 });
+		setSalaryCheck({ start: 0, end: 300000 });
 	};
 
 	const pushSearchHandler = async () => {
@@ -252,7 +254,10 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				delete searchFilter.search.options;
 			}
 
-			await router.push(`/jobs?input=${JSON.stringify(searchFilter)}`, `/jobs?input=${JSON.stringify(searchFilter)}`);
+			await router.push(
+				`/job?input=${JSON.stringify(searchFilter)}`, //
+				`/job?input=${JSON.stringify(searchFilter)}`,
+			);
 		} catch (err: any) {
 			console.log('ERROR, pushSearchHandler:', err);
 		}
@@ -267,34 +272,35 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					<Stack className={'select-box'}>
 						<Box component={'div'} className={`box ${openLocation ? 'on' : ''}`} onClick={locationStateChangeHandler}>
 							<span>{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : t('Location')} </span>
-							<ExpandMoreIcon />
+							<ExpandMoreIcon className={`icon ${openLocation ? 'rotate' : ''}`} />
 						</Box>
 						<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
 							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Job type')} </span>
-							<ExpandMoreIcon />
+							<ExpandMoreIcon className={`icon ${openType ? 'rotate' : ''}`} />
 						</Box>
 						<Box className={`box ${openCategory ? 'on' : ''}`} onClick={categoryStateChangeHandler}>
 							<span>{searchFilter?.search?.categoryList ? searchFilter?.search?.categoryList[0] : t('Category')}</span>
-							<ExpandMoreIcon />
+							<ExpandMoreIcon className={`icon ${openCategory ? 'rotate' : ''}`} />
 						</Box>
 					</Stack>
 					<Stack className={'search-box-other'}>
 						<Box className={'advanced-filter'} onClick={() => advancedFilterHandler(true)}>
-							<img src="/img/icons/tune.svg" alt="" />
+							<img src="/img/icons/filter.svg" alt="" className="filter-icon" />
 							<span>{t('Advanced')}</span>
 						</Box>
 						<Box className={'search-btn'} onClick={pushSearchHandler}>
-							<img src="/img/icons/search_white.svg" alt="" />
+							<img src="/img/icons/search_white.svg" alt="" className="search-icon" />
+							<span className="search-text">{t('Search')}</span>
 						</Box>
 					</Stack>
 
-					{/*MENU */}
+					{/* MENU DROPDOWNS */}
 					<div className={`filter-location ${openLocation ? 'on' : ''}`} ref={locationRef}>
 						{jobLocation.map((location: string) => {
 							return (
-								<div onClick={() => jobLocationSelectHandler(location)} key={location}>
-									<img src={`img/banner/cities/${location.toLowerCase()}.webp`} alt="" />
-									<span>{location}</span>
+								<div onClick={() => jobLocationSelectHandler(location)} key={location} className="location-item">
+									<img src={`img/banner/cities/${location.toLowerCase()}.webp`} alt="" className="location-image" />
+									<span className="location-name">{location}</span>
 								</div>
 							);
 						})}
@@ -303,7 +309,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					<div className={`filter-type ${openType ? 'on' : ''}`} ref={typeRef}>
 						{jobType.map((type: string) => {
 							return (
-								<div onClick={() => jobTypeSelectHandler(type)} key={type}>
+								<div onClick={() => jobTypeSelectHandler(type)} key={type} className="type-item">
 									<span>{type.replace('_', ' ')}</span>
 								</div>
 							);
@@ -313,7 +319,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					<div className={`filter-category ${openCategory ? 'on' : ''}`} ref={categoryRef}>
 						{jobCategory.map((category: string) => {
 							return (
-								<span onClick={() => jobCategorySelectHandler(category)} key={category}>
+								<span onClick={() => jobCategorySelectHandler(category)} key={category} className="category-item">
 									{category.replace('_', ' ')}
 								</span>
 							);
@@ -359,7 +365,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 										<div className={'inside'}>
 											<FormControl>
 												<Select
-													value={searchFilter?.search?.typeList?.[0] || 'all'} // Assuming single selection
+													value={searchFilter?.search?.typeList?.[0] || 'all'}
 													onChange={(e) => jobTypeSelectHandler(e.target.value)}
 													displayEmpty
 													inputProps={{ 'aria-label': 'Without label' }}
@@ -483,7 +489,7 @@ HeaderFilter.defaultProps = {
 		search: {
 			salaryRange: {
 				start: 0,
-				end: 2000000,
+				end: 300000,
 			},
 			experienceRange: {
 				start: 0,

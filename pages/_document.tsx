@@ -5,18 +5,22 @@ export default function Document() {
 		<Html lang="en">
 			<Head>
 				<meta name="robots" content="index,follow" />
-				<link rel="icon" type="image/png" href="/img/logo/favicon.svg" />
+				<link rel="icon" type="image/png" href="/img/logo/favicon.png" />
 
 				{/* SEO */}
-				<meta name="keyword" content={'nestar, nestar.uz, devex mern, mern nestjs fullstack'} />
 				<meta
-					name={'description'}
+					name="keywords"
+					content="JobStock, JobStock.kr, jobs in South Korea, remote jobs, IT jobs, software developer jobs, MERN stack jobs, fullstack jobs, career, employment"
+				/>
+				<meta
+					name="description"
 					content={
-						'Buy and sell properties anywhere anytime in South Korea. Best Properties at Best prices on nestar.uz | ' +
-						'Покупайте и продавайте недвижимость в любой точке Южной Кореи в любое время. Лучшая недвижимость по лучшим ценам на nestar.uz | ' +
-						'대한민국 언제 어디서나 부동산을 사고팔 수 있습니다. Nestar.uz에서 최적의 가격으로 최고의 부동산을 만나보세요'
+						'Find your dream job on JobStock. Explore IT, developer, and remote jobs in South Korea and worldwide. ' +
+						'Найдите работу своей мечты на JobStock. Просмотрите вакансии для IT-специалистов, разработчиков и удаленную работу в Южной Корее и за рубежом. ' +
+						'JobStock에서 원하는 직업을 찾아보세요. 대한민국 및 전 세계의 IT, 개발자, 원격 근무 일자리를 확인하세요.'
 					}
 				/>
+				<title>JobStock - Find Jobs in South Korea & Worldwide | IT, MERN, Remote</title>
 			</Head>
 			<body>
 				<Main />

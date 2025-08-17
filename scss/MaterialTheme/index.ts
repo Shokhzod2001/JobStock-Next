@@ -3,7 +3,7 @@ import shadow from './shadow';
 import typography from './typography';
 
 /**
- * LIGHT THEME (DEFAULT)
+ * LIGHT THEME
  */
 export const light = {
 	palette: {
@@ -14,7 +14,7 @@ export const light = {
 		},
 		primary: {
 			contrastText: '#ffffff',
-			main: '#E92C28',
+			main: '#0b8260',
 		},
 		secondary: {
 			main: '#1646C1',
@@ -69,16 +69,6 @@ export const light = {
 					padding: '0',
 				},
 			},
-			makeStyles: {
-				root: {
-					padding: 0,
-				},
-			},
-			sx: {
-				'&.MuiBox-root': {
-					component: 'div',
-				},
-			},
 		},
 		MuiContainer: {
 			styleOverrides: {
@@ -115,9 +105,6 @@ export const light = {
 					minWidth: 'auto',
 					lineHeight: '1.2',
 					boxShadow: 'none',
-					ButtonText: {
-						color: '#212121',
-					},
 				},
 			},
 		},
@@ -166,16 +153,8 @@ export const light = {
 		},
 		MuiSelect: {
 			styleOverrides: {
-				root: {},
 				select: {
 					textAlign: 'left',
-				},
-			},
-		},
-		MuiInputBase: {
-			styleOverrides: {
-				root: {
-					input: {},
 				},
 			},
 		},
@@ -185,7 +164,6 @@ export const light = {
 					height: '48px',
 					width: '100%',
 					backgroundColor: '#fff',
-					input: {},
 				},
 				notchedOutline: {
 					padding: '8px',
@@ -214,11 +192,6 @@ export const light = {
 				root: {
 					padding: '0',
 				},
-			},
-		},
-		MuiSvgIcon: {
-			styleOverrides: {
-				root: {},
 			},
 		},
 		MuiStepIcon: {
@@ -263,9 +236,6 @@ export const light = {
 					height: '40px',
 					background: '#fff',
 					color: '#212121',
-				},
-				hover: {
-					background: '#fff',
 				},
 			},
 		},
