@@ -6,6 +6,7 @@ export default function Document() {
 			<Head>
 				<meta name="robots" content="index,follow" />
 				<link rel="icon" type="image/png" href="/img/logo/favicon.png" />
+				<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"></link>
 
 				{/* SEO */}
 				<meta
