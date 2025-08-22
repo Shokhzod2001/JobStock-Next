@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Stack, Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Icon from '@mui/material/Icon';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { useQuery } from '@apollo/client';
 import { T } from '../../types/common';
 import { JobsInquiry } from '../../types/job/job.input';
@@ -10,9 +9,13 @@ import { GET_JOBS } from '../../../apollo/user/query';
 import { jobCategoryConfig } from '../../config';
 import { JobCategory } from '../../enums/job.enum';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Grid, Navigation } from 'swiper';
 import EastIcon from '@mui/icons-material/East';
 import WestIcon from '@mui/icons-material/West';
-import { Navigation } from 'swiper';
+
+import 'swiper/css';
+import 'swiper/css/grid';
+import 'swiper/css/navigation';
 
 interface CategoriesProps {
 	initialInput: JobsInquiry;
@@ -20,20 +23,12 @@ interface CategoriesProps {
 
 const Categories = (props: CategoriesProps) => {
 	const { initialInput } = props;
-	const device = useDeviceDetect();
 	const [jobs, setJobs] = useState<Job[]>([]);
 	const [categoryCounts, setCategoryCounts] = useState<Record<JobCategory, number>>();
 
-	const {
-		loading: getJobsLoading,
-		data: getJobsData,
-		error: getJobsError,
-	} = useQuery(GET_JOBS, {
+	const { loading, data, error } = useQuery(GET_JOBS, {
 		variables: {
-			input: {
-				...initialInput,
-				limit: 1000, // Get enough jobs for accurate counts
-			},
+			input: { ...initialInput, limit: 1000 },
 		},
 		onCompleted: (data: T) => {
 			setJobs(data?.getJobs?.list);
@@ -50,8 +45,8 @@ const Categories = (props: CategoriesProps) => {
 		}
 	}, [jobs]);
 
-	if (getJobsLoading) return <div className="categories-loading">Loading categories...</div>;
-	if (getJobsError) return <div className="categories-error">Error loading categories</div>;
+	if (loading) return <div>Loading categories...</div>;
+	if (error) return <div>Error loading categories</div>;
 	if (!categoryCounts) return null;
 
 	const CategoryCard = ({ category }: { category: JobCategory }) => {
@@ -60,14 +55,18 @@ const Categories = (props: CategoriesProps) => {
 		const categoryName = category.replace(/_/g, ' ');
 
 		return (
-			<Box className="category-card">
-				<Box className="card-icon">
-					<Icon baseClassName="material-icons-round">{config.icon}</Icon>
+			<Box className="category-box">
+				<Box className="category-desc">
+					<Box className="category-icon">
+						<Icon baseClassName="material-icons-round">{config.icon}</Icon>
+					</Box>
+					<Box className="category-detail">
+						<Typography variant="h6" className="category-title">
+							{categoryName}
+						</Typography>
+						<Typography className="category-count">{count} Active Jobs</Typography>
+					</Box>
 				</Box>
-				<Typography className="category-name">{categoryName}</Typography>
-				<Typography className="job-count">
-					{count} {count === 1 ? 'job' : 'jobs'}
-				</Typography>
 			</Box>
 		);
 	};
@@ -77,7 +76,7 @@ const Categories = (props: CategoriesProps) => {
 			<Box className="categories-container">
 				<Box className="info-box">
 					<Box className="left">
-						<Typography className="section-title">Explore Job Categories</Typography>
+						<Typography className="section-title">Explore Best Categories</Typography>
 						<Typography className="section-subtitle">Browse jobs by category to find your perfect match</Typography>
 					</Box>
 					<Box className="right">
@@ -88,48 +87,30 @@ const Categories = (props: CategoriesProps) => {
 					</Box>
 				</Box>
 
-				{device === 'mobile' ? (
-					<Swiper
-						className="mobile-categories-swiper"
-						slidesPerView="auto"
-						spaceBetween={20}
-						modules={[Navigation]}
-						navigation={{
-							nextEl: '.swiper-category-next',
-							prevEl: '.swiper-category-prev',
-						}}
-					>
-						{Object.values(JobCategory).map((category) => (
-							<SwiperSlide key={category} className="swiper-slide">
-								<CategoryCard category={category as JobCategory} />
-							</SwiperSlide>
-						))}
-					</Swiper>
-				) : (
-					<Box className="desktop-categories-grid">
-						<Swiper
-							className="desktop-categories-swiper"
-							slidesPerView={4}
-							spaceBetween={30}
-							breakpoints={{
-								1300: { slidesPerView: 4 },
-								1100: { slidesPerView: 3 },
-								800: { slidesPerView: 2 },
-							}}
-							modules={[Navigation]}
-							navigation={{
-								nextEl: '.swiper-category-next',
-								prevEl: '.swiper-category-prev',
-							}}
-						>
-							{Object.values(JobCategory).map((category) => (
-								<SwiperSlide key={category}>
-									<CategoryCard category={category as JobCategory} />
-								</SwiperSlide>
-							))}
-						</Swiper>
-					</Box>
-				)}
+				{/* Swiper with 2 rows */}
+				<Swiper
+					modules={[Grid, Navigation]}
+					navigation={{
+						nextEl: '.swiper-category-next',
+						prevEl: '.swiper-category-prev',
+					}}
+					spaceBetween={30}
+					slidesPerView={4}
+					grid={{ rows: 2, fill: 'row' }}
+					breakpoints={{
+						1200: { slidesPerView: 4 },
+						992: { slidesPerView: 3 },
+						768: { slidesPerView: 2 },
+						480: { slidesPerView: 1 },
+					}}
+					className="categories-swiper"
+				>
+					{Object.values(JobCategory).map((category) => (
+						<SwiperSlide key={category}>
+							<CategoryCard category={category as JobCategory} />
+						</SwiperSlide>
+					))}
+				</Swiper>
 			</Box>
 		</Box>
 	);

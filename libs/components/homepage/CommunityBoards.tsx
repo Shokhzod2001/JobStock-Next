@@ -17,6 +17,7 @@ const CommunityBoards = () => {
 		direction: 'DESC',
 	});
 	const [newsArticles, setNewsArticles] = useState<BoardArticle[]>([]);
+	const [recommendedArticles, setRecommendedArticles] = useState<BoardArticle[]>([]);
 	const [freeArticles, setFreeArticles] = useState<BoardArticle[]>([]);
 
 	/** APOLLO REQUESTS **/
@@ -31,6 +32,20 @@ const CommunityBoards = () => {
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
 			setNewsArticles(data?.getBoardArticles?.list);
+		},
+	});
+
+	const {
+		loading: getRecommendedArticlesLoading,
+		data: getRecommendedArticlesData,
+		error: getRecommendedArticlesError,
+		refetch: getRecommendedArticlesRefetch,
+	} = useQuery(GET_BOARD_ARTICLES, {
+		fetchPolicy: 'network-only',
+		variables: { input: { ...searchCommunity, limit: 3, search: { articleCategory: BoardArticleCategory.RECOMMEND } } },
+		notifyOnNetworkStatusChange: true,
+		onCompleted: (data: T) => {
+			setRecommendedArticles(data?.getBoardArticles?.list);
 		},
 	});
 
@@ -71,6 +86,20 @@ const CommunityBoards = () => {
 								})}
 							</Stack>
 						</Stack>
+						<Stack className={'community-middle'}>
+							<Stack className={'content-top'}>
+								<Link href={'/community?articleCategory=RECCOMMEND'}>
+									<span>Recommend</span>
+								</Link>
+								<img src="/img/icons/arrowBig.svg" alt="" />
+							</Stack>
+							<Stack className={'card-wrap vertical'}>
+								{recommendedArticles.map((article, index) => {
+									return <CommunityCard vertical={false} article={article} index={index} key={article?._id} />;
+								})}
+							</Stack>
+						</Stack>
+
 						<Stack className={'community-right'}>
 							<Stack className={'content-top'}>
 								<Link href={'/community?articleCategory=FREE'}>
