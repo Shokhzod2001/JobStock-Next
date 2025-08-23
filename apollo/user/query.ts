@@ -97,11 +97,13 @@ export const GET_JOB = gql`
 			jobAddress
 			jobTitle
 			jobSalary
+			salaryType
 			jobExperience
 			jobSkills
 			jobRequirements
 			jobBenefits
 			jobApplicationDeadline
+			companyName
 			jobViews
 			jobLikes
 			jobApplications
@@ -165,11 +167,13 @@ export const GET_JOBS = gql`
 				jobAddress
 				jobTitle
 				jobSalary
+				salaryType
 				jobExperience
 				jobSkills
 				jobRequirements
 				jobBenefits
 				jobApplicationDeadline
+				companyName
 				jobViews
 				jobLikes
 				jobApplications
@@ -237,11 +241,13 @@ export const GET_EMPLOYER_JOBS = gql`
 				jobAddress
 				jobTitle
 				jobSalary
+				salaryType
 				jobExperience
 				jobSkills
 				jobRequirements
 				jobBenefits
 				jobApplicationDeadline
+				companyName
 				jobViews
 				jobLikes
 				jobApplications
@@ -277,11 +283,13 @@ export const GET_FAVORITES = gql`
 				jobAddress
 				jobTitle
 				jobSalary
+				salaryType
 				jobExperience
 				jobSkills
 				jobRequirements
 				jobBenefits
 				jobApplicationDeadline
+				companyName
 				jobViews
 				jobLikes
 				jobApplications
@@ -344,11 +352,13 @@ export const GET_VISITED = gql`
 				jobAddress
 				jobTitle
 				jobSalary
+				salaryType
 				jobExperience
 				jobSkills
 				jobRequirements
 				jobBenefits
 				jobApplicationDeadline
+				companyName
 				jobViews
 				jobLikes
 				jobApplications

@@ -1,21 +1,21 @@
 import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { Box, Button, Menu, MenuItem, Pagination, Stack, Typography } from '@mui/material';
-import PropertyCard from '../../libs/components/property/PropertyCard';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import Filter from '../../libs/components/property/Filter';
 import { useRouter } from 'next/router';
-import { PropertiesInquiry } from '../../libs/types/job/job.input';
-import { Property } from '../../libs/types/job/job';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { useMutation, useQuery } from '@apollo/client';
 import { T } from '../../libs/types/common';
-import { GET_PROPERTIES } from '../../apollo/user/query';
-import { LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
+import { JobsInquiry } from '../../libs/types/job/job.input';
+import { Job } from '../../libs/types/job/job';
+import { LIKE_TARGET_JOB } from '../../apollo/user/mutation';
+import JobCard from '../../libs/components/job/PropertyCard';
+import { GET_JOBS } from '../../apollo/user/query';
+import Filter from '../../libs/components/job/Filter';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -23,13 +23,13 @@ export const getStaticProps = async ({ locale }: any) => ({
 	},
 });
 
-const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
+const JobList: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
-	const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>(
+	const [searchFilter, setSearchFilter] = useState<JobsInquiry>(
 		router?.query?.input ? JSON.parse(router?.query?.input as string) : initialInput,
 	);
-	const [properties, setProperties] = useState<Property[]>([]);
+	const [jobs, setJobs] = useState<Job[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -37,20 +37,20 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	const [filterSortName, setFilterSortName] = useState('New');
 
 	/** APOLLO REQUESTS **/
-	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+	const [likeTargetJob] = useMutation(LIKE_TARGET_JOB);
 
 	const {
-		loading: getPropertiesLoading,
-		data: getPropertiesData,
-		error: getPropertiesError,
-		refetch: getPropertiesRefetch,
-	} = useQuery(GET_PROPERTIES, {
+		loading: getJobsLoading,
+		data: getJobsData,
+		error: getJobsError,
+		refetch: getJobsRefetch,
+	} = useQuery(GET_JOBS, {
 		fetchPolicy: 'network-only',
 		variables: { input: searchFilter },
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setProperties(data?.getProperties?.list);
-			setTotal(data?.getProperties?.metaCounter[0]?.total);
+			setJobs(data?.getJobs?.list);
+			setTotal(data?.getJobs?.metaCounter[0]?.total);
 		},
 	});
 
@@ -71,29 +71,23 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	/** HANDLERS **/
 	const handlePaginationChange = async (event: ChangeEvent<unknown>, value: number) => {
 		searchFilter.page = value;
-		await router.push(
-			`/property?input=${JSON.stringify(searchFilter)}`,
-			`/property?input=${JSON.stringify(searchFilter)}`,
-			{
-				scroll: false,
-			},
-		);
+		await router.push(`/job?input=${JSON.stringify(searchFilter)}`, `/job?input=${JSON.stringify(searchFilter)}`, {
+			scroll: false,
+		});
 		setCurrentPage(value);
 	};
 
-	const likePropertyHandler = async (user: T, id: string) => {
+	const likeJobHandler = async (user: T, id: string) => {
 		try {
 			if (!id) return;
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
-			// execute likeTargetProperty Mutation
-			await likeTargetProperty({ variables: { input: id } });
+			await likeTargetJob({ variables: { input: id } });
 
-			// execute getPropertiesRefetch
-			await getPropertiesRefetch({ input: initialInput });
+			await getJobsRefetch({ input: initialInput });
 
 			await sweetTopSmallSuccessAlert('success', 800);
 		} catch (err: any) {
-			console.log('ERROR, likePropertyHandler:', err.message);
+			console.log('ERROR, likeJobHandler:', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
@@ -111,26 +105,31 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	const sortingHandler = (e: React.MouseEvent<HTMLLIElement>) => {
 		switch (e.currentTarget.id) {
 			case 'new':
-				setSearchFilter({ ...searchFilter, sort: 'createdAt', direction: Direction.ASC });
+				setSearchFilter({ ...searchFilter, sort: 'postedAt', direction: Direction.DESC });
 				setFilterSortName('New');
 				break;
-			case 'lowest':
-				setSearchFilter({ ...searchFilter, sort: 'propertyPrice', direction: Direction.ASC });
-				setFilterSortName('Lowest Price');
+			case 'salary-low':
+				setSearchFilter({ ...searchFilter, sort: 'jobSalary', direction: Direction.ASC });
+				setFilterSortName('Lowest Salary');
 				break;
-			case 'highest':
-				setSearchFilter({ ...searchFilter, sort: 'propertyPrice', direction: Direction.DESC });
-				setFilterSortName('Highest Price');
+			case 'salary-high':
+				setSearchFilter({ ...searchFilter, sort: 'jobSalary', direction: Direction.DESC });
+				setFilterSortName('Highest Salary');
+				break;
+			case 'deadline':
+				setSearchFilter({ ...searchFilter, sort: 'jobApplicationDeadline', direction: Direction.ASC });
+				setFilterSortName('Deadline');
+				break;
 		}
 		setSortingOpen(false);
 		setAnchorEl(null);
 	};
 
 	if (device === 'mobile') {
-		return <h1>PROPERTIES MOBILE</h1>;
+		return <h1>JOBS MOBILE</h1>;
 	} else {
 		return (
-			<div id="property-list-page" style={{ position: 'relative' }}>
+			<div id="job-list-page" style={{ position: 'relative' }}>
 				<div className="container">
 					<Box component={'div'} className={'right'}>
 						<span>Sort by</span>
@@ -149,45 +148,51 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 								</MenuItem>
 								<MenuItem
 									onClick={sortingHandler}
-									id={'lowest'}
+									id={'salary-low'}
 									disableRipple
 									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
 								>
-									Lowest Price
+									Lowest Salary
 								</MenuItem>
 								<MenuItem
 									onClick={sortingHandler}
-									id={'highest'}
+									id={'salary-high'}
 									disableRipple
 									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
 								>
-									Highest Price
+									Highest Salary
+								</MenuItem>
+								<MenuItem
+									onClick={sortingHandler}
+									id={'deadline'}
+									disableRipple
+									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+								>
+									Deadline
 								</MenuItem>
 							</Menu>
 						</div>
 					</Box>
-					<Stack className={'property-page'}>
+					<Stack className={'job-page'}>
 						<Stack className={'filter-config'}>
 							{/* @ts-ignore */}
 							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
 						</Stack>
 						<Stack className="main-config" mb={'76px'}>
 							<Stack className={'list-config'}>
-								{properties?.length === 0 ? (
+								{jobs?.length === 0 ? (
 									<div className={'no-data'}>
 										<img src="/img/icons/icoAlert.svg" alt="" />
-										<p>No Properties found!</p>
+										<p>No Jobs found!</p>
 									</div>
 								) : (
-									properties.map((property: Property) => {
-										return (
-											<PropertyCard property={property} likePropertyHandler={likePropertyHandler} key={property?._id} />
-										);
+									jobs.map((job: Job) => {
+										return <JobCard job={job} likeJobHandler={likeJobHandler} key={job?._id} />;
 									})
 								)}
 							</Stack>
 							<Stack className="pagination-config">
-								{properties.length !== 0 && (
+								{jobs.length !== 0 && (
 									<Stack className="pagination-box">
 										<Pagination
 											page={currentPage}
@@ -199,10 +204,10 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 									</Stack>
 								)}
 
-								{properties.length !== 0 && (
+								{jobs.length !== 0 && (
 									<Stack className="total-result">
 										<Typography>
-											Total {total} propert{total > 1 ? 'ies' : 'y'} available
+											Total {total} job{total > 1 ? 's' : ''} available
 										</Typography>
 									</Stack>
 								)}
@@ -215,23 +220,23 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	}
 };
 
-PropertyList.defaultProps = {
+JobList.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 9,
-		sort: 'createdAt',
+		sort: 'postedAt',
 		direction: 'DESC',
 		search: {
-			squaresRange: {
+			salaryRange: {
 				start: 0,
-				end: 500,
+				end: 200000,
 			},
-			pricesRange: {
+			experienceRange: {
 				start: 0,
-				end: 2000000,
+				end: 20,
 			},
 		},
 	},
 };
 
-export default withLayoutBasic(PropertyList);
+export default withLayoutBasic(JobList);

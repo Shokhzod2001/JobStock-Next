@@ -28,51 +28,51 @@ const withLayoutBasic = (Component: any) => {
 				bgImage = '';
 
 			switch (router.pathname) {
-				case '/property':
-					title = 'Property Search';
-					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/properties.png';
+				case '/job':
+					title = 'Find Jobs';
+					desc = 'Browse thousands of job opportunities';
+					bgImage = '/img/banner/job-search.png';
 					break;
-				case '/agent':
-					title = 'Agents';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/agents.webp';
+				case '/recruiter':
+					title = 'Recruiters';
+					desc = 'Connect with top hiring managers';
+					bgImage = '/img/banner/recruiters.png';
 					break;
-				case '/agent/detail':
-					title = 'Agent Page';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header2.svg';
+				case '/recruiter/detail':
+					title = 'Recruiter Profile';
+					desc = 'View recruiter details and contact information';
+					bgImage = '/img/banner/recruiter-detail.png';
 					break;
 				case '/mypage':
-					title = 'my page';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header1.svg';
+					title = 'My Profile';
+					desc = 'Manage your resume and job applications';
+					bgImage = '/img/banner/profile.png';
 					break;
 				case '/community':
-					title = 'Community';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header2.svg';
+					title = 'Career Advice';
+					desc = 'Tips and resources for job seekers';
+					bgImage = '/img/banner/career-advice.png';
 					break;
 				case '/community/detail':
-					title = 'Community Detail';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header2.svg';
+					title = 'Career Article';
+					desc = 'Expert advice for your job search';
+					bgImage = '/img/banner/career-article.png';
 					break;
 				case '/cs':
-					title = 'CS';
-					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/header2.svg';
+					title = 'Support Center';
+					desc = 'Get help with your job search';
+					bgImage = '/img/banner/support.png';
 					break;
 				case '/account/join':
 					title = 'Login/Signup';
-					desc = 'Authentication Process';
-					bgImage = '/img/banner/header2.svg';
+					desc = 'Join thousands of job seekers';
+					bgImage = '/img/banner/auth.png';
 					setAuthHeader(true);
 					break;
 				case '/member':
-					title = 'Member Page';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header1.svg';
+					title = 'Dashboard';
+					desc = 'Track your job applications and profile';
+					bgImage = '/img/banner/dashboard.png';
 					break;
 				default:
 					break;

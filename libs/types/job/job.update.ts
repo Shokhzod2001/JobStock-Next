@@ -1,4 +1,4 @@
-import { JobCategory, JobLocation, JobStatus, JobType } from '../../enums/job.enum';
+import { JobCategory, JobLocation, JobStatus, JobType, SalaryType } from '../../enums/job.enum';
 
 export interface JobUpdate {
 	_id: string;
@@ -9,10 +9,12 @@ export interface JobUpdate {
 	jobTitle?: string;
 	jobCategory?: JobCategory;
 	jobSalary?: number;
+	salaryType?: SalaryType;
 	jobSkills?: string[];
 	jobRequirements?: string;
 	jobBenefits?: string[];
 	jobApplicationDeadline?: Date;
+	companyName?: string;
 	jobImages?: string[];
 	jobDesc?: string;
 	jobRemote?: boolean;

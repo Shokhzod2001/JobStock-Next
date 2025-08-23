@@ -48,11 +48,13 @@ export const UPDATE_JOB_BY_ADMIN = gql`
 			jobAddress
 			jobTitle
 			jobSalary
+			salaryType
 			jobExperience
 			jobSkills
 			jobRequirements
 			jobBenefits
 			jobApplicationDeadline
+			companyName
 			jobViews
 			jobLikes
 			jobApplications
@@ -83,11 +85,13 @@ export const REMOVE_JOB_BY_ADMIN = gql`
 			jobAddress
 			jobTitle
 			jobSalary
+			salaryType
 			jobExperience
 			jobSkills
 			jobRequirements
 			jobBenefits
 			jobApplicationDeadline
+			companyName
 			jobViews
 			jobLikes
 			jobApplications

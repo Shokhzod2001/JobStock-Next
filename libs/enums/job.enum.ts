@@ -41,3 +41,13 @@ export enum JobCategory {
 	TRANSPORTATION = 'TRANSPORTATION',
 	OTHER = 'OTHER',
 }
+
+export enum SalaryType {
+	HOURLY = 'HOURLY',
+	DAILY = 'DAILY',
+	WEEKLY = 'WEEKLY',
+	MONTHLY = 'MONTHLY',
+	YEARLY = 'YEARLY',
+	PROJECT = 'PROJECT',
+	COMMISSION = 'COMMISSION',
+}

@@ -133,11 +133,13 @@ export const CREATE_JOB = gql`
 			jobAddress
 			jobTitle
 			jobSalary
+			salaryType
 			jobExperience
 			jobSkills
 			jobRequirements
 			jobBenefits
 			jobApplicationDeadline
+			companyName
 			jobViews
 			jobLikes
 			jobApplications
@@ -168,11 +170,13 @@ export const UPDATE_JOB = gql`
 			jobAddress
 			jobTitle
 			jobSalary
+			salaryType
 			jobExperience
 			jobSkills
 			jobRequirements
 			jobBenefits
 			jobApplicationDeadline
+			companyName
 			jobViews
 			jobLikes
 			jobApplications
@@ -203,11 +207,13 @@ export const LIKE_TARGET_JOB = gql`
 			jobAddress
 			jobTitle
 			jobSalary
+			salaryType
 			jobExperience
 			jobSkills
 			jobRequirements
 			jobBenefits
 			jobApplicationDeadline
+			companyName
 			jobViews
 			jobLikes
 			jobApplications

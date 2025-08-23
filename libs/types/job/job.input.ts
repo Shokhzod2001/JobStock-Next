@@ -1,5 +1,5 @@
 import { Direction } from '../../enums/common.enum';
-import { JobCategory, JobLocation, JobStatus, JobType } from '../../enums/job.enum';
+import { JobCategory, JobLocation, JobStatus, JobType, SalaryType } from '../../enums/job.enum';
 
 export interface JobInput {
 	jobType: JobType;
@@ -8,11 +8,13 @@ export interface JobInput {
 	jobAddress: string;
 	jobTitle: string;
 	jobSalary: number;
+	salaryType: SalaryType;
 	jobExperience: number;
 	jobSkills: string[];
 	jobRequirements: string;
 	jobBenefits?: string[];
 	jobApplicationDeadline: Date;
+	companyName: string;
 	jobImages: string[];
 	jobDesc?: string;
 	jobRemote?: boolean;
@@ -26,12 +28,14 @@ interface JISearch {
 	locationList?: JobLocation[];
 	typeList?: JobType[];
 	categoryList?: JobCategory[];
+	salaryTypeList?: SalaryType[];
 	options?: string[];
 	skillsList?: string[];
 	salaryRange?: Range;
 	deadlineRange?: PeriodsRange;
 	experienceRange?: Range;
 	text?: string;
+	companyName?: string;
 }
 
 export interface JobsInquiry {
@@ -44,6 +48,7 @@ export interface JobsInquiry {
 
 interface EJISearch {
 	jobStatus?: JobStatus;
+	companyName?: string;
 }
 
 export interface EmployerJobsInquiry {
@@ -59,6 +64,8 @@ interface AllJISearch {
 	jobLocationList?: JobLocation[];
 	jobTypeList?: JobType[];
 	jobCategoryList: JobCategory[];
+	salaryTypeList?: SalaryType[];
+	companyName?: string;
 }
 
 export interface AllJobsInquiry {

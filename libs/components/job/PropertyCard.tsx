@@ -3,52 +3,52 @@ import { Stack, Typography, Box } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Property } from '../../types/job/job';
+import { Job } from '../../types/job/job';
 import Link from 'next/link';
 import { formatterStr } from '../../utils';
-import { REACT_APP_API_URL, topPropertyRank } from '../../config';
+import { REACT_APP_API_URL, topJobRank } from '../../config';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import IconButton from '@mui/material/IconButton';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
-interface PropertyCardType {
-	property: Property;
-	likePropertyHandler?: any;
+interface JobCardType {
+	job: Job;
+	likeJobHandler?: any;
 	myFavorites?: boolean;
 	recentlyVisited?: boolean;
 }
 
-const PropertyCard = (props: PropertyCardType) => {
-	const { property, likePropertyHandler, myFavorites, recentlyVisited } = props;
+const JobCard = (props: JobCardType) => {
+	const { job, likeJobHandler, myFavorites, recentlyVisited } = props;
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
-	const imagePath: string = property?.propertyImages[0]
-		? `${REACT_APP_API_URL}/${property?.propertyImages[0]}`
-		: '/img/banner/header1.svg';
+	const imagePath: string = job?.jobImages[0]
+		? `${REACT_APP_API_URL}/${job?.jobImages[0]}` //
+		: '/img/banner/header1.jpg';
 
 	if (device === 'mobile') {
-		return <div>PROPERTY CARD</div>;
+		return <div>JOB CARD</div>;
 	} else {
 		return (
 			<Stack className="card-config">
 				<Stack className="top">
 					<Link
 						href={{
-							pathname: '/property/detail',
-							query: { id: property?._id },
+							pathname: '/job/detail',
+							query: { id: job?._id },
 						}}
 					>
 						<img src={imagePath} alt="" />
 					</Link>
-					{property && property?.propertyRank > topPropertyRank && (
+					{job && job?.jobRank > topJobRank && (
 						<Box component={'div'} className={'top-badge'}>
 							<img src="/img/icons/electricity.svg" alt="" />
 							<Typography>TOP</Typography>
 						</Box>
 					)}
-					<Box component={'div'} className={'price-box'}>
-						<Typography>${formatterStr(property?.propertyPrice)}</Typography>
+					<Box component={'div'} className={'salary-box'}>
+						<Typography>${formatterStr(job?.jobSalary)}/year</Typography>
 					</Box>
 				</Stack>
 				<Stack className="bottom">
@@ -56,44 +56,41 @@ const PropertyCard = (props: PropertyCardType) => {
 						<Stack className="name">
 							<Link
 								href={{
-									pathname: '/property/detail',
-									query: { id: property?._id },
+									pathname: '/job/detail',
+									query: { id: job?._id },
 								}}
 							>
-								<Typography>{property.propertyTitle}</Typography>
+								<Typography>{job.jobTitle}</Typography>
 							</Link>
 						</Stack>
 						<Stack className="address">
 							<Typography>
-								{property.propertyAddress}, {property.propertyLocation}
+								{job.jobAddress}, {job.jobLocation}
 							</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="options">
 						<Stack className="option">
-							<img src="/img/icons/bed.svg" alt="" /> <Typography>{property.propertyBeds} bed</Typography>
+							<img src="/img/icons/briefcase.svg" alt="" /> <Typography>{job.jobType}</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/room.svg" alt="" /> <Typography>{property.propertyRooms} room</Typography>
+							<img src="/img/icons/category.svg" alt="" /> <Typography>{job.jobCategory}</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/expand.svg" alt="" /> <Typography>{property.propertySquare} m2</Typography>
+							<img src="/img/icons/experience.svg" alt="" /> <Typography>{job.jobExperience} years</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="divider"></Stack>
 					<Stack className="type-buttons">
 						<Stack className="type">
-							<Typography
-								sx={{ fontWeight: 500, fontSize: '13px' }}
-								className={property.propertyRent ? '' : 'disabled-type'}
-							>
-								Rent
+							<Typography sx={{ fontWeight: 500, fontSize: '13px' }} className={job.jobRemote ? '' : 'disabled-type'}>
+								Remote
 							</Typography>
 							<Typography
 								sx={{ fontWeight: 500, fontSize: '13px' }}
-								className={property.propertyBarter ? '' : 'disabled-type'}
+								className={job.jobVisaSponsor ? '' : 'disabled-type'}
 							>
-								Barter
+								Visa Sponsor
 							</Typography>
 						</Stack>
 						{!recentlyVisited && (
@@ -101,17 +98,17 @@ const PropertyCard = (props: PropertyCardType) => {
 								<IconButton color={'default'}>
 									<RemoveRedEyeIcon />
 								</IconButton>
-								<Typography className="view-cnt">{property?.propertyViews}</Typography>
-								<IconButton color={'default'} onClick={() => likePropertyHandler(user, property?._id)}>
+								<Typography className="view-cnt">{job?.jobViews}</Typography>
+								<IconButton color={'default'} onClick={() => likeJobHandler(user, job?._id)}>
 									{myFavorites ? (
 										<FavoriteIcon color="primary" />
-									) : property?.meLiked && property?.meLiked[0]?.myFavorite ? (
+									) : job?.meLiked && job?.meLiked[0]?.myFavorite ? (
 										<FavoriteIcon color="primary" />
 									) : (
 										<FavoriteBorderIcon />
 									)}
 								</IconButton>
-								<Typography className="view-cnt">{property?.propertyLikes}</Typography>
+								<Typography className="view-cnt">{job?.jobLikes}</Typography>
 							</Stack>
 						)}
 					</Stack>
@@ -121,4 +118,4 @@ const PropertyCard = (props: PropertyCardType) => {
 	}
 };
 
-export default PropertyCard;
+export default JobCard;

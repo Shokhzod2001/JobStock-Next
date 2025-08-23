@@ -1,4 +1,4 @@
-import { JobCategory, JobLocation, JobStatus, JobType } from '../../enums/job.enum';
+import { JobCategory, JobLocation, JobStatus, JobType, SalaryType } from '../../enums/job.enum';
 import { Member } from '../member/member';
 
 export interface MeLiked {
@@ -20,11 +20,13 @@ export interface Job {
 	jobAddress: string;
 	jobTitle: string;
 	jobSalary: number;
+	salaryType: SalaryType;
 	jobExperience: number;
 	jobSkills: string[];
 	jobRequirements: string;
 	jobBenefits: string[];
 	jobApplicationDeadline: Date;
+	companyName: string;
 	jobViews: number;
 	jobLikes: number;
 	jobApplications: number;
