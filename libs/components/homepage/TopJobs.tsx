@@ -59,7 +59,7 @@ const TopJobs = (props: TopJobsProps) => {
 		return <Box>Top Jobs</Box>;
 	} else {
 		return (
-			<Stack className={'top-properties'}>
+			<Stack className={'top-jobs'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
@@ -78,7 +78,6 @@ const TopJobs = (props: TopJobsProps) => {
 						<Swiper
 							className={'top-property-swiper'}
 							slidesPerView={4}
-							spaceBetween={20}
 							modules={[Autoplay, Navigation, Pagination]}
 							navigation={{
 								nextEl: '.swiper-top-next',

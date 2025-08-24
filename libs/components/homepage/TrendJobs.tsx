@@ -85,7 +85,6 @@ const TrendJobs = (props: TrendJobsProps) => {
 							<Swiper
 								className="trend-job-swiper"
 								slidesPerView={4}
-								spaceBetween={20}
 								modules={[Autoplay, Navigation, Pagination]}
 								navigation={{
 									nextEl: '.swiper-trend-next',

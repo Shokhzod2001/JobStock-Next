@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Box, Divider, Typography, Chip } from '@mui/material';
+import { Box, Typography, Chip, Tooltip } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -7,11 +7,13 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import WorkIcon from '@mui/icons-material/Work';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import BusinessIcon from '@mui/icons-material/Business';
 import { Job } from '../../types/job/job';
 import { REACT_APP_API_URL } from '../../config';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
+import { JobType, SalaryType } from '../../enums/job.enum';
 
 interface TopJobCardProps {
 	job: Job;
@@ -32,52 +34,136 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 		return new Date(dateString).toLocaleDateString('en-US', options);
 	};
 
-	if (device === 'mobile') return <Box>TopJobCard Mobile</Box>;
+	const formatSalary = (salary: number, type: SalaryType) => {
+		const formatter = new Intl.NumberFormat('en-US', {
+			style: 'currency',
+			currency: 'USD',
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0,
+		});
+
+		const amount = formatter.format(salary);
+
+		switch (type) {
+			case SalaryType.HOURLY:
+				return `${amount}/hr`;
+			case SalaryType.DAILY:
+				return `${amount}/day`;
+			case SalaryType.WEEKLY:
+				return `${amount}/week`;
+			case SalaryType.MONTHLY:
+				return `${amount}/month`;
+			case SalaryType.YEARLY:
+				return `${amount}/year`;
+			case SalaryType.PROJECT:
+				return `${amount}/project`;
+			case SalaryType.COMMISSION:
+				return `Commission: ${amount}`;
+			default:
+				return amount;
+		}
+	};
+
+	const getJobTypeLabel = (type: JobType) => {
+		return type.toLowerCase().replace('_', ' ');
+	};
+
+	if (device === 'mobile') {
+		return (
+			<Box sx={{ p: 2, border: '1px solid #e2e8f0', borderRadius: 2, mb: 2 }}>
+				<Typography variant="h6" gutterBottom>
+					{job.jobTitle}
+				</Typography>
+				<Typography variant="body2" color="text.secondary" gutterBottom>
+					{job.companyName}
+				</Typography>
+				<Typography variant="body2" gutterBottom>
+					{formatSalary(job.jobSalary, job.salaryType)}
+				</Typography>
+			</Box>
+		);
+	}
 
 	return (
-		<Stack className="top-card-box">
-			<Box
+		<div className="top-card-box">
+			<div
 				className="card-img"
 				style={{ backgroundImage: `url(${REACT_APP_API_URL}/${job.jobImages[0]})` }}
 				onClick={() => pushDetailHandler(job._id)}
 			>
-				<div className="salary-badge">${job.jobSalary.toLocaleString()}</div>
-				<div className="type-badge">{job.jobType.replace('_', ' ')}</div>
-			</Box>
+				<div className="salary-badge">{formatSalary(job.jobSalary, job.salaryType)}</div>
+				<div className="type-badge">{getJobTypeLabel(job.jobType)}</div>
+				{job.jobRemote && <div className="remote-badge">Remote</div>}
+			</div>
 
-			<Box className="info">
+			<div className="info">
+				{/* Company Name */}
+				<div className="company-info">
+					<BusinessIcon sx={{ fontSize: 16, color: 'primary.main', mr: 1 }} />
+					<Typography variant="subtitle2" color="primary" fontWeight="600">
+						{job.companyName}
+					</Typography>
+				</div>
+
+				{/* Job Title */}
 				<Typography className="title" onClick={() => pushDetailHandler(job._id)}>
 					{job.jobTitle}
 				</Typography>
 
+				{/* Job Description */}
 				<Typography className="desc" variant="body2">
-					{job.jobDesc?.substring(0, 100) || 'No description available'}...
+					{job.jobDesc?.substring(0, 120) || 'No description available'}...
 				</Typography>
 
-				<Box className="job-meta">
-					<Chip icon={<WorkIcon />} label={`${job.jobExperience}+ yrs`} size="small" />
-					<Chip icon={<LocationOnIcon />} label={job.jobLocation} size="small" />
-					{job.jobRemote && <Chip label="Remote" size="small" color="primary" />}
-					{job.jobVisaSponsor && <Chip label="Visa Sponsor" size="small" color="secondary" />}
-				</Box>
+				{/* Job Meta Information */}
+				<div className="job-meta">
+					<Tooltip title="Required experience">
+						<Chip icon={<WorkIcon />} label={`${job.jobExperience}+ yrs`} size="small" variant="outlined" />
+					</Tooltip>
 
-				<Box className="deadline-chip">
+					<Tooltip title="Location">
+						<Chip icon={<LocationOnIcon />} label={job.jobLocation.replace('_', ' ')} size="small" variant="outlined" />
+					</Tooltip>
+
+					{job.jobVisaSponsor && (
+						<Tooltip title="Visa sponsorship available">
+							<Chip label="Visa Sponsor" size="small" color="secondary" variant="outlined" />
+						</Tooltip>
+					)}
+				</div>
+
+				{/* Application Deadline */}
+				<div className="deadline-chip">
 					<AccessTimeIcon fontSize="small" />
 					<Typography variant="caption">Apply by: {formatDate(job.jobApplicationDeadline)}</Typography>
-				</Box>
+				</div>
 
-				<Divider sx={{ my: 1 }} />
-
-				<Box className="action-bar">
-					<Box className="view-like-box">
-						<IconButton size="small">
+				<div className="view-like-box">
+					<Tooltip title="Views">
+						<IconButton size="small" className="action-button">
 							<RemoveRedEyeIcon fontSize="small" />
 							<Typography variant="caption" ml={0.5}>
 								{job.jobViews}
 							</Typography>
 						</IconButton>
+					</Tooltip>
 
-						<IconButton size="small" onClick={() => likeJobHandler(user, job._id)}>
+					<Tooltip title="Applications">
+						<IconButton size="small" className="action-button" style={{ marginLeft: 20 }}>
+							<WorkIcon fontSize="small" />
+							<Typography variant="caption" ml={0.5}>
+								{job.jobApplications}
+							</Typography>
+						</IconButton>
+					</Tooltip>
+
+					<Tooltip title={job?.meLiked?.[0]?.myFavorite ? 'Remove from favorites' : 'Add to favorites'}>
+						<IconButton
+							size="small"
+							className="action-button"
+							onClick={() => likeJobHandler(user, job._id)}
+							style={{ marginLeft: 90 }}
+						>
 							{job?.meLiked?.[0]?.myFavorite ? (
 								<FavoriteIcon color="error" fontSize="small" />
 							) : (
@@ -87,17 +173,10 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 								{job.jobLikes}
 							</Typography>
 						</IconButton>
-					</Box>
-
-					<Chip
-						label={job.jobStatus}
-						size="small"
-						color={job.jobStatus === 'ACTIVE' ? 'success' : 'default'}
-						variant="outlined"
-					/>
-				</Box>
-			</Box>
-		</Stack>
+					</Tooltip>
+				</div>
+			</div>
+		</div>
 	);
 };
 

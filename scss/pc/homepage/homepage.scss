@@ -391,7 +391,8 @@
 		.trend-jobs {
 			padding: 108px 0 76px;
 			width: 100%;
-			height: 697px;
+			height: auto;
+			min-height: 697px;
 			display: flex;
 			flex-direction: row;
 			background-color: #f9f9f9;
@@ -421,15 +422,18 @@
 
 					.trend-job-swiper {
 						width: 100%;
-						height: 400px;
+						height: auto;
 						display: flex;
 						flex-direction: row;
+						flex-wrap: wrap;
+						justify-content: center;
+						gap: 16px;
 
 						.trend-job-slide {
 							width: auto;
 							height: auto;
 							display: flex;
-							margin: 10px 0 0 0px;
+							margin: 10px 0;
 							transition: transform 0.3s ease;
 
 							&:hover {
@@ -439,30 +443,36 @@
 					}
 
 					.trend-card-box {
-						width: 320px;
+						width: 350px;
 						height: auto;
 						display: flex;
 						flex-direction: column;
-						margin: 4px;
-						border-radius: 12px;
+						margin: 8px;
+						border-radius: 16px;
 						overflow: hidden;
-						box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+						box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
 						transition: all 0.3s ease;
 						background: white;
+						border: 1px solid #e2e8f0;
 
 						&:hover {
-							box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-							transform: scale(1.05);
+							box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+							transform: translateY(-4px);
 						}
 
 						.card-img {
 							width: 100%;
-							height: 200px;
+							height: 180px;
 							background-size: cover;
 							background-position: center;
-							border-radius: 12px 12px 0 0;
+							border-radius: 16px 16px 0 0;
 							cursor: pointer;
 							position: relative;
+							transition: transform 0.3s ease;
+
+							&:hover {
+								transform: scale(1.05);
+							}
 
 							&::before {
 								content: '';
@@ -471,83 +481,101 @@
 								left: 0;
 								right: 0;
 								bottom: 0;
-								background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+								background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 50%);
 							}
 
 							.salary-badge {
 								position: absolute;
-								left: 12px;
-								bottom: 12px;
+								left: 16px;
+								bottom: 16px;
 								padding: 8px 12px;
-								background: #fff;
-								border-radius: 6px;
-								font-weight: 600;
-								font-size: 15px;
+								background: rgba(255, 255, 255, 0.95);
+								border-radius: 8px;
+								font-weight: 700;
+								font-size: 14px;
 								color: #181a20;
-								box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+								box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+								backdrop-filter: blur(4px);
 							}
 
 							.type-badge {
 								position: absolute;
-								top: 15px;
-								right: 15px;
-								background: rgba(0, 0, 0, 0.7);
+								top: 16px;
+								right: 16px;
+								background: rgba(0, 0, 0, 0.8);
 								color: white;
-								padding: 5px 10px;
+								padding: 6px 12px;
 								border-radius: 20px;
 								font-size: 12px;
+								font-weight: 600;
 								text-transform: capitalize;
+								backdrop-filter: blur(4px);
+							}
+
+							.remote-badge {
+								position: absolute;
+								top: 16px;
+								left: 16px;
+								background: rgba(59, 130, 246, 0.9);
+								color: white;
+								padding: 6px 12px;
+								border-radius: 20px;
+								font-size: 12px;
+								font-weight: 600;
+								backdrop-filter: blur(4px);
 							}
 						}
 
 						.info {
-							padding: 13px;
+							padding: 20px;
 							display: flex;
 							flex-direction: column;
-							border-radius: 0 0 12px 12px;
-							border: 1px solid rgba(196, 196, 196, 0.71);
-							border-top: none;
 							background: #fff;
-							box-shadow: 0px 1px 4px rgba(24, 26, 32, 0.07);
+
+							.company-info {
+								display: flex;
+								align-items: center;
+								margin-bottom: 8px;
+							}
 
 							.title {
-								font-weight: 600;
-								font-size: 16px;
+								font-weight: 700;
+								font-size: 18px;
 								color: #181a20;
 								cursor: pointer;
-								margin-bottom: 5px;
-								text-transform: capitalize;
+								margin-bottom: 8px;
+								line-height: 1.4;
 								transition: color 0.2s;
 
 								&:hover {
-									color: #4a5568;
+									color: #3b82f6;
 								}
 							}
 
 							.desc {
-								font-size: 13px;
-								color: #717171;
-								overflow: hidden;
-								text-overflow: ellipsis;
+								font-size: 14px;
+								color: #64748b;
+								line-height: 1.5;
+								margin-bottom: 16px;
 								display: -webkit-box;
 								-webkit-box-orient: vertical;
-								margin-bottom: 10px;
-								line-height: 1.5;
+								overflow: hidden;
 							}
 
 							.job-meta {
 								display: flex;
-								gap: 20px;
+								gap: 8px;
 								flex-wrap: wrap;
-								margin-bottom: 10px;
+								margin: 12px 0 16px;
 
 								.MuiChip-root {
-									height: 24px;
+									height: 28px;
 									font-size: 12px;
+									font-weight: 500;
 
 									.MuiChip-icon {
-										margin-left: 4px;
-										font-size: 14px;
+										margin-left: 6px;
+										font-size: 16px;
 									}
 								}
 							}
@@ -555,12 +583,29 @@
 							.deadline-chip {
 								display: flex;
 								align-items: center;
-								gap: 5px;
-								background: #f8f9fa;
-								padding: 5px 10px;
-								border-radius: 20px;
-								font-size: 12px;
-								color: #718096;
+								gap: 8px;
+								background: #f8fafc;
+								padding: 8px 12px;
+								border-radius: 12px;
+								font-size: 13px;
+								color: #475569;
+								margin-bottom: 10px;
+								border: 1px solid #e2e8f0;
+
+								.status-indicator {
+									width: 8px;
+									height: 8px;
+									border-radius: 50%;
+									margin-left: 8px;
+
+									&.active {
+										background-color: #4caf50;
+									}
+
+									&.inactive {
+										background-color: #f44336;
+									}
+								}
 							}
 
 							.action-bar {
@@ -570,20 +615,26 @@
 
 								.view-like-box {
 									display: flex;
-									gap: 5px;
+									gap: 4px;
 
-									.MuiIconButton-root {
-										color: #718096;
+									.action-button {
+										color: #64748b;
 										padding: 6px;
+										background-color: #f1f5f9;
+										border-radius: 8px;
 
 										&:hover {
-											background-color: rgba(113, 128, 150, 0.1);
+											background-color: #e2e8f0;
 										}
 
 										.MuiSvgIcon-root {
 											font-size: 16px;
 										}
 									}
+								}
+
+								.status-chip {
+									text-transform: capitalize;
 								}
 							}
 						}
@@ -615,7 +666,7 @@
 
 					.popular-property-swiper {
 						width: 100%;
-						height: 400px;
+						height: 475px;
 						display: flex;
 						flex-direction: row;
 
@@ -635,26 +686,32 @@
 								height: auto;
 								display: flex;
 								flex-direction: column;
-								margin: 5px;
-								border-radius: 12px;
+								margin: 8px;
+								border-radius: 16px;
 								overflow: hidden;
-								box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+								box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
 								transition: all 0.3s ease;
 								background: white;
+								border: 1px solid #e2e8f0;
 
 								&:hover {
-									box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-									transform: scale(1.05);
+									box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+									transform: translateY(-4px);
 								}
 
 								.card-img {
 									width: 100%;
-									height: 200px;
+									height: 180px;
 									background-size: cover;
 									background-position: center;
-									border-radius: 12px 12px 0 0;
+									border-radius: 16px 16px 0 0;
 									cursor: pointer;
 									position: relative;
+									transition: transform 0.3s ease;
+
+									&:hover {
+										transform: scale(1.05);
+									}
 
 									&::before {
 										content: '';
@@ -663,83 +720,101 @@
 										left: 0;
 										right: 0;
 										bottom: 0;
-										background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+										background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 50%);
 									}
 
 									.salary-badge {
 										position: absolute;
-										left: 12px;
-										bottom: 12px;
+										left: 16px;
+										bottom: 16px;
 										padding: 8px 12px;
-										background: #fff;
-										border-radius: 6px;
-										font-weight: 600;
-										font-size: 15px;
+										background: rgba(255, 255, 255, 0.95);
+										border-radius: 8px;
+										font-weight: 700;
+										font-size: 14px;
 										color: #181a20;
-										box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+										box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+										backdrop-filter: blur(4px);
 									}
 
 									.type-badge {
 										position: absolute;
-										top: 15px;
-										right: 15px;
-										background: rgba(0, 0, 0, 0.7);
+										top: 16px;
+										right: 16px;
+										background: rgba(0, 0, 0, 0.8);
 										color: white;
-										padding: 5px 10px;
+										padding: 6px 12px;
 										border-radius: 20px;
 										font-size: 12px;
+										font-weight: 600;
 										text-transform: capitalize;
+										backdrop-filter: blur(4px);
+									}
+
+									.remote-badge {
+										position: absolute;
+										top: 16px;
+										left: 16px;
+										background: rgba(59, 130, 246, 0.9);
+										color: white;
+										padding: 6px 12px;
+										border-radius: 20px;
+										font-size: 12px;
+										font-weight: 600;
+										backdrop-filter: blur(4px);
 									}
 								}
 
 								.info {
-									padding: 15px;
+									padding: 20px;
 									display: flex;
 									flex-direction: column;
-									border-radius: 0 0 12px 12px;
-									border: 1px solid rgba(196, 196, 196, 0.71);
-									border-top: none;
 									background: #fff;
-									box-shadow: 0px 1px 4px rgba(24, 26, 32, 0.07);
+
+									.company-info {
+										display: flex;
+										align-items: center;
+										margin-bottom: 8px;
+									}
 
 									.title {
-										font-weight: 600;
-										font-size: 16px;
+										font-weight: 700;
+										font-size: 18px;
 										color: #181a20;
 										cursor: pointer;
-										margin-bottom: 5px;
-										text-transform: capitalize;
+										margin-bottom: 8px;
+										line-height: 1.4;
 										transition: color 0.2s;
 
 										&:hover {
-											color: #4a5568;
+											color: #3b82f6;
 										}
 									}
 
 									.desc {
-										font-size: 13px;
-										color: #717171;
-										overflow: hidden;
-										text-overflow: ellipsis;
+										font-size: 14px;
+										color: #64748b;
+										line-height: 1.5;
+										margin-bottom: 13px;
 										display: -webkit-box;
 										-webkit-box-orient: vertical;
-										margin-bottom: 10px;
-										line-height: 1.5;
+										overflow: hidden;
 									}
 
 									.job-meta {
 										display: flex;
-										gap: 20px;
+										gap: 8px;
 										flex-wrap: wrap;
-										margin-bottom: 10px;
+										margin: 12px 0 16px;
 
 										.MuiChip-root {
-											height: 24px;
+											height: 28px;
 											font-size: 12px;
+											font-weight: 500;
 
 											.MuiChip-icon {
-												margin-left: 4px;
-												font-size: 14px;
+												margin-left: 6px;
+												font-size: 16px;
 											}
 										}
 									}
@@ -747,12 +822,29 @@
 									.deadline-chip {
 										display: flex;
 										align-items: center;
-										gap: 5px;
-										background: #f8f9fa;
-										padding: 5px 10px;
-										border-radius: 20px;
-										font-size: 12px;
-										color: #718096;
+										gap: 8px;
+										background: #f8fafc;
+										padding: 8px 12px;
+										border-radius: 12px;
+										font-size: 13px;
+										color: #475569;
+										margin-bottom: 10px;
+										border: 1px solid #e2e8f0;
+
+										.status-indicator {
+											width: 8px;
+											height: 8px;
+											border-radius: 50%;
+											margin-left: 8px;
+
+											&.active {
+												background-color: #4caf50;
+											}
+
+											&.inactive {
+												background-color: #f44336;
+											}
+										}
 									}
 
 									.action-bar {
@@ -762,14 +854,16 @@
 
 										.view-like-box {
 											display: flex;
-											gap: 5px;
+											gap: 4px;
 
-											.MuiIconButton-root {
-												color: #718096;
+											.action-button {
+												color: #64748b;
 												padding: 6px;
+												background-color: #f1f5f9;
+												border-radius: 8px;
 
 												&:hover {
-													background-color: rgba(113, 128, 150, 0.1);
+													background-color: #e2e8f0;
 												}
 
 												.MuiSvgIcon-root {
@@ -778,10 +872,8 @@
 											}
 										}
 
-										.MuiChip-root {
-											height: 24px;
-											font-size: 12px;
-											border-radius: 4px;
+										.status-chip {
+											text-transform: capitalize;
 										}
 									}
 								}
@@ -879,10 +971,11 @@
 			}
 		}
 
-		.top-properties {
+		.top-jobs {
 			padding: 108px 0 76px;
 			width: 100%;
-			height: 697px;
+			height: auto;
+			min-height: 697px;
 			display: flex;
 			flex-direction: row;
 			background-color: #f9f9f9;
@@ -912,168 +1005,244 @@
 
 					.top-property-swiper {
 						width: 100%;
-						height: 400px;
+						height: auto;
 						display: flex;
 						flex-direction: row;
+						flex-wrap: wrap;
+						justify-content: center;
+						gap: 16px;
 
 						.top-property-slide {
 							width: auto;
 							height: auto;
 							display: flex;
-							margin: 10px 0 0 0;
+							margin: 10px 0;
 							transition: transform 0.3s ease;
 
 							&:hover {
 								transform: translateY(-5px);
 							}
+						}
+					}
 
-							.top-card-box {
-								width: 320px;
-								height: auto;
+					.top-card-box {
+						width: 350px;
+						height: auto;
+						display: flex;
+						flex-direction: column;
+						margin: 8px;
+						border-radius: 16px;
+						overflow: hidden;
+						box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+						transition: all 0.3s ease;
+						background: white;
+						border: 1px solid #e2e8f0;
+
+						&:hover {
+							box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+							transform: translateY(-4px);
+						}
+
+						.card-img {
+							width: 100%;
+							height: 180px;
+							background-size: cover;
+							background-position: center;
+							border-radius: 16px 16px 0 0;
+							cursor: pointer;
+							position: relative;
+							transition: transform 0.3s ease;
+
+							&:hover {
+								transform: scale(1.05);
+							}
+
+							&::before {
+								content: '';
+								position: absolute;
+								top: 0;
+								left: 0;
+								right: 0;
+								bottom: 0;
+								background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 50%);
+							}
+
+							.salary-badge {
+								position: absolute;
+								left: 16px;
+								bottom: 16px;
+								padding: 8px 12px;
+								background: rgba(255, 255, 255, 0.95);
+								border-radius: 8px;
+								font-weight: 700;
+								font-size: 14px;
+								color: #181a20;
+								box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+								backdrop-filter: blur(4px);
+							}
+
+							.type-badge {
+								position: absolute;
+								top: 16px;
+								right: 16px;
+								background: rgba(0, 0, 0, 0.8);
+								color: white;
+								padding: 6px 12px;
+								border-radius: 20px;
+								font-size: 12px;
+								font-weight: 600;
+								text-transform: capitalize;
+								backdrop-filter: blur(4px);
+							}
+
+							.remote-badge {
+								position: absolute;
+								top: 16px;
+								left: 16px;
+								background: rgba(59, 130, 246, 0.9);
+								color: white;
+								padding: 6px 12px;
+								border-radius: 20px;
+								font-size: 12px;
+								font-weight: 600;
+								backdrop-filter: blur(4px);
+							}
+						}
+
+						.info {
+							padding: 20px;
+							display: flex;
+							flex-direction: column;
+							background: #fff;
+
+							.company-info {
 								display: flex;
-								flex-direction: column;
-								margin: 4px;
-								border-radius: 12px;
-								overflow: hidden;
-								box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-								transition: all 0.3s ease;
-								background: white;
+								align-items: center;
+								margin-bottom: 8px;
+							}
+
+							.title {
+								font-weight: 700;
+								font-size: 18px;
+								color: #181a20;
+								cursor: pointer;
+								margin-bottom: 8px;
+								line-height: 1.4;
+								transition: color 0.2s;
 
 								&:hover {
-									box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-									transform: scale(1.05);
+									color: #3b82f6;
 								}
+							}
 
-								.card-img {
-									width: 100%;
-									height: 200px;
-									background-size: cover;
-									background-position: center;
-									border-radius: 12px 12px 0 0;
-									cursor: pointer;
-									position: relative;
+							.desc {
+								font-size: 14px;
+								color: #64748b;
+								line-height: 1.5;
+								margin-bottom: 16px;
+								display: -webkit-box;
+								-webkit-box-orient: vertical;
+								overflow: hidden;
+							}
 
-									&::before {
-										content: '';
-										position: absolute;
-										top: 0;
-										left: 0;
-										right: 0;
-										bottom: 0;
-										background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
-									}
+							.job-meta {
+								display: flex;
+								gap: 8px;
+								flex-wrap: wrap;
+								margin: 12px 0 16px;
 
-									.salary-badge {
-										position: absolute;
-										left: 12px;
-										bottom: 12px;
-										padding: 8px 12px;
-										background: #fff;
-										border-radius: 6px;
-										font-weight: 600;
-										font-size: 15px;
-										color: #181a20;
-										box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-									}
+								.MuiChip-root {
+									height: 28px;
+									font-size: 12px;
+									font-weight: 500;
 
-									.type-badge {
-										position: absolute;
-										top: 15px;
-										right: 15px;
-										background: rgba(0, 0, 0, 0.7);
-										color: white;
-										padding: 5px 10px;
-										border-radius: 20px;
-										font-size: 12px;
-										text-transform: capitalize;
-									}
-								}
-
-								.info {
-									padding: 13px;
-									display: flex;
-									flex-direction: column;
-									border-radius: 0 0 12px 12px;
-									border: 1px solid rgba(196, 196, 196, 0.71);
-									border-top: none;
-									background: #fff;
-									box-shadow: 0px 1px 4px rgba(24, 26, 32, 0.07);
-
-									.title {
-										font-weight: 600;
+									.MuiChip-icon {
+										margin-left: 6px;
 										font-size: 16px;
-										color: #181a20;
-										cursor: pointer;
-										margin-bottom: 5px;
-										text-transform: capitalize;
-										transition: color 0.2s;
+									}
+								}
+							}
+
+							.skills-section {
+								margin-bottom: 16px;
+
+								.skills-container {
+									display: flex;
+									flex-wrap: wrap;
+									gap: 4px;
+									margin-top: 4px;
+
+									.skill-chip {
+										background-color: #f1f5f9;
+										color: #475569;
+										font-size: 11px;
+										height: 24px;
+									}
+
+									.skill-count-chip {
+										background-color: #e2e8f0;
+										color: #64748b;
+										font-size: 11px;
+										height: 24px;
+									}
+								}
+							}
+
+							.deadline-chip {
+								display: flex;
+								align-items: center;
+								gap: 8px;
+								background: #f8fafc;
+								padding: 8px 12px;
+								border-radius: 12px;
+								font-size: 13px;
+								color: #475569;
+								margin-bottom: 16px;
+								border: 1px solid #e2e8f0;
+
+								.status-indicator {
+									width: 8px;
+									height: 8px;
+									border-radius: 50%;
+									margin-left: 8px;
+
+									&.active {
+										background-color: #4caf50;
+									}
+
+									&.inactive {
+										background-color: #f44336;
+									}
+								}
+							}
+
+							.action-bar {
+								display: flex;
+								justify-content: space-between;
+								align-items: center;
+
+								.view-like-box {
+									display: flex;
+									gap: 4px;
+
+									.action-button {
+										color: #64748b;
+										padding: 6px;
+										background-color: #f1f5f9;
+										border-radius: 8px;
 
 										&:hover {
-											color: #4a5568;
+											background-color: #e2e8f0;
+										}
+
+										.MuiSvgIcon-root {
+											font-size: 16px;
 										}
 									}
+								}
 
-									.desc {
-										font-size: 13px;
-										color: #717171;
-										margin-bottom: 10px;
-										line-height: 1.5;
-										display: -webkit-box;
-										-webkit-box-orient: vertical;
-										overflow: hidden;
-									}
-
-									.job-meta {
-										display: flex;
-										gap: 20px;
-										flex-wrap: wrap;
-										margin-bottom: 10px;
-
-										.MuiChip-root {
-											height: 24px;
-											font-size: 12px;
-
-											.MuiChip-icon {
-												margin-left: 4px;
-												font-size: 14px;
-											}
-										}
-									}
-
-									.deadline-chip {
-										display: flex;
-										align-items: center;
-										gap: 5px;
-										background: #f8f9fa;
-										padding: 5px 10px;
-										border-radius: 20px;
-										font-size: 12px;
-										color: #718096;
-									}
-
-									.action-bar {
-										display: flex;
-										justify-content: space-between;
-										align-items: center;
-
-										.view-like-box {
-											display: flex;
-											gap: 5px;
-
-											.MuiIconButton-root {
-												color: #718096;
-												padding: 6px;
-
-												&:hover {
-													background-color: rgba(113, 128, 150, 0.1);
-												}
-
-												.MuiSvgIcon-root {
-													font-size: 16px;
-												}
-											}
-										}
-									}
+								.status-chip {
+									text-transform: capitalize;
 								}
 							}
 						}
