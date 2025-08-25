@@ -31,7 +31,7 @@ const withLayoutBasic = (Component: any) => {
 				case '/job':
 					title = 'Find Jobs';
 					desc = 'Browse thousands of job opportunities';
-					bgImage = '/img/banner/job-search.png';
+					bgImage = '/img/banner/job-search.jpg';
 					break;
 				case '/recruiter':
 					title = 'Recruiters';
@@ -127,7 +127,8 @@ const withLayoutBasic = (Component: any) => {
 							className={`header-basic ${authHeader && 'auth'}`}
 							style={{
 								backgroundImage: `url(${memoizedValues.bgImage})`,
-								backgroundSize: 'cover',
+								backgroundSize: '100% auto',
+								backgroundPosition: 'center bottom',
 								boxShadow: 'inset 10px 40px 150px 40px rgb(24 22 36)',
 							}}
 						>
