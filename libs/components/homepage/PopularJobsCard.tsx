@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Chip, Tooltip } from '@mui/material';
+import { Box, Typography, Chip, Tooltip, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -150,7 +150,7 @@ const PopularJobCard = (props: PopularJobCardProps) => {
 					</Tooltip>
 
 					<Tooltip title="Applications">
-						<IconButton size="small" className="action-button" style={{ marginLeft: 20 }}>
+						<IconButton size="small" className="action-button">
 							<WorkIcon fontSize="small" />
 							<Typography variant="caption" ml={0.5}>
 								{job.jobApplications}
@@ -159,12 +159,7 @@ const PopularJobCard = (props: PopularJobCardProps) => {
 					</Tooltip>
 
 					<Tooltip title={job?.meLiked?.[0]?.myFavorite ? 'Remove from favorites' : 'Add to favorites'}>
-						<IconButton
-							size="small"
-							className="action-button"
-							onClick={() => likeJobHandler(user, job._id)}
-							style={{ marginLeft: 150 }}
-						>
+						<IconButton size="small" className="action-button" onClick={() => likeJobHandler(user, job._id)}>
 							{job?.meLiked?.[0]?.myFavorite ? (
 								<FavoriteIcon color="error" fontSize="small" />
 							) : (
@@ -175,6 +170,15 @@ const PopularJobCard = (props: PopularJobCardProps) => {
 							</Typography>
 						</IconButton>
 					</Tooltip>
+					<Button
+						variant="contained"
+						size="large"
+						className="apply-btn"
+						style={{ marginLeft: 100, color: 'white' }}
+						onClick={() => pushDetailHandler(job._id)}
+					>
+						Apply
+					</Button>
 				</div>
 			</div>
 		</div>

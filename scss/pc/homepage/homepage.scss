@@ -458,6 +458,16 @@
 						&:hover {
 							box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
 							transform: translateY(-4px);
+
+							.card-img .type-badge {
+								opacity: 1;
+								transform: translateY(0);
+							}
+
+							.card-img .remote-badge {
+								opacity: 1;
+								transform: translateY(0);
+							}
 						}
 
 						.card-img {
@@ -510,6 +520,9 @@
 								font-weight: 600;
 								text-transform: capitalize;
 								backdrop-filter: blur(4px);
+								opacity: 0;
+								transform: translateY(-10px);
+								transition: all 0.3s ease;
 							}
 
 							.remote-badge {
@@ -523,6 +536,9 @@
 								font-size: 12px;
 								font-weight: 600;
 								backdrop-filter: blur(4px);
+								opacity: 0;
+								transform: translateY(-10px);
+								transition: all 0.3s ease;
 							}
 						}
 
@@ -570,7 +586,7 @@
 
 								.MuiChip-root {
 									height: 28px;
-									font-size: 12px;
+									font-size: 10px;
 									font-weight: 500;
 
 									.MuiChip-icon {
@@ -697,6 +713,16 @@
 								&:hover {
 									box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
 									transform: translateY(-4px);
+
+									.card-img .type-badge {
+										opacity: 1;
+										transform: translateY(0);
+									}
+
+									.card-img .remote-badge {
+										opacity: 1;
+										transform: translateY(0);
+									}
 								}
 
 								.card-img {
@@ -749,6 +775,9 @@
 										font-weight: 600;
 										text-transform: capitalize;
 										backdrop-filter: blur(4px);
+										opacity: 0;
+										transform: translateY(-10px);
+										transition: all 0.3s ease;
 									}
 
 									.remote-badge {
@@ -762,6 +791,9 @@
 										font-size: 12px;
 										font-weight: 600;
 										backdrop-filter: blur(4px);
+										opacity: 0;
+										transform: translateY(-10px);
+										transition: all 0.3s ease;
 									}
 								}
 
@@ -1041,6 +1073,16 @@
 						&:hover {
 							box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
 							transform: translateY(-4px);
+
+							.card-img .type-badge {
+								opacity: 1;
+								transform: translateY(0);
+							}
+
+							.card-img .remote-badge {
+								opacity: 1;
+								transform: translateY(0);
+							}
 						}
 
 						.card-img {
@@ -1093,6 +1135,12 @@
 								font-weight: 600;
 								text-transform: capitalize;
 								backdrop-filter: blur(4px);
+								opacity: 0;
+								transform: translateY(-10px);
+								transition: all 0.3s ease;
+								opacity: 0;
+								transform: translateY(-10px);
+								transition: all 0.3s ease;
 							}
 
 							.remote-badge {
@@ -1106,6 +1154,9 @@
 								font-size: 12px;
 								font-weight: 600;
 								backdrop-filter: blur(4px);
+								opacity: 0;
+								transform: translateY(-10px);
+								transition: all 0.3s ease;
 							}
 						}
 
@@ -1153,7 +1204,7 @@
 
 								.MuiChip-root {
 									height: 28px;
-									font-size: 12px;
+									font-size: 10px;
 									font-weight: 500;
 
 									.MuiChip-icon {

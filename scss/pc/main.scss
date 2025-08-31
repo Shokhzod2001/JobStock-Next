@@ -655,11 +655,27 @@ body::-webkit-scrollbar {
 		flex-direction: row;
 		justify-content: center;
 		background: black;
+		overflow: hidden;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 1;
+		}
+
 		&.auth {
 			height: 300px;
 		}
+
 		.container {
 			margin-top: 175px;
+			position: relative;
+			z-index: 2;
+
 			strong {
 				color: #fff;
 				font-family: $font;
@@ -669,7 +685,14 @@ body::-webkit-scrollbar {
 				line-height: normal;
 				letter-spacing: 0.96px;
 				text-transform: capitalize;
+				text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+				display: block;
+				margin-bottom: 10px;
+				opacity: 0;
+				transform: translateY(20px);
+				animation: fadeInUp 0.8s ease forwards 0.3s;
 			}
+
 			span {
 				color: #fff;
 				font-family: $font;
@@ -677,6 +700,22 @@ body::-webkit-scrollbar {
 				font-style: normal;
 				font-weight: 400;
 				line-height: 26px;
+				text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+				display: block;
+				opacity: 0.9;
+				opacity: 0;
+				transform: translateY(20px);
+				animation: fadeInUp 0.8s ease forwards 0.5s;
+			}
+		}
+		@keyframes fadeInUp {
+			0% {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+			100% {
+				opacity: 1;
+				transform: translateY(0);
 			}
 		}
 	}

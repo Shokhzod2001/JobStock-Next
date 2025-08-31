@@ -3,22 +3,26 @@ import {
 	Stack,
 	Typography,
 	Checkbox,
-	Button,
 	OutlinedInput,
+	Tooltip,
+	IconButton,
 	FormControl,
 	InputLabel,
 	Select,
 	MenuItem,
-	Tooltip,
-	IconButton,
+	Box,
+	Collapse,
+	Button,
+	ListItemText,
 } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { JobCategory, JobLocation, JobType } from '../../enums/job.enum';
+import { JobCategory, JobLocation, JobType, SalaryType } from '../../enums/job.enum';
 import { JobsInquiry } from '../../types/job/job.input';
 import { useRouter } from 'next/router';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-import { availableOptions } from '../../config';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 const MenuProps = {
 	PaperProps: {
@@ -41,8 +45,10 @@ const Filter = (props: FilterType) => {
 	const [jobLocations, setJobLocations] = useState<JobLocation[]>(Object.values(JobLocation));
 	const [jobTypes, setJobTypes] = useState<JobType[]>(Object.values(JobType));
 	const [jobCategories, setJobCategories] = useState<JobCategory[]>(Object.values(JobCategory));
+	const [salaryTypes, setSalaryTypes] = useState<SalaryType[]>(Object.values(SalaryType));
 	const [searchText, setSearchText] = useState<string>('');
 	const [showMore, setShowMore] = useState<boolean>(false);
+	const [showMoreCategories, setShowMoreCategories] = useState<boolean>(false);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -152,6 +158,27 @@ const Filter = (props: FilterType) => {
 				.then();
 		}
 
+		if (searchFilter?.search?.salaryTypeList?.length == 0) {
+			delete searchFilter.search.salaryTypeList;
+			router
+				.push(
+					`/job?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					`/job?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					{ scroll: false },
+				)
+				.then();
+		}
+
 		if (searchFilter?.search?.locationList) setShowMore(true);
 	}, [searchFilter]);
 
@@ -192,8 +219,6 @@ const Filter = (props: FilterType) => {
 						{ scroll: false },
 					);
 				}
-
-				console.log('jobLocationSelectHandler:', e.target.value);
 			} catch (err: any) {
 				console.log('ERROR, jobLocationSelectHandler:', err);
 			}
@@ -237,8 +262,6 @@ const Filter = (props: FilterType) => {
 						{ scroll: false },
 					);
 				}
-
-				console.log('jobTypeSelectHandler:', e.target.value);
 			} catch (err: any) {
 				console.log('ERROR, jobTypeSelectHandler:', err);
 			}
@@ -282,13 +305,48 @@ const Filter = (props: FilterType) => {
 						{ scroll: false },
 					);
 				}
-
-				console.log('jobCategorySelectHandler:', e.target.value);
 			} catch (err: any) {
 				console.log('ERROR, jobCategorySelectHandler:', err);
 			}
 		},
 		[searchFilter],
+	);
+
+	const salaryTypeSelectHandler = useCallback(
+		async (e: any) => {
+			try {
+				const value = e.target.value;
+
+				if (value && value.length > 0) {
+					const updatedFilter = {
+						...searchFilter,
+						search: { ...searchFilter.search, salaryTypeList: value },
+					};
+
+					setSearchFilter(updatedFilter);
+					await router.push(
+						`/job?input=${JSON.stringify(updatedFilter)}`,
+						`/job?input=${JSON.stringify(updatedFilter)}`,
+						{ scroll: false },
+					);
+				} else {
+					const updatedFilter = { ...searchFilter };
+					if (updatedFilter.search) {
+						delete updatedFilter.search.salaryTypeList;
+					}
+
+					setSearchFilter(updatedFilter);
+					await router.push(
+						`/job?input=${JSON.stringify(updatedFilter)}`,
+						`/job?input=${JSON.stringify(updatedFilter)}`,
+						{ scroll: false },
+					);
+				}
+			} catch (err: any) {
+				console.log('ERROR, salaryTypeSelectHandler:', err);
+			}
+		},
+		[searchFilter, setSearchFilter],
 	);
 
 	const jobOptionSelectHandler = useCallback(
@@ -327,8 +385,6 @@ const Filter = (props: FilterType) => {
 						{ scroll: false },
 					);
 				}
-
-				console.log('jobOptionSelectHandler:', e.target.value);
 			} catch (err: any) {
 				console.log('ERROR, jobOptionSelectHandler:', err);
 			}
@@ -425,11 +481,18 @@ const Filter = (props: FilterType) => {
 	const refreshHandler = async () => {
 		try {
 			setSearchText('');
+			setShowMoreCategories(false);
 			await router.push(`/job?input=${JSON.stringify(initialInput)}`, `/job?input=${JSON.stringify(initialInput)}`, {
 				scroll: false,
 			});
 		} catch (err: any) {
 			console.log('ERROR, refreshHandler:', err);
+		}
+	};
+
+	const toggleShowMore = (section: string) => {
+		if (section === 'category') {
+			setShowMoreCategories(!showMoreCategories);
 		}
 	};
 
@@ -477,13 +540,15 @@ const Filter = (props: FilterType) => {
 						</Tooltip>
 					</Stack>
 				</Stack>
+
+				{/* Location Filter */}
 				<Stack className={'find-your-job'} mb={'30px'}>
 					<p className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
 						Location
 					</p>
 					<Stack
 						className={`job-location`}
-						style={{ height: showMore ? '340px' : '115px' }}
+						style={{ height: showMore ? '420px' : '115px' }}
 						onMouseEnter={() => setShowMore(true)}
 						onMouseLeave={() => {
 							if (!searchFilter?.search?.locationList) {
@@ -495,7 +560,7 @@ const Filter = (props: FilterType) => {
 							return (
 								<Stack className={'input-box'} key={location}>
 									<Checkbox
-										id={location}
+										id={`location-${location}`}
 										className="job-checkbox"
 										color="default"
 										size="small"
@@ -503,7 +568,7 @@ const Filter = (props: FilterType) => {
 										checked={(searchFilter?.search?.locationList || []).includes(location as JobLocation)}
 										onChange={jobLocationSelectHandler}
 									/>
-									<label htmlFor={location} style={{ cursor: 'pointer' }}>
+									<label htmlFor={`location-${location}`} style={{ cursor: 'pointer' }}>
 										<Typography className="job-type">{location}</Typography>
 									</label>
 								</Stack>
@@ -511,12 +576,14 @@ const Filter = (props: FilterType) => {
 						})}
 					</Stack>
 				</Stack>
+
+				{/* Job Type Filter */}
 				<Stack className={'find-your-job'} mb={'30px'}>
 					<Typography className={'title'}>Job Type</Typography>
 					{jobTypes.map((type: string) => (
 						<Stack className={'input-box'} key={type}>
 							<Checkbox
-								id={type}
+								id={`type-${type}`}
 								className="job-checkbox"
 								color="default"
 								size="small"
@@ -524,31 +591,71 @@ const Filter = (props: FilterType) => {
 								onChange={jobTypeSelectHandler}
 								checked={(searchFilter?.search?.typeList || []).includes(type as JobType)}
 							/>
-							<label style={{ cursor: 'pointer' }}>
-								<Typography className="job_type">{type}</Typography>
+							<label htmlFor={`type-${type}`} style={{ cursor: 'pointer' }}>
+								<Typography className="job_type">{type.replace('_', ' ')}</Typography>
 							</label>
 						</Stack>
 					))}
 				</Stack>
+
+				{/* Category Filter */}
 				<Stack className={'find-your-job'} mb={'30px'}>
-					<Typography className={'title'}>Category</Typography>
-					{jobCategories.map((category: string) => (
-						<Stack className={'input-box'} key={category}>
-							<Checkbox
-								id={category}
-								className="job-checkbox"
-								color="default"
-								size="small"
-								value={category}
-								onChange={jobCategorySelectHandler}
-								checked={(searchFilter?.search?.categoryList || []).includes(category as JobCategory)}
-							/>
-							<label style={{ cursor: 'pointer' }}>
-								<Typography className="job_category">{category}</Typography>
-							</label>
-						</Stack>
-					))}
+					<Box display="flex" justifyContent="space-between" alignItems="center">
+						<Typography className={'title'}>Category</Typography>
+						<Button
+							size="small"
+							endIcon={showMoreCategories ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+							onClick={() => toggleShowMore('category')}
+						>
+							{showMoreCategories ? 'Show Less' : 'Show More'}
+						</Button>
+					</Box>
+					<Collapse in={showMoreCategories} timeout="auto" unmountOnExit>
+						{jobCategories.map((category: string) => (
+							<Stack className={'input-box'} key={category} direction="row" alignItems="center">
+								<Checkbox
+									id={`category-${category}`}
+									className="job-checkbox"
+									color="default"
+									size="small"
+									value={category}
+									onChange={jobCategorySelectHandler}
+									checked={(searchFilter?.search?.categoryList || []).includes(category as JobCategory)}
+								/>
+								<label htmlFor={`category-${category}`} style={{ cursor: 'pointer' }}>
+									<Typography className="job_category">{category.replace('_', ' ')}</Typography>
+								</label>
+							</Stack>
+						))}
+					</Collapse>
 				</Stack>
+
+				{/* Salary Type Filter */}
+				<Stack className={'find-your-job'} mb={'30px'}>
+					<Typography className={'title'}>Salary Type</Typography>
+					<FormControl fullWidth size="small">
+						<InputLabel id="salary-type-label">Select Salary Type</InputLabel>
+						<Select
+							labelId="salary-type-label"
+							id="salary-type-select"
+							multiple
+							value={searchFilter?.search?.salaryTypeList || []}
+							onChange={salaryTypeSelectHandler}
+							input={<OutlinedInput label="Select Salary Type" />}
+							renderValue={(selected) => (selected as string[]).join(', ')}
+							MenuProps={MenuProps}
+						>
+							{salaryTypes.map((salaryType) => (
+								<MenuItem key={salaryType} value={salaryType}>
+									<Checkbox checked={(searchFilter?.search?.salaryTypeList || []).includes(salaryType)} size="small" />
+									<ListItemText primary={salaryType} />
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</Stack>
+
+				{/* Options Filter */}
 				<Stack className={'find-your-job'} mb={'30px'}>
 					<Typography className={'title'}>Options</Typography>
 					<Stack className={'input-box'}>
@@ -580,58 +687,84 @@ const Filter = (props: FilterType) => {
 						</label>
 					</Stack>
 				</Stack>
+
+				{/* Salary Range Filter */}
 				<Stack className={'find-your-job'} mb={'30px'}>
 					<Typography className={'title'}>Salary Range</Typography>
-					<Stack className="salary-input">
-						<input
-							type="number"
-							placeholder="$ min"
-							min={0}
-							value={searchFilter?.search?.salaryRange?.start ?? 0}
-							onChange={(e: any) => {
-								if (e.target.value >= 0) {
-									jobSalaryHandler(e.target.value, 'start');
-								}
-							}}
-						/>
-						<div className="central-divider"></div>
-						<input
-							type="number"
-							placeholder="$ max"
-							value={searchFilter?.search?.salaryRange?.end ?? 0}
-							onChange={(e: any) => {
-								if (e.target.value >= 0) {
-									jobSalaryHandler(e.target.value, 'end');
-								}
-							}}
-						/>
+					<Stack direction="row" alignItems="center" spacing={1}>
+						<FormControl fullWidth size="small">
+							<InputLabel htmlFor="min-salary">Min</InputLabel>
+							<OutlinedInput
+								id="min-salary"
+								type="number"
+								placeholder="Min"
+								value={searchFilter?.search?.salaryRange?.start ?? ''}
+								onChange={(e: any) => {
+									if (e.target.value >= 0) {
+										jobSalaryHandler(e.target.value, 'start');
+									}
+								}}
+								startAdornment={<Typography sx={{ mr: 1 }}>$</Typography>}
+								label="Min"
+							/>
+						</FormControl>
+						<Typography>-</Typography>
+						<FormControl fullWidth size="small">
+							<InputLabel htmlFor="max-salary">Max</InputLabel>
+							<OutlinedInput
+								id="max-salary"
+								type="number"
+								placeholder="Max"
+								value={searchFilter?.search?.salaryRange?.end ?? ''}
+								onChange={(e: any) => {
+									if (e.target.value >= 0) {
+										jobSalaryHandler(e.target.value, 'end');
+									}
+								}}
+								startAdornment={<Typography sx={{ mr: 1 }}>$</Typography>}
+								label="Max"
+							/>
+						</FormControl>
 					</Stack>
 				</Stack>
+
+				{/* Experience Range Filter */}
 				<Stack className={'find-your-job'}>
 					<Typography className={'title'}>Experience Range</Typography>
-					<Stack className="experience-input">
-						<input
-							type="number"
-							placeholder="min years"
-							min={0}
-							value={searchFilter?.search?.experienceRange?.start ?? 0}
-							onChange={(e: any) => {
-								if (e.target.value >= 0) {
-									jobExperienceHandler(e.target.value, 'start');
-								}
-							}}
-						/>
-						<div className="central-divider"></div>
-						<input
-							type="number"
-							placeholder="max years"
-							value={searchFilter?.search?.experienceRange?.end ?? 0}
-							onChange={(e: any) => {
-								if (e.target.value >= 0) {
-									jobExperienceHandler(e.target.value, 'end');
-								}
-							}}
-						/>
+					<Stack direction="row" alignItems="center" spacing={1}>
+						<FormControl fullWidth size="small">
+							<InputLabel htmlFor="min-experience">Min</InputLabel>
+							<OutlinedInput
+								id="min-experience"
+								type="number"
+								placeholder="Min years"
+								value={searchFilter?.search?.experienceRange?.start ?? ''}
+								onChange={(e: any) => {
+									if (e.target.value >= 0) {
+										jobExperienceHandler(e.target.value, 'start');
+									}
+								}}
+								endAdornment={<Typography sx={{ ml: 1 }}>yrs</Typography>}
+								label="Min"
+							/>
+						</FormControl>
+						<Typography>-</Typography>
+						<FormControl fullWidth size="small">
+							<InputLabel htmlFor="max-experience">Max</InputLabel>
+							<OutlinedInput
+								id="max-experience"
+								type="number"
+								placeholder="Max years"
+								value={searchFilter?.search?.experienceRange?.end ?? ''}
+								onChange={(e: any) => {
+									if (e.target.value >= 0) {
+										jobExperienceHandler(e.target.value, 'end');
+									}
+								}}
+								endAdornment={<Typography sx={{ ml: 1 }}>yrs</Typography>}
+								label="Max"
+							/>
+						</FormControl>
 					</Stack>
 				</Stack>
 			</Stack>

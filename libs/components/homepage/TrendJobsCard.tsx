@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Box, Typography, Chip, Tooltip } from '@mui/material';
+import { Stack, Box, Typography, Chip, Tooltip, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -87,11 +87,7 @@ const TrendJobCard = (props: TrendJobCardProps) => {
 
 	return (
 		<div className="trend-card-box">
-			<div
-				className="card-img"
-				style={{ backgroundImage: `url(${REACT_APP_API_URL}/${job.jobImages[0]})` }}
-				onClick={() => pushDetailHandler(job._id)}
-			>
+			<div className="card-img" style={{ backgroundImage: `url(${REACT_APP_API_URL}/${job.jobImages[0]})` }}>
 				<div className="salary-badge">{formatSalary(job.jobSalary, job.salaryType)}</div>
 				<div className="type-badge">{getJobTypeLabel(job.jobType)}</div>
 				{job.jobRemote && <div className="remote-badge">Remote</div>}
@@ -107,9 +103,7 @@ const TrendJobCard = (props: TrendJobCardProps) => {
 				</div>
 
 				{/* Job Title */}
-				<Typography className="title" onClick={() => pushDetailHandler(job._id)}>
-					{job.jobTitle}
-				</Typography>
+				<Typography className="title">{job.jobTitle}</Typography>
 
 				{/* Job Description */}
 				<Typography className="desc" variant="body2">
@@ -150,7 +144,7 @@ const TrendJobCard = (props: TrendJobCardProps) => {
 					</Tooltip>
 
 					<Tooltip title="Applications">
-						<IconButton size="small" className="action-button" style={{ marginLeft: 20 }}>
+						<IconButton size="small" className="action-button">
 							<WorkIcon fontSize="small" />
 							<Typography variant="caption" ml={0.5}>
 								{job.jobApplications}
@@ -159,12 +153,7 @@ const TrendJobCard = (props: TrendJobCardProps) => {
 					</Tooltip>
 
 					<Tooltip title={job?.meLiked?.[0]?.myFavorite ? 'Remove from favorites' : 'Add to favorites'}>
-						<IconButton
-							size="small"
-							className="action-button"
-							onClick={() => likeJobHandler(user, job._id)}
-							style={{ marginLeft: 95 }}
-						>
+						<IconButton size="small" className="action-button" onClick={() => likeJobHandler(user, job._id)}>
 							{job?.meLiked?.[0]?.myFavorite ? (
 								<FavoriteIcon color="error" fontSize="small" />
 							) : (
@@ -175,6 +164,15 @@ const TrendJobCard = (props: TrendJobCardProps) => {
 							</Typography>
 						</IconButton>
 					</Tooltip>
+					<Button
+						variant="contained"
+						size="medium"
+						className="apply-btn"
+						style={{ marginLeft: 50, color: 'white' }}
+						onClick={() => pushDetailHandler(job._id)}
+					>
+						Apply
+					</Button>
 				</div>
 			</div>
 		</div>

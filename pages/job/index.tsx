@@ -13,9 +13,10 @@ import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/swee
 import { JobsInquiry } from '../../libs/types/job/job.input';
 import { Job } from '../../libs/types/job/job';
 import { LIKE_TARGET_JOB } from '../../apollo/user/mutation';
-import JobCard from '../../libs/components/job/PropertyCard';
 import { GET_JOBS } from '../../apollo/user/query';
 import Filter from '../../libs/components/job/Filter';
+import RemoteHiringCompanies from '../../libs/components/job/Companies';
+import JobCard from '../../libs/components/job/JobCard';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -130,6 +131,7 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 	} else {
 		return (
 			<div id="job-list-page" style={{ position: 'relative' }}>
+				<RemoteHiringCompanies />
 				<div className="container">
 					<Box component={'div'} className={'right'}>
 						<span>Sort by</span>

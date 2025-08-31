@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Chip, Tooltip } from '@mui/material';
+import { Box, Typography, Chip, Tooltip, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -86,11 +86,7 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 
 	return (
 		<div className="top-card-box">
-			<div
-				className="card-img"
-				style={{ backgroundImage: `url(${REACT_APP_API_URL}/${job.jobImages[0]})` }}
-				onClick={() => pushDetailHandler(job._id)}
-			>
+			<div className="card-img" style={{ backgroundImage: `url(${REACT_APP_API_URL}/${job.jobImages[0]})` }}>
 				<div className="salary-badge">{formatSalary(job.jobSalary, job.salaryType)}</div>
 				<div className="type-badge">{getJobTypeLabel(job.jobType)}</div>
 				{job.jobRemote && <div className="remote-badge">Remote</div>}
@@ -106,9 +102,7 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 				</div>
 
 				{/* Job Title */}
-				<Typography className="title" onClick={() => pushDetailHandler(job._id)}>
-					{job.jobTitle}
-				</Typography>
+				<Typography className="title">{job.jobTitle}</Typography>
 
 				{/* Job Description */}
 				<Typography className="desc" variant="body2">
@@ -149,7 +143,7 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 					</Tooltip>
 
 					<Tooltip title="Applications">
-						<IconButton size="small" className="action-button" style={{ marginLeft: 20 }}>
+						<IconButton size="small" className="action-button">
 							<WorkIcon fontSize="small" />
 							<Typography variant="caption" ml={0.5}>
 								{job.jobApplications}
@@ -158,12 +152,7 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 					</Tooltip>
 
 					<Tooltip title={job?.meLiked?.[0]?.myFavorite ? 'Remove from favorites' : 'Add to favorites'}>
-						<IconButton
-							size="small"
-							className="action-button"
-							onClick={() => likeJobHandler(user, job._id)}
-							style={{ marginLeft: 90 }}
-						>
+						<IconButton size="small" className="action-button" onClick={() => likeJobHandler(user, job._id)}>
 							{job?.meLiked?.[0]?.myFavorite ? (
 								<FavoriteIcon color="error" fontSize="small" />
 							) : (
@@ -174,6 +163,15 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 							</Typography>
 						</IconButton>
 					</Tooltip>
+					<Button
+						variant="contained"
+						size="medium"
+						className="apply-btn"
+						style={{ marginLeft: 50, color: 'white' }}
+						onClick={() => pushDetailHandler(job._id)}
+					>
+						Apply
+					</Button>
 				</div>
 			</div>
 		</div>

@@ -128,7 +128,7 @@ const withLayoutBasic = (Component: any) => {
 							style={{
 								backgroundImage: `url(${memoizedValues.bgImage})`,
 								backgroundSize: '100% auto',
-								backgroundPosition: 'center bottom',
+								backgroundPosition: 'center top',
 								boxShadow: 'inset 10px 40px 150px 40px rgb(24 22 36)',
 							}}
 						>
