@@ -24,23 +24,14 @@ interface JobCardType {
 	likeJobHandler?: any;
 	myFavorites?: boolean;
 	recentlyVisited?: boolean;
-	onApply?: (jobId: string) => void;
 }
 
 const JobCard = (props: JobCardType) => {
-	const { job, likeJobHandler, myFavorites, recentlyVisited, onApply } = props;
+	const { job, likeJobHandler, myFavorites, recentlyVisited } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
 
 	const user = useReactiveVar(userVar);
-
-	const handleApplyClick = (e: React.MouseEvent) => {
-		e.preventDefault();
-		e.stopPropagation();
-		if (onApply) {
-			onApply(job._id);
-		}
-	};
 
 	const pushDetailHandler = (jobId: string) => {
 		router.push({ pathname: `/job/detail`, query: { id: jobId } });

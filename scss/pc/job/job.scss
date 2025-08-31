@@ -2,6 +2,74 @@
 	#job-list-page {
 		padding-bottom: 40px;
 		background: #f6f6f6;
+		.view-controls {
+			position: absolute;
+			right: 0;
+			top: 2%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			z-index: 2;
+
+			button {
+				margin-left: 10px;
+				color: #181a20;
+				font-family: $font;
+				font-size: 14px;
+				font-style: normal;
+				font-weight: bold;
+				line-height: 26px;
+
+				&:hover {
+					background: none;
+				}
+			}
+
+			.MuiToggleButtonGroup-root {
+				margin-left: 20px;
+
+				.MuiToggleButton-root {
+					border: 1px solid #ddd;
+					padding: 8px;
+
+					&.Mui-selected {
+						background-color: #f0f0f0;
+						color: #4caf50;
+					}
+				}
+			}
+		}
+
+		.list-config {
+			&.grid-view {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 20px;
+
+				.job-card-box {
+					width: calc(33.333% - 20px);
+					margin: 0;
+				}
+			}
+
+			&.list-view {
+				display: flex;
+				flex-direction: column;
+
+				.job-list-item {
+					width: 100%;
+				}
+			}
+		}
+
+		.job-list-item {
+			/* List item specific styles */
+			transition: box-shadow 0.3s ease;
+
+			&:hover {
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+			}
+		}
 		.container {
 			.right {
 				position: absolute;
@@ -160,7 +228,7 @@
 							height: auto;
 							display: flex;
 							flex-direction: column;
-							margin: 5px;
+							margin: -2px;
 							border-radius: 16px;
 							overflow: hidden;
 							box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);

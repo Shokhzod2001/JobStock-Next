@@ -1,11 +1,24 @@
 import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import { Box, Button, Menu, MenuItem, Pagination, Stack, Typography } from '@mui/material';
+import {
+	Box,
+	Button,
+	Menu,
+	MenuItem,
+	Pagination,
+	Stack,
+	Typography,
+	IconButton,
+	ToggleButton,
+	ToggleButtonGroup,
+} from '@mui/material';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import ViewModuleIcon from '@mui/icons-material/ViewModule';
+import ViewListIcon from '@mui/icons-material/ViewList';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { useMutation, useQuery } from '@apollo/client';
 import { T } from '../../libs/types/common';
@@ -17,6 +30,7 @@ import { GET_JOBS } from '../../apollo/user/query';
 import Filter from '../../libs/components/job/Filter';
 import RemoteHiringCompanies from '../../libs/components/job/Companies';
 import JobCard from '../../libs/components/job/JobCard';
+import JobListItem from '../../libs/components/job/JobListItem'; // You'll need to create this
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -36,6 +50,7 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [sortingOpen, setSortingOpen] = useState(false);
 	const [filterSortName, setFilterSortName] = useState('New');
+	const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid'); // New state for view mode
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetJob] = useMutation(LIKE_TARGET_JOB);
@@ -65,11 +80,13 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 		setCurrentPage(searchFilter.page === undefined ? 1 : searchFilter.page);
 	}, [router]);
 
-	useEffect(() => {
-		console.log('searchFilter:', searchFilter);
-	}, [searchFilter]);
-
 	/** HANDLERS **/
+	const handleViewModeChange = (event: React.MouseEvent<HTMLElement>, newViewMode: 'grid' | 'list') => {
+		if (newViewMode !== null) {
+			setViewMode(newViewMode);
+		}
+	};
+
 	const handlePaginationChange = async (event: ChangeEvent<unknown>, value: number) => {
 		searchFilter.page = value;
 		await router.push(`/job?input=${JSON.stringify(searchFilter)}`, `/job?input=${JSON.stringify(searchFilter)}`, {
@@ -133,7 +150,7 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 			<div id="job-list-page" style={{ position: 'relative' }}>
 				<RemoteHiringCompanies />
 				<div className="container">
-					<Box component={'div'} className={'right'}>
+					<Box component={'div'} className={'view-controls'}>
 						<span>Sort by</span>
 						<div>
 							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
@@ -174,23 +191,42 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 								</MenuItem>
 							</Menu>
 						</div>
+
+						{/* View Mode Toggle */}
+						<ToggleButtonGroup
+							value={viewMode}
+							exclusive
+							onChange={handleViewModeChange}
+							aria-label="view mode"
+							sx={{ ml: 2 }}
+						>
+							<ToggleButton value="grid" aria-label="grid view">
+								<ViewModuleIcon />
+							</ToggleButton>
+							<ToggleButton value="list" aria-label="list view">
+								<ViewListIcon />
+							</ToggleButton>
+						</ToggleButtonGroup>
 					</Box>
+
 					<Stack className={'job-page'}>
 						<Stack className={'filter-config'}>
 							{/* @ts-ignore */}
 							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
 						</Stack>
 						<Stack className="main-config" mb={'76px'}>
-							<Stack className={'list-config'}>
+							<Stack className={`list-config ${viewMode}-view`}>
 								{jobs?.length === 0 ? (
 									<div className={'no-data'}>
 										<img src="/img/icons/icoAlert.svg" alt="" />
 										<p>No Jobs found!</p>
 									</div>
+								) : viewMode === 'grid' ? (
+									// Grid View
+									jobs.map((job: Job) => <JobCard job={job} likeJobHandler={likeJobHandler} key={job?._id} />)
 								) : (
-									jobs.map((job: Job) => {
-										return <JobCard job={job} likeJobHandler={likeJobHandler} key={job?._id} />;
-									})
+									// List View
+									jobs.map((job: Job) => <JobListItem job={job} likeJobHandler={likeJobHandler} key={job?._id} />)
 								)}
 							</Stack>
 							<Stack className="pagination-config">
