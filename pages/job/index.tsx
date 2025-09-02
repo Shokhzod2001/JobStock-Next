@@ -8,7 +8,6 @@ import {
 	Pagination,
 	Stack,
 	Typography,
-	IconButton,
 	ToggleButton,
 	ToggleButtonGroup,
 } from '@mui/material';
@@ -50,7 +49,7 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [sortingOpen, setSortingOpen] = useState(false);
 	const [filterSortName, setFilterSortName] = useState('New');
-	const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid'); // New state for view mode
+	const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetJob] = useMutation(LIKE_TARGET_JOB);
@@ -192,7 +191,6 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 							</Menu>
 						</div>
 
-						{/* View Mode Toggle */}
 						<ToggleButtonGroup
 							value={viewMode}
 							exclusive

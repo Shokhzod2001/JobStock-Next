@@ -1,9 +1,8 @@
 import React from 'react';
-import { Stack, Box, Typography, Chip, Tooltip, Button, Card, CardContent } from '@mui/material';
+import { Box, Typography, Chip, Tooltip, Button, Card, CardContent } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import WorkIcon from '@mui/icons-material/Work';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -68,7 +67,6 @@ const JobListItem = (props: JobListItemType) => {
 		return (
 			<Card className="job-list-item" sx={{ mb: 2, borderRadius: 2 }}>
 				<CardContent sx={{ display: 'flex', p: 3, gap: 3 }}>
-					{/* Company Image */}
 					<Box
 						sx={{
 							width: 100,
@@ -81,7 +79,6 @@ const JobListItem = (props: JobListItemType) => {
 						}}
 					/>
 
-					{/* Job Info */}
 					<Box sx={{ flexGrow: 1 }}>
 						<Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
 							<BusinessIcon sx={{ fontSize: 16, color: 'primary.main', mr: 1 }} />
@@ -98,7 +95,6 @@ const JobListItem = (props: JobListItemType) => {
 								cursor: 'pointer',
 								'&:hover': { color: 'primary.main' },
 							}}
-							onClick={() => pushDetailHandler(job._id)}
 						>
 							{job.jobTitle}
 						</Typography>
@@ -150,7 +146,12 @@ const JobListItem = (props: JobListItemType) => {
 									</IconButton>
 								</Tooltip>
 
-								<Button variant="contained" size="medium" onClick={() => pushDetailHandler(job._id)} sx={{ ml: 2 }}>
+								<Button
+									variant="contained"
+									size="medium"
+									onClick={() => pushDetailHandler(job._id)}
+									sx={{ ml: 2, color: 'white' }}
+								>
 									Apply Now
 								</Button>
 							</Box>

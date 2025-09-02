@@ -1,115 +1,127 @@
-.property-big-card-box {
-	position: relative;
-	margin-right: 8px;
-	margin-left: 8px;
-	margin-bottom: 35px;
-	width: 410px;
-	height: 455px;
-	display: flex;
-	flex-direction: column;
-	.card-img {
-		position: relative;
-		width: 100%;
-		height: 264px;
-		background-size: cover;
-		border-radius: 12px 12px 0px 0px;
-		cursor: pointer;
-		div.status {
-			position: absolute;
-			padding: 6px 34px;
-			left: 20px;
-			top: 20px;
-			display: flex;
-			align-items: center;
-			border-radius: 6px;
-			background: #eb6753;
-			img {
-				width: 14px;
-				height: 14px;
+.job-big-card {
+	width: 380px;
+	height: auto;
+	border-radius: 16px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+	transition: all 0.3s ease;
+	cursor: pointer;
+	margin: 8px;
+	overflow: hidden;
+
+	&:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+		.card-media-container {
+			.overlay {
+				opacity: 1;
 			}
-			span {
-				margin-left: 5px;
-				color: #fff;
-				font-family: $font;
-				font-size: 12px;
-				font-style: normal;
-				font-weight: 600;
-				line-height: normal;
-				text-transform: uppercase;
-			}
-		}
-		div.price {
-			position: absolute;
-			padding: 8px 12px;
-			left: 20px;
-			bottom: 20px;
-			border-radius: 6px;
-			background: #fff;
-			color: #181a20;
-			font-family: $font;
-			font-size: 15px;
-			font-style: normal;
-			font-weight: 600;
-			line-height: normal;
 		}
 	}
-	.info {
-		padding: 20px 22px 17px;
-		display: flex;
-		flex-direction: column;
-		box-sizing: border-box;
-		border-radius: 0px 0px 12px 12px;
-		border: 1px solid #ddd;
-		border-top: none;
-		background: #fff;
-		.title {
-			overflow: hidden;
-			color: #181a20;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			font-family: $font;
-			font-size: 15px;
-			font-style: normal;
+
+	.card-media-container {
+		position: relative;
+		height: 240px;
+
+		.card-media {
+			height: 100%;
+			background-size: cover;
+			background-position: center;
+		}
+
+		.featured-badge {
+			position: absolute;
+			top: 16px;
+			left: 16px;
+			background: linear-gradient(135deg, #ff6b35, #f7931e);
+			color: white;
 			font-weight: 600;
-			line-height: normal;
-			text-transform: capitalize;
-			cursor: pointer;
+
+			.bolt-icon {
+				font-size: 16px;
+				margin-right: 4px;
+			}
 		}
-		.desc {
-			margin-top: 5px;
-			overflow: hidden;
-			color: #717171;
-			font-family: $font;
-			font-size: 13px;
-			font-style: normal;
-			font-weight: 400;
-			line-height: normal;
-			text-overflow: ellipsis;
-			white-space: nowrap;
+
+		.salary-badge {
+			position: absolute;
+			bottom: 16px;
+			left: 16px;
+			background: linear-gradient(135deg, #4caf50, #2e7d32);
+			color: white;
+			font-weight: 600;
+			font-size: 14px;
 		}
-		.options {
-			margin-top: 15px;
+
+		.overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 0.7);
 			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-			div {
-				display: flex;
-				flex-direction: row;
-				img {
-					margin-right: 5px;
-					width: 17px;
-					height: 17px;
-				}
-				span {
-					color: #181a20;
-					font-family: $font;
-					font-size: 13px;
-					font-style: normal;
-					font-weight: 400;
-					line-height: normal;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+
+			.view-details {
+				color: white;
+				font-weight: 600;
+				font-size: 16px;
+				padding: 8px 16px;
+				border: 2px solid white;
+				border-radius: 8px;
+			}
+		}
+	}
+
+	.card-content {
+		padding: 20px;
+
+		.job-title {
+			font-family: $font;
+			font-weight: 600;
+			color: #181a20;
+			margin-bottom: 8px;
+			line-height: 1.3;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.company-info,
+		.location-info {
+			margin-bottom: 4px;
+
+			.MuiSvgIcon-root {
+				font-size: 16px;
+				color: #666;
+			}
+		}
+
+		.job-tags {
+			.MuiChip-root {
+				font-size: 12px;
+				height: 24px;
+
+				.MuiChip-icon {
+					margin-left: 8px;
+					font-size: 14px;
 				}
 			}
 		}
+
+		.job-features {
+			margin-bottom: 8px;
+
+			.MuiChip-root {
+				font-size: 11px;
+				height: 20px;
+			}
+		}
+
 		.bott {
 			display: flex;
 			flex-direction: row;
@@ -156,6 +168,43 @@
 			}
 		}
 	}
+}
+
+// Responsive design
+@media (max-width: 768px) {
+	.job-big-card {
+		width: 100%;
+		max-width: 400px;
+		margin: 8px auto;
+
+		.card-media-container {
+			height: 200px;
+		}
+
+		.card-content {
+			padding: 16px;
+
+			.job-title {
+				font-size: 16px;
+			}
+		}
+	}
+}
+
+// Animation for card entrance
+@keyframes cardEntrance {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.job-big-card {
+	animation: cardEntrance 0.6s ease-out;
 }
 .agent-general-card {
 	position: relative;
