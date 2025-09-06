@@ -49,14 +49,14 @@ const withLayoutBasic = (Component: any) => {
 					bgImage = '/img/banner/profile.png';
 					break;
 				case '/community':
-					title = 'Career Advice';
+					title = 'Community';
 					desc = 'Tips and resources for job seekers';
-					bgImage = '/img/banner/career-advice.png';
+					bgImage = '/img/banner/community.webp';
 					break;
 				case '/community/detail':
-					title = 'Career Article';
+					title = 'Community Detail';
 					desc = 'Expert advice for your job search';
-					bgImage = '/img/banner/career-article.png';
+					bgImage = '/img/banner/community.webp';
 					break;
 				case '/cs':
 					title = 'Support Center';
