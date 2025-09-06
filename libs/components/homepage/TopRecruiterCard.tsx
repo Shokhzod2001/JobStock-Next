@@ -1,135 +1,130 @@
 import React from 'react';
-import { useRouter } from 'next/router';
-import { Box, IconButton, Stack, Typography, Chip, Rating } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Member } from '../../types/member/member';
+import { Stack, Box, Typography, Chip, Rating, Tooltip } from '@mui/material';
+import Link from 'next/link';
+import { REACT_APP_API_URL } from '../../config';
+import IconButton from '@mui/material/IconButton';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import WorkIcon from '@mui/icons-material/Work';
-import StarIcon from '@mui/icons-material/Star';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
-interface TopRecruiterProps {
-	recruiter: Member;
-	likeMemberHandler: (user: any, id: string) => void;
+interface RecruiterCardProps {
+	recruiter: any;
+	likeMemberHandler: any;
 }
 
-const TopRecruiterCard = (props: TopRecruiterProps) => {
+const RecruiterCard = (props: RecruiterCardProps) => {
 	const { recruiter, likeMemberHandler } = props;
 	const device = useDeviceDetect();
-	const router = useRouter();
 	const user = useReactiveVar(userVar);
 
-	const recruiterImage = recruiter?.memberImage
-		? `${process.env.REACT_APP_API_URL}/${recruiter?.memberImage}`
+	const imagePath: string = recruiter?.memberImage
+		? `${REACT_APP_API_URL}/${recruiter?.memberImage}`
 		: '/img/profile/defaultUser.svg';
 
-	/** HANDLERS **/
-	const pushDetailHandler = (id: string) => {
-		router.push({ pathname: `/recruiter/detail`, query: { id } });
-	};
-
 	if (device === 'mobile') {
-		return <Box>Top Recruiters Mobile</Box>;
+		return <div>RecruiterCard Mobile</div>;
 	} else {
 		return (
-			<Stack className="top-recruiter-card">
-				<Box className="card-header">
-					<Box className="recruiter-image" onClick={() => pushDetailHandler(recruiter._id)}>
-						<img src={recruiterImage} alt={recruiter.memberNick} />
-						<Box className="online-indicator" />
-					</Box>
-
-					<Box className="action-buttons">
-						<IconButton size="small" onClick={() => likeMemberHandler(user, recruiter._id)} className="like-btn">
-							{recruiter?.meLiked?.[0]?.myFavorite ? (
-								<FavoriteIcon color="error" fontSize="small" />
-							) : (
-								<FavoriteIcon fontSize="small" />
-							)}
-						</IconButton>
-					</Box>
-				</Box>
-
-				<Box className="recruiter-info">
-					<Typography className="recruiter-name" onClick={() => pushDetailHandler(recruiter._id)}>
-						{recruiter.memberNick}
-					</Typography>
-
-					<Typography className="recruiter-title">{recruiter.memberType?.replace('_', ' ')}</Typography>
-
-					{recruiter.memberAddress && (
-						<Box className="location-info">
-							<LocationOnIcon fontSize="small" />
-							<Typography variant="caption">{recruiter.memberAddress}</Typography>
-						</Box>
-					)}
-
-					<Box className="stats-row">
-						<Box className="stat-item">
-							<WorkIcon fontSize="small" />
-							<Typography variant="caption">{recruiter.memberProperties || 0} jobs</Typography>
-						</Box>
-
-						<Box className="stat-item">
-							<RemoveRedEyeIcon fontSize="small" />
-							<Typography variant="caption">{recruiter.memberViews || 0}</Typography>
+			<Stack className="recruiter-card">
+				<Link
+					href={{
+						pathname: '/recruiter/detail',
+						query: { agentId: recruiter?._id },
+					}}
+				>
+					<Box className="agent-image" style={{ backgroundImage: `url(${imagePath})` }}>
+						<Box className="job-count-badge">
+							<WorkOutlineIcon fontSize="small" />
+							<Typography variant="body2">{recruiter?.memberProperties || 0}</Typography>
 						</Box>
 					</Box>
+				</Link>
 
-					<Box className="rating-section">
-						<Rating
-							value={recruiter.memberRank || 0}
-							readOnly
-							size="small"
-							icon={<StarIcon fontSize="inherit" />}
-							emptyIcon={<StarIcon fontSize="inherit" />}
-						/>
-						<Typography variant="caption" className="rating-text">
-							({recruiter.memberRank || 0})
+				<Box className="card-content">
+					<Box className="agent-info">
+						<Link
+							href={{
+								pathname: '/recruiter/detail',
+								query: { agentId: recruiter?._id },
+							}}
+						>
+							<Typography variant="h3" className="agent-name">
+								{recruiter?.memberFullName || recruiter?.memberNick}
+							</Typography>
+						</Link>
+						<Typography variant="body2" className="agent-title">
+							Professional Recruiter
 						</Typography>
+
+						{recruiter?.memberAddress && (
+							<Box className="agent-location">
+								<LocationOnOutlinedIcon fontSize="small" />
+								<Typography variant="body2">{recruiter.memberAddress}</Typography>
+							</Box>
+						)}
+
+						{recruiter?.memberDesc && (
+							<Typography variant="body2" className="agent-desc">
+								{recruiter.memberDesc.length > 80
+									? `${recruiter.memberDesc.substring(0, 80)}...`
+									: recruiter.memberDesc}
+							</Typography>
+						)}
 					</Box>
 
-					{recruiter.memberDesc && (
-						<Typography className="recruiter-desc" variant="body2">
-							{recruiter.memberDesc.length > 80 ? `${recruiter.memberDesc.substring(0, 80)}...` : recruiter.memberDesc}
-						</Typography>
-					)}
+					<Box className="divider"></Box>
 
-					<Box className="metrics-row">
-						<Chip label={`${recruiter.memberFollowers || 0} followers`} size="small" variant="outlined" />
-						<Chip label={`${recruiter.memberFollowings || 0} following`} size="small" variant="outlined" />
+					<Box className="agent-stats">
+						<Box className="stat">
+							<Typography variant="h4">{recruiter?.memberFollowers || 0}</Typography>
+							<Typography variant="body2">Followers</Typography>
+						</Box>
+						<Box className="stat">
+							<Typography variant="h4">{recruiter?.memberFollowings || 0}</Typography>
+							<Typography variant="body2">Following</Typography>
+						</Box>
+						<Box className="stat">
+							<Typography variant="h4">{recruiter?.memberArticles || 0}</Typography>
+							<Typography variant="body2">Articles</Typography>
+						</Box>
 					</Box>
 
-					<Box className="engagement-stats">
-						<Box className="engagement-item">
-							<Typography variant="caption" className="stat-number">
-								{recruiter.memberLikes || 0}
-							</Typography>
-							<Typography variant="caption" className="stat-label">
-								Likes
-							</Typography>
-						</Box>
+					<Box className="divider"></Box>
 
-						<Box className="engagement-item">
-							<Typography variant="caption" className="stat-number">
-								{recruiter.memberComments || 0}
-							</Typography>
-							<Typography variant="caption" className="stat-label">
-								Reviews
-							</Typography>
-						</Box>
+					<Box className="card-actions">
+						<Tooltip title="Views">
+							<Box className="action-item">
+								<RemoveRedEyeIcon fontSize="small" />
+								<Typography variant="body2">{recruiter?.memberViews || 0}</Typography>
+							</Box>
+						</Tooltip>
 
-						<Box className="engagement-item">
-							<Typography variant="caption" className="stat-number">
-								{recruiter.memberPoints || 0}
-							</Typography>
-							<Typography variant="caption" className="stat-label">
-								Points
-							</Typography>
-						</Box>
+						<Tooltip title={recruiter?.meLiked && recruiter?.meLiked[0]?.myFavorite ? 'Unlike' : 'Like'}>
+							<IconButton
+								className={`action-item ${recruiter?.meLiked && recruiter?.meLiked[0]?.myFavorite ? 'liked' : ''}`}
+								onClick={() => likeMemberHandler(user, recruiter?._id)}
+							>
+								{recruiter?.meLiked && recruiter?.meLiked[0]?.myFavorite ? (
+									<FavoriteIcon color="error" />
+								) : (
+									<FavoriteBorderIcon />
+								)}
+								<Typography variant="body2">{recruiter?.memberLikes || 0}</Typography>
+							</IconButton>
+						</Tooltip>
+
+						<Tooltip title="Comments">
+							<Box className="action-item">
+								<ChatBubbleOutlineIcon fontSize="small" />
+								<Typography variant="body2">{recruiter?.memberComments || 0}</Typography>
+							</Box>
+						</Tooltip>
 					</Box>
 				</Box>
 			</Stack>
@@ -137,4 +132,4 @@ const TopRecruiterCard = (props: TopRecruiterProps) => {
 	}
 };
 
-export default TopRecruiterCard;
+export default RecruiterCard;

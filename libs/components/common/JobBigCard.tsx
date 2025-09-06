@@ -13,6 +13,7 @@ import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { useRouter } from 'next/router';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
+import { SalaryType } from '../../enums/job.enum';
 
 interface JobBigCardProps {
 	job: Job;
@@ -35,6 +36,36 @@ const JobBigCard = (props: JobBigCardProps) => {
 		likeJobHandler(user, job?._id);
 	};
 
+	const formatSalary = (salary: number, type: SalaryType) => {
+		const formatter = new Intl.NumberFormat('en-US', {
+			style: 'currency',
+			currency: 'USD',
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0,
+		});
+
+		const amount = formatter.format(salary);
+
+		switch (type) {
+			case SalaryType.HOURLY:
+				return `${amount}/hr`;
+			case SalaryType.DAILY:
+				return `${amount}/day`;
+			case SalaryType.WEEKLY:
+				return `${amount}/week`;
+			case SalaryType.MONTHLY:
+				return `${amount}/month`;
+			case SalaryType.YEARLY:
+				return `${amount}/year`;
+			case SalaryType.PROJECT:
+				return `${amount}/project`;
+			case SalaryType.COMMISSION:
+				return `Commission: ${amount}`;
+			default:
+				return amount;
+		}
+	};
+
 	if (device === 'mobile') {
 		return <div>JOB BIG CARD</div>;
 	} else {
@@ -55,7 +86,7 @@ const JobBigCard = (props: JobBigCardProps) => {
 							size="small"
 						/>
 					)}
-					<Chip className="salary-badge" label={`$${formatterStr(job?.jobSalary)}`} color="secondary" size="medium" />
+					<div className="salary-badge">{formatSalary(job.jobSalary, job.salaryType)}</div>
 					<Box className="overlay">
 						<Typography className="view-details">View Details</Typography>
 					</Box>
@@ -83,11 +114,6 @@ const JobBigCard = (props: JobBigCardProps) => {
 					<Stack direction="row" spacing={1} className="job-tags" sx={{ mt: 2, mb: 2 }}>
 						<Chip icon={<WorkIcon />} label={job?.jobType} variant="outlined" size="small" color="primary" />
 						<Chip label={`${job?.jobExperience} yrs exp`} variant="outlined" size="small" />
-					</Stack>
-
-					<Stack direction="row" spacing={1} className="job-features">
-						{job?.jobRemote && <Chip label="Remote" color="success" variant="filled" size="small" />}
-						{job?.jobVisaSponsor && <Chip label="Visa Sponsor" color="info" variant="filled" size="small" />}
 					</Stack>
 
 					<Divider sx={{ mt: '15px', mb: '17px' }} />

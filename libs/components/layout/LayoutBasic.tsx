@@ -41,7 +41,7 @@ const withLayoutBasic = (Component: any) => {
 				case '/recruiter/detail':
 					title = 'Recruiter Profile';
 					desc = 'View recruiter details and contact information';
-					bgImage = '/img/banner/recruiter-detail.png';
+					bgImage = '/img/banner/recruiters1.jpg';
 					break;
 				case '/mypage':
 					title = 'My Profile';
