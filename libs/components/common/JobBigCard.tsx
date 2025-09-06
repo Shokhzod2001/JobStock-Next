@@ -2,12 +2,10 @@ import React from 'react';
 import { Stack, Box, Chip, Typography, Card, CardContent, CardMedia, Divider } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import BusinessIcon from '@mui/icons-material/Business';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WorkIcon from '@mui/icons-material/Work';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Job } from '../../types/job/job';
 import { REACT_APP_API_URL, topJobRank } from '../../config';
 import { formatterStr } from '../../utils';
@@ -103,13 +101,7 @@ const JobBigCard = (props: JobBigCardProps) => {
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{job?.jobViews}</Typography>
-							<IconButton
-								color={'default'}
-								onClick={(e: any) => {
-									e.stopPropagation();
-									likeJobHandler(user, job?._id);
-								}}
-							>
+							<IconButton color={'default'} onClick={handleLikeClick}>
 								{job?.meLiked && job?.meLiked[0]?.myFavorite ? (
 									<FavoriteIcon style={{ color: 'red' }} />
 								) : (

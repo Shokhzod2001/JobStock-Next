@@ -31,12 +31,12 @@ const withLayoutBasic = (Component: any) => {
 				case '/job':
 					title = 'Find Jobs';
 					desc = 'Browse thousands of job opportunities';
-					bgImage = '/img/banner/job-search.jpg';
+					bgImage = '/img/banner/job-search.webp';
 					break;
 				case '/recruiter':
 					title = 'Recruiters';
 					desc = 'Connect with top hiring managers';
-					bgImage = '/img/banner/recruiters.png';
+					bgImage = '/img/banner/recruiters1.jpg';
 					break;
 				case '/recruiter/detail':
 					title = 'Recruiter Profile';
@@ -128,7 +128,8 @@ const withLayoutBasic = (Component: any) => {
 							style={{
 								backgroundImage: `url(${memoizedValues.bgImage})`,
 								backgroundSize: '100% auto',
-								backgroundPosition: 'center top',
+								backgroundPosition: 'center ',
+								backgroundRepeat: 'no-repeat',
 								boxShadow: 'inset 10px 40px 150px 40px rgb(24 22 36)',
 							}}
 						>

@@ -1,5 +1,5 @@
 #pc-wrap {
-	.agent-list-page {
+	.recruiter-list-page {
 		position: relative;
 		padding: 147px 0 75px;
 		width: 100%;
@@ -55,12 +55,14 @@
 			.card-wrap {
 				position: relative;
 				margin-top: 35px;
+				margin-bottom: 50px;
 				width: 100%;
 				min-height: 500px;
 				height: auto;
 				display: flex;
 				flex-direction: row;
 				flex-wrap: wrap;
+				gap: 27px;
 			}
 			.pagination {
 				display: flex;
@@ -73,7 +75,7 @@
 					font-size: 14px;
 					font-style: normal;
 					font-weight: 400;
-					line-height: 26px; /* 185.714% */
+					line-height: 26px;
 				}
 			}
 		}
