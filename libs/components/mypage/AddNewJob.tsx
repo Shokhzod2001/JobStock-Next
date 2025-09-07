@@ -2,58 +2,64 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { PropertyLocation, PropertyType } from '../../enums/job.enum';
-import { REACT_APP_API_URL, propertySquare } from '../../config';
-import { PropertyInput } from '../../types/job/job.input';
+import { JobLocation, JobType, JobCategory, SalaryType } from '../../enums/job.enum';
+import { jobExperienceLevels, REACT_APP_API_URL } from '../../config';
+import { JobInput } from '../../types/job/job.input';
 import axios from 'axios';
 import { getJwtToken } from '../../auth';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetMixinSuccessAlert } from '../../sweetAlert';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
-import { CREATE_PROPERTY, UPDATE_PROPERTY } from '../../../apollo/user/mutation';
-import { GET_PROPERTY } from '../../../apollo/user/query';
+import { CREATE_JOB, UPDATE_JOB } from '../../../apollo/user/mutation';
+import { GET_JOB } from '../../../apollo/user/query';
 
-const AddProperty = ({ initialValues, ...props }: any) => {
+const AddJob = ({ initialValues, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const inputRef = useRef<any>(null);
-	const [insertPropertyData, setInsertPropertyData] = useState<PropertyInput>(initialValues);
-	const [propertyType, setPropertyType] = useState<PropertyType[]>(Object.values(PropertyType));
-	const [propertyLocation, setPropertyLocation] = useState<PropertyLocation[]>(Object.values(PropertyLocation));
+	const [insertJobData, setInsertJobData] = useState<JobInput>(initialValues);
+	const [jobType, setJobType] = useState<JobType[]>(Object.values(JobType));
+	const [jobCategory, setJobCategory] = useState<JobCategory[]>(Object.values(JobCategory));
+	const [jobLocation, setJobLocation] = useState<JobLocation[]>(Object.values(JobLocation));
+	const [salaryType, setSalaryType] = useState<SalaryType[]>(Object.values(SalaryType));
 	const token = getJwtToken();
 	const user = useReactiveVar(userVar);
 
 	/** APOLLO REQUESTS **/
-	const [updateProperty] = useMutation(UPDATE_PROPERTY);
-	const [createProperty] = useMutation(CREATE_PROPERTY);
+	const [updateJob] = useMutation(UPDATE_JOB);
+	const [createJob] = useMutation(CREATE_JOB);
 	const {
-		loading: getPropertyLoading,
-		data: getPropertyData,
-		error: getPropertyError,
-		refetch: getPropertyRefetch,
-	} = useQuery(GET_PROPERTY, {
+		loading: getJobLoading,
+		data: getJobData,
+		error: getJobError,
+		refetch: getJobRefetch,
+	} = useQuery(GET_JOB, {
 		fetchPolicy: 'network-only',
-		variables: { input: router.query.propertyId },
+		variables: { input: router.query.jobId },
 	});
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		setInsertPropertyData({
-			...insertPropertyData,
-			propertyTitle: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyTitle : '',
-			propertyPrice: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyPrice : 0,
-			propertyType: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyType : '',
-			propertyLocation: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyLocation : '',
-			propertyAddress: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyAddress : '',
-			propertyBarter: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyBarter : false,
-			propertyRent: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyRent : false,
-			propertyRooms: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyRooms : 0,
-			propertyBeds: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyBeds : 0,
-			propertySquare: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertySquare : 0,
-			propertyDesc: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyDesc : '',
-			propertyImages: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyImages : [],
+		setInsertJobData({
+			...insertJobData,
+			jobTitle: getJobData?.getJob ? getJobData?.getJob?.jobTitle : '',
+			jobSalary: getJobData?.getJob ? getJobData?.getJob?.jobSalary : 0,
+			jobType: getJobData?.getJob ? getJobData?.getJob?.jobType : '',
+			jobCategory: getJobData?.getJob ? getJobData?.getJob?.jobCategory : '',
+			jobLocation: getJobData?.getJob ? getJobData?.getJob?.jobLocation : '',
+			jobAddress: getJobData?.getJob ? getJobData?.getJob?.jobAddress : '',
+			jobRemote: getJobData?.getJob ? getJobData?.getJob?.jobRemote : false,
+			jobVisaSponsor: getJobData?.getJob ? getJobData?.getJob?.jobVisaSponsor : false,
+			jobExperience: getJobData?.getJob ? getJobData?.getJob?.jobExperience : 0,
+			jobSkills: getJobData?.getJob ? getJobData?.getJob?.jobSkills : [],
+			jobRequirements: getJobData?.getJob ? getJobData?.getJob?.jobRequirements : '',
+			jobBenefits: getJobData?.getJob ? getJobData?.getJob?.jobBenefits : [],
+			jobApplicationDeadline: getJobData?.getJob ? getJobData?.getJob?.jobApplicationDeadline : new Date(),
+			companyName: getJobData?.getJob ? getJobData?.getJob?.companyName : '',
+			jobDesc: getJobData?.getJob ? getJobData?.getJob?.jobDesc : '',
+			jobImages: getJobData?.getJob ? getJobData?.getJob?.jobImages : [],
 		});
-	}, [getPropertyLoading, getPropertyData]);
+	}, [getJobLoading, getJobData]);
 
 	/** HANDLERS **/
 	async function uploadImages() {
@@ -72,7 +78,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 				  }`,
 					variables: {
 						files: [null, null, null, null, null],
-						target: 'property',
+						target: 'job',
 					},
 				}),
 			);
@@ -101,7 +107,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 			const responseImages = response.data.data.imagesUploader;
 
 			console.log('+responseImages: ', responseImages);
-			setInsertPropertyData({ ...insertPropertyData, propertyImages: responseImages });
+			setInsertJobData({ ...insertJobData, jobImages: responseImages });
 		} catch (err: any) {
 			console.log('err: ', err.message);
 			await sweetMixinErrorAlert(err.message);
@@ -110,68 +116,70 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 
 	const doDisabledCheck = () => {
 		if (
-			insertPropertyData.propertyTitle === '' ||
-			insertPropertyData.propertyPrice === 0 || // @ts-ignore
-			insertPropertyData.propertyType === '' || // @ts-ignore
-			insertPropertyData.propertyLocation === '' || // @ts-ignore
-			insertPropertyData.propertyAddress === '' || // @ts-ignore
-			insertPropertyData.propertyBarter === '' || // @ts-ignore
-			insertPropertyData.propertyRent === '' ||
-			insertPropertyData.propertyRooms === 0 ||
-			insertPropertyData.propertyBeds === 0 ||
-			insertPropertyData.propertySquare === 0 ||
-			insertPropertyData.propertyDesc === '' ||
-			insertPropertyData.propertyImages.length === 0
+			insertJobData.jobTitle === '' ||
+			insertJobData.jobSalary === 0 || // @ts-ignore
+			insertJobData.jobType === '' || // @ts-ignore
+			insertJobData.jobCategory === '' || // @ts-ignore
+			insertJobData.jobLocation === '' || // @ts-ignore
+			insertJobData.jobAddress === '' || // @ts-ignore
+			insertJobData.jobRemote === '' || // @ts-ignore
+			insertJobData.jobVisaSponsor === '' ||
+			insertJobData.jobExperience === 0 ||
+			insertJobData.jobSkills.length === 0 ||
+			insertJobData.jobRequirements === '' ||
+			insertJobData.jobApplicationDeadline === null ||
+			insertJobData.companyName === '' ||
+			insertJobData.jobImages.length === 0
 		) {
 			return true;
 		}
 	};
 
-	const insertPropertyHandler = useCallback(async () => {
+	const insertJobHandler = useCallback(async () => {
 		try {
-			const result = await createProperty({
+			const result = await createJob({
 				variables: {
-					input: insertPropertyData,
+					input: insertJobData,
 				},
 			});
 
-			await sweetMixinSuccessAlert('Property created successfully!');
-			await router.push({ pathname: '/mypage', query: { category: 'myProperties' } });
+			await sweetMixinSuccessAlert('Job created successfully!');
+			await router.push({ pathname: '/mypage', query: { category: 'myJobs' } });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
-	}, [insertPropertyData]);
+	}, [insertJobData]);
 
-	const updatePropertyHandler = useCallback(async () => {
+	const updateJobHandler = useCallback(async () => {
 		try {
 			// @ts-ignore
-			insertPropertyData._id = getPropertyData?.getProperty?._id;
-			const result = await updateProperty({
+			insertJobData._id = getJobData?.getJob?._id;
+			const result = await updateJob({
 				variables: {
-					input: insertPropertyData,
+					input: insertJobData,
 				},
 			});
 
-			await sweetMixinSuccessAlert('Property updated successfully!');
-			await router.push({ pathname: '/mypage', query: { category: 'myProperties' } });
+			await sweetMixinSuccessAlert('Job updated successfully!');
+			await router.push({ pathname: '/mypage', query: { category: 'myJobs' } });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
-	}, [insertPropertyData]);
+	}, [insertJobData]);
 
-	if (user?.memberType !== 'AGENT') {
+	if (user?.memberType !== 'RECRUITER') {
 		router.back();
 	}
 
-	console.log('+insertPropertyData', insertPropertyData);
+	console.log('+insertJobData', insertJobData);
 
 	if (device === 'mobile') {
-		return <div>ADD NEW PROPERTY MOBILE PAGE</div>;
+		return <div>ADD NEW JOB MOBILE PAGE</div>;
 	} else {
 		return (
-			<div id="add-property-page">
+			<div id="add-job-page">
 				<Stack className="main-title-box">
-					<Typography className="main-title">Add New Property</Typography>
+					<Typography className="main-title">Add New Job</Typography>
 					<Typography className="sub-title">We are glad to see you again!</Typography>
 				</Stack>
 
@@ -184,42 +192,40 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 									type="text"
 									className="description-input"
 									placeholder={'Title'}
-									value={insertPropertyData.propertyTitle}
-									onChange={({ target: { value } }) =>
-										setInsertPropertyData({ ...insertPropertyData, propertyTitle: value })
-									}
+									value={insertJobData.jobTitle}
+									onChange={({ target: { value } }) => setInsertJobData({ ...insertJobData, jobTitle: value })}
 								/>
 							</Stack>
 
 							<Stack className="config-row">
 								<Stack className="price-year-after-price">
-									<Typography className="title">Price</Typography>
+									<Typography className="title">Salary</Typography>
 									<input
 										type="text"
 										className="description-input"
-										placeholder={'Price'}
-										value={insertPropertyData.propertyPrice}
+										placeholder={'Salary'}
+										value={insertJobData.jobSalary}
 										onChange={({ target: { value } }) =>
-											setInsertPropertyData({ ...insertPropertyData, propertyPrice: parseInt(value) })
+											setInsertJobData({ ...insertJobData, jobSalary: parseInt(value) })
 										}
 									/>
 								</Stack>
 								<Stack className="price-year-after-price">
-									<Typography className="title">Select Type</Typography>
+									<Typography className="title">Salary Type</Typography>
 									<select
 										className={'select-description'}
-										defaultValue={insertPropertyData.propertyType || 'select'}
-										value={insertPropertyData.propertyType || 'select'}
+										defaultValue={insertJobData.salaryType || 'select'}
+										value={insertJobData.salaryType || 'select'}
 										onChange={({ target: { value } }) =>
 											// @ts-ignore
-											setInsertPropertyData({ ...insertPropertyData, propertyType: value })
+											setInsertJobData({ ...insertJobData, salaryType: value })
 										}
 									>
 										<>
 											<option selected={true} disabled={true} value={'select'}>
 												Select
 											</option>
-											{propertyType.map((type: any) => (
+											{salaryType.map((type: any) => (
 												<option value={`${type}`} key={type}>
 													{type}
 												</option>
@@ -233,21 +239,74 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 
 							<Stack className="config-row">
 								<Stack className="price-year-after-price">
-									<Typography className="title">Select Location</Typography>
+									<Typography className="title">Job Type</Typography>
 									<select
 										className={'select-description'}
-										defaultValue={insertPropertyData.propertyLocation || 'select'}
-										value={insertPropertyData.propertyLocation || 'select'}
+										defaultValue={insertJobData.jobType || 'select'}
+										value={insertJobData.jobType || 'select'}
 										onChange={({ target: { value } }) =>
 											// @ts-ignore
-											setInsertPropertyData({ ...insertPropertyData, propertyLocation: value })
+											setInsertJobData({ ...insertJobData, jobType: value })
 										}
 									>
 										<>
 											<option selected={true} disabled={true} value={'select'}>
 												Select
 											</option>
-											{propertyLocation.map((location: any) => (
+											{jobType.map((type: any) => (
+												<option value={`${type}`} key={type}>
+													{type}
+												</option>
+											))}
+										</>
+									</select>
+									<div className={'divider'}></div>
+									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
+								</Stack>
+								<Stack className="price-year-after-price">
+									<Typography className="title">Job Category</Typography>
+									<select
+										className={'select-description'}
+										defaultValue={insertJobData.jobCategory || 'select'}
+										value={insertJobData.jobCategory || 'select'}
+										onChange={({ target: { value } }) =>
+											// @ts-ignore
+											setInsertJobData({ ...insertJobData, jobCategory: value })
+										}
+									>
+										<>
+											<option selected={true} disabled={true} value={'select'}>
+												Select
+											</option>
+											{jobCategory.map((category: any) => (
+												<option value={`${category}`} key={category}>
+													{category}
+												</option>
+											))}
+										</>
+									</select>
+									<div className={'divider'}></div>
+									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
+								</Stack>
+							</Stack>
+
+							<Stack className="config-row">
+								<Stack className="price-year-after-price">
+									<Typography className="title">Job Location</Typography>
+									<select
+										className={'select-description'}
+										defaultValue={insertJobData.jobLocation || 'select'}
+										value={insertJobData.jobLocation || 'select'}
+										onChange={({ target: { value } }) =>
+											// @ts-ignore
+											setInsertJobData({ ...insertJobData, jobLocation: value })
+										}
+									>
+										<>
+											<option selected={true} disabled={true} value={'select'}>
+												Select
+											</option>
+											{jobLocation.map((location: any) => (
 												<option value={`${location}`} key={location}>
 													{location}
 												</option>
@@ -263,23 +322,21 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 										type="text"
 										className="description-input"
 										placeholder={'Address'}
-										value={insertPropertyData.propertyAddress}
-										onChange={({ target: { value } }) =>
-											setInsertPropertyData({ ...insertPropertyData, propertyAddress: value })
-										}
+										value={insertJobData.jobAddress}
+										onChange={({ target: { value } }) => setInsertJobData({ ...insertJobData, jobAddress: value })}
 									/>
 								</Stack>
 							</Stack>
 
 							<Stack className="config-row">
 								<Stack className="price-year-after-price">
-									<Typography className="title">Barter</Typography>
+									<Typography className="title">Remote Work</Typography>
 									<select
 										className={'select-description'}
-										value={insertPropertyData.propertyBarter ? 'yes' : 'no'}
-										defaultValue={insertPropertyData.propertyBarter ? 'yes' : 'no'}
+										value={insertJobData.jobRemote ? 'yes' : 'no'}
+										defaultValue={insertJobData.jobRemote ? 'yes' : 'no'}
 										onChange={({ target: { value } }) =>
-											setInsertPropertyData({ ...insertPropertyData, propertyBarter: value === 'yes' })
+											setInsertJobData({ ...insertJobData, jobRemote: value === 'yes' })
 										}
 									>
 										<option disabled={true} selected={true}>
@@ -292,13 +349,13 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
 								<Stack className="price-year-after-price">
-									<Typography className="title">Rent</Typography>
+									<Typography className="title">Visa Sponsor</Typography>
 									<select
 										className={'select-description'}
-										value={insertPropertyData.propertyRent ? 'yes' : 'no'}
-										defaultValue={insertPropertyData.propertyRent ? 'yes' : 'no'}
+										value={insertJobData.jobVisaSponsor ? 'yes' : 'no'}
+										defaultValue={insertJobData.jobVisaSponsor ? 'yes' : 'no'}
 										onChange={({ target: { value } }) =>
-											setInsertPropertyData({ ...insertPropertyData, propertyRent: value === 'yes' })
+											setInsertJobData({ ...insertJobData, jobVisaSponsor: value === 'yes' })
 										}
 									>
 										<option disabled={true} selected={true}>
@@ -314,85 +371,107 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 
 							<Stack className="config-row">
 								<Stack className="price-year-after-price">
-									<Typography className="title">Rooms</Typography>
+									<Typography className="title">Experience (years)</Typography>
 									<select
 										className={'select-description'}
-										value={insertPropertyData.propertyRooms || 'select'}
-										defaultValue={insertPropertyData.propertyRooms || 'select'}
+										value={insertJobData.jobExperience || 'select'}
+										defaultValue={insertJobData.jobExperience || 'select'}
 										onChange={({ target: { value } }) =>
-											setInsertPropertyData({ ...insertPropertyData, propertyRooms: parseInt(value) })
+											setInsertJobData({ ...insertJobData, jobExperience: parseInt(value) })
 										}
 									>
 										<option disabled={true} selected={true} value={'select'}>
 											Select
 										</option>
-										{[1, 2, 3, 4, 5].map((room: number) => (
-											<option value={`${room}`}>{room}</option>
+										{jobExperienceLevels.map((exp: number) => (
+											<option value={`${exp}`}>{exp} years</option>
 										))}
 									</select>
 									<div className={'divider'}></div>
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
 								<Stack className="price-year-after-price">
-									<Typography className="title">Bed</Typography>
-									<select
-										className={'select-description'}
-										value={insertPropertyData.propertyBeds || 'select'}
-										defaultValue={insertPropertyData.propertyBeds || 'select'}
-										onChange={({ target: { value } }) =>
-											setInsertPropertyData({ ...insertPropertyData, propertyBeds: parseInt(value) })
-										}
-									>
-										<option disabled={true} selected={true} value={'select'}>
-											Select
-										</option>
-										{[1, 2, 3, 4, 5].map((bed: number) => (
-											<option value={`${bed}`}>{bed}</option>
-										))}
-									</select>
-									<div className={'divider'}></div>
-									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
-								</Stack>
-								<Stack className="price-year-after-price">
-									<Typography className="title">Square</Typography>
-									<select
-										className={'select-description'}
-										value={insertPropertyData.propertySquare || 'select'}
-										defaultValue={insertPropertyData.propertySquare || 'select'}
-										onChange={({ target: { value } }) =>
-											setInsertPropertyData({ ...insertPropertyData, propertySquare: parseInt(value) })
-										}
-									>
-										<option disabled={true} selected={true} value={'select'}>
-											Select
-										</option>
-										{propertySquare.map((square: number) => {
-											if (square !== 0) {
-												return <option value={`${square}`}>{square}</option>;
-											}
-										})}
-									</select>
-									<div className={'divider'}></div>
-									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
+									<Typography className="title">Company Name</Typography>
+									<input
+										type="text"
+										className="description-input"
+										placeholder={'Company Name'}
+										value={insertJobData.companyName}
+										onChange={({ target: { value } }) => setInsertJobData({ ...insertJobData, companyName: value })}
+									/>
 								</Stack>
 							</Stack>
 
-							<Typography className="property-title">Property Description</Typography>
+							<Stack className="config-column">
+								<Typography className="title">Required Skills</Typography>
+								<input
+									type="text"
+									className="description-input"
+									placeholder={'Skills (comma separated)'}
+									value={insertJobData.jobSkills.join(', ')}
+									onChange={({ target: { value } }) =>
+										setInsertJobData({ ...insertJobData, jobSkills: value.split(',').map((skill) => skill.trim()) })
+									}
+								/>
+							</Stack>
+
+							<Stack className="config-column">
+								<Typography className="title">Job Requirements</Typography>
+								<textarea
+									name=""
+									id=""
+									className="description-text"
+									value={insertJobData.jobRequirements}
+									onChange={({ target: { value } }) => setInsertJobData({ ...insertJobData, jobRequirements: value })}
+								></textarea>
+							</Stack>
+
+							<Stack className="config-column">
+								<Typography className="title">Job Benefits</Typography>
+								<input
+									type="text"
+									className="description-input"
+									placeholder={'Benefits (comma separated)'}
+									value={(insertJobData.jobBenefits ?? []).join(', ')}
+									onChange={({ target: { value } }) =>
+										setInsertJobData({
+											...insertJobData,
+											jobBenefits: value.split(',').map((benefit) => benefit.trim()),
+										})
+									}
+								/>
+							</Stack>
+
+							<Stack className="config-column">
+								<Typography className="title">Application Deadline</Typography>
+								<input
+									type="date"
+									className="description-input"
+									value={
+										insertJobData.jobApplicationDeadline
+											? new Date(insertJobData.jobApplicationDeadline).toISOString().split('T')[0]
+											: ''
+									}
+									onChange={({ target: { value } }) =>
+										setInsertJobData({ ...insertJobData, jobApplicationDeadline: new Date(value) })
+									}
+								/>
+							</Stack>
+
+							<Typography className="job-title">Job Description</Typography>
 							<Stack className="config-column">
 								<Typography className="title">Description</Typography>
 								<textarea
 									name=""
 									id=""
 									className="description-text"
-									value={insertPropertyData.propertyDesc}
-									onChange={({ target: { value } }) =>
-										setInsertPropertyData({ ...insertPropertyData, propertyDesc: value })
-									}
+									value={insertJobData.jobDesc}
+									onChange={({ target: { value } }) => setInsertJobData({ ...insertJobData, jobDesc: value })}
 								></textarea>
 							</Stack>
 						</Stack>
 
-						<Typography className="upload-title">Upload photos of your property</Typography>
+						<Typography className="upload-title">Upload photos of your job</Typography>
 						<Stack className="images-box">
 							<Stack className="upload-box">
 								<svg xmlns="http://www.w3.org/2000/svg" width="121" height="120" viewBox="0 0 121 120" fill="none">
@@ -406,11 +485,11 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 											fill="#DDDDDD"
 										/>
 										<path
-											d="M100.975 120.003C100.418 120.057 99.8558 119.994 99.3247 119.818C98.7935 119.642 98.3051 119.357 97.8907 118.98C97.4763 118.604 97.1452 118.146 96.9186 117.634C96.6921 117.122 96.575 116.569 96.575 116.009C96.575 115.45 96.6921 114.896 96.9186 114.385C97.1452 113.873 97.4763 113.414 97.8907 113.038C98.3051 112.662 98.7935 112.377 99.3247 112.201C99.8558 112.025 100.418 111.962 100.975 112.016C104.158 112.016 107.21 110.751 109.46 108.501C111.711 106.25 112.975 103.198 112.975 100.016V19.9906C112.975 16.808 111.711 13.7558 109.46 11.5053C107.21 9.25491 104.158 7.99063 100.975 7.99063H36.9624C36.4055 8.04466 35.8433 7.98159 35.3122 7.80547C34.781 7.62935 34.2926 7.34408 33.8782 6.96797C33.4638 6.59186 33.1327 6.13324 32.9061 5.62156C32.6796 5.10989 32.5625 4.55648 32.5625 3.99688C32.5625 3.43728 32.6796 2.88386 32.9061 2.37219C33.1327 1.86051 33.4638 1.40189 33.8782 1.02578C34.2926 0.649674 34.781 0.364397 35.3122 0.188277C35.8433 0.0121578 36.4055 -0.05091 36.9624 0.00312538H100.975C106.273 0.0130374 111.351 2.12204 115.097 5.86828C118.844 9.61451 120.953 14.6927 120.962 19.9906V100.016C120.953 105.314 118.844 110.392 115.097 114.138C111.351 117.884 106.273 119.993 100.975 120.003Z"
+											d="M100.975 120.003C100.418 120.057 99.8558 119.994 99.3247 119.818C98.7935 119.642 98.3051 119.357 97.8907 118.98C97.4763 118.604 97.1452 118.146 96.9186 117.634C96.6921 117.122 96.575 116.569 96.575 116.009C96.575 115.45 96.6921 114.896 96.9186 114.385C97.1452 113.873 97.4763 113.414 97.8907 113.038C98.3051 112.662 98.7935 112.377 99.3247 112.201C99.8558 112.025 100.418 111.962 100.975 112.016C104.158 112.016 107.21 110.751 109.46 108.501C111.711 106.250 112.975 103.198 112.975 100.016V19.9906C112.975 16.808 111.711 13.7558 109.46 11.5053C107.21 9.25491 104.158 7.99063 100.975 7.99063H36.9624C36.4055 8.04466 35.8433 7.98159 35.3122 7.80547C34.781 7.62935 34.2926 7.34408 33.8782 6.96797C33.4638 6.59186 33.1327 6.13324 32.9061 5.62156C32.6796 5.10989 32.5625 4.55648 32.5625 3.99688C32.5625 3.43728 32.6796 2.88386 32.9061 2.37219C33.1327 1.86051 33.4638 1.40189 33.8782 1.02578C34.2926 0.649674 34.781 0.364397 35.3122 0.188277C35.8433 0.0121578 36.4055 -0.05091 36.9624 0.00312538H100.975C106.273 0.0130374 111.351 2.12204 115.097 5.86828C118.844 9.61451 120.953 14.6927 120.962 19.9906V100.016C120.953 105.314 118.844 110.392 115.097 114.138C111.351 117.884 106.273 119.993 100.975 120.003Z"
 											fill="#DDDDDD"
 										/>
 										<path
-											d="M84.9609 120.003H20.9484C15.6505 119.993 10.5723 117.884 6.82609 114.138C3.07985 110.392 0.97085 105.314 0.960938 100.016L0.960938 19.9906C0.97085 14.6927 3.07985 9.61451 6.82609 5.86828C10.5723 2.12204 15.6505 0.0130374 20.9484 0.00312538C21.5054 -0.05091 22.0676 0.0121578 22.5987 0.188277C23.1299 0.364397 23.6183 0.649674 24.0327 1.02578C24.4471 1.40189 24.7782 1.86051 25.0047 2.37219C25.2313 2.88386 25.3484 3.43728 25.3484 3.99688C25.3484 4.55648 25.2313 5.10989 25.0047 5.62156C24.7782 6.13324 24.4471 6.59186 24.0327 6.96797C23.6183 7.34408 23.1299 7.62935 22.5987 7.80547C22.0676 7.98159 21.5054 8.04466 20.9484 7.99063C17.7658 7.99063 14.7136 9.25491 12.4632 11.5053C10.2127 13.7558 8.94844 16.808 8.94844 19.9906V100.016C8.94844 103.198 10.2127 106.25 12.4632 108.501C14.7136 110.751 17.7658 112.016 20.9484 112.016H84.9609C85.5179 111.962 86.08 112.025 86.6112 112.201C87.1424 112.377 87.6308 112.662 88.0452 113.038C88.4595 113.414 88.7907 113.873 89.0172 114.385C89.2438 114.896 89.3609 115.45 89.3609 116.009C89.3609 116.569 89.2438 117.122 89.0172 117.634C88.7907 118.146 88.4595 118.604 88.0452 118.98C87.6308 119.357 87.1424 119.642 86.6112 119.818C86.08 119.994 85.5179 120.057 84.9609 120.003Z"
+											d="M84.9609 120.003H20.9484C15.6505 119.993 10.5723 117.884 6.82609 114.138C3.07985 110.392 0.97085 105.314 0.960938 100.016L0.960938 19.9906C0.97085 14.6927 3.07985 9.61451 6.82609 5.86828C10.5723 2.12204 15.6505 0.0130374 20.9484 0.00312538C21.5054 -0.05091 22.0676 0.0121578 22.5987 0.188277C23.1299 0.364397 23.6183 0.649674 24.0327 1.02578C24.4471 1.40189 24.7782 1.86051 25.0047 2.37219C25.2313 2.88386 25.3484 3.43728 25.3484 3.99688C25.3484 4.55648 25.2313 5.10989 25.0047 5.62156C24.7782 6.13324 24.4471 6.59186 24.0327 6.96797C23.6183 7.34408 23.1299 7.62935 22.5987 7.80547C22.0676 7.98159 21.5054 8.04466 20.9484 7.99063C17.7658 7.99063 14.7136 9.25491 12.4632 11.5053C10.2127 13.7558 8.94844 16.808 8.94844 19.9906V100.016C8.94844 103.198 10.2127 106.250 12.4632 108.501C14.7136 110.751 17.7658 112.016 20.9484 112.016H84.9609C85.5179 111.962 86.08 112.025 86.6112 112.201C87.1424 112.377 87.6308 112.662 88.0452 113.038C88.4595 113.414 88.7907 113.873 89.0172 114.385C89.2438 114.896 89.3609 115.45 89.3609 116.009C89.3609 116.569 89.2438 117.122 89.0172 117.634C88.7907 118.146 88.4595 118.604 88.0452 118.98C87.6308 119.357 87.1424 119.642 86.6112 119.818C86.08 119.994 85.5179 120.057 84.9609 120.003Z"
 											fill="#DDDDDD"
 										/>
 										<path
@@ -471,7 +550,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 								</Button>
 							</Stack>
 							<Stack className="gallery-box">
-								{insertPropertyData?.propertyImages.map((image: string) => {
+								{insertJobData?.jobImages.map((image: string) => {
 									const imagePath: string = `${REACT_APP_API_URL}/${image}`;
 									return (
 										<Stack className="image-box">
@@ -483,12 +562,12 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 						</Stack>
 
 						<Stack className="buttons-row">
-							{router.query.propertyId ? (
-								<Button className="next-button" disabled={doDisabledCheck()} onClick={updatePropertyHandler}>
+							{router.query.jobId ? (
+								<Button className="next-button" disabled={doDisabledCheck()} onClick={updateJobHandler}>
 									<Typography className="next-button-text">Save</Typography>
 								</Button>
 							) : (
-								<Button className="next-button" disabled={doDisabledCheck()} onClick={insertPropertyHandler}>
+								<Button className="next-button" disabled={doDisabledCheck()} onClick={insertJobHandler}>
 									<Typography className="next-button-text">Save</Typography>
 								</Button>
 							)}
@@ -500,21 +579,26 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 	}
 };
 
-AddProperty.defaultProps = {
+AddJob.defaultProps = {
 	initialValues: {
-		propertyTitle: '',
-		propertyPrice: 0,
-		propertyType: '',
-		propertyLocation: '',
-		propertyAddress: '',
-		propertyBarter: false,
-		propertyRent: false,
-		propertyRooms: 0,
-		propertyBeds: 0,
-		propertySquare: 0,
-		propertyDesc: '',
-		propertyImages: [],
+		jobTitle: '',
+		jobSalary: 0,
+		salaryType: '',
+		jobType: '',
+		jobCategory: '',
+		jobLocation: '',
+		jobAddress: '',
+		jobRemote: false,
+		jobVisaSponsor: false,
+		jobExperience: 0,
+		jobSkills: [],
+		jobRequirements: '',
+		jobBenefits: [],
+		jobApplicationDeadline: new Date(),
+		companyName: '',
+		jobDesc: '',
+		jobImages: [],
 	},
 };
 
-export default AddProperty;
+export default AddJob;

@@ -46,7 +46,7 @@ const withLayoutBasic = (Component: any) => {
 				case '/mypage':
 					title = 'My Profile';
 					desc = 'Manage your resume and job applications';
-					bgImage = '/img/banner/profile.png';
+					bgImage = '/img/banner/profile.jpg';
 					break;
 				case '/community':
 					title = 'Community';

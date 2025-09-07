@@ -97,6 +97,13 @@ const Top = () => {
 		}
 	};
 
+	const isActive = (path: string) => {
+		if (path === '/') {
+			return router.pathname === '/';
+		}
+		return router.pathname === path || router.asPath.startsWith(path);
+	};
+
 	const StyledMenu = styled((props: MenuProps) => (
 		<Menu
 			elevation={0}
@@ -171,26 +178,27 @@ const Top = () => {
 						</Box>
 						<Box component={'div'} className={'router-box'}>
 							<Link href={'/'}>
-								<div>{t('Home')}</div>
+								<div className={isActive('/') ? 'active' : ''}>{t('Home')}</div>
 							</Link>
 							<Link href={'/job'}>
-								<div>{t('Jobs')}</div>
+								<div className={isActive('/job') ? 'active' : ''}>{t('Jobs')}</div>
 							</Link>
 							<Link href={'/recruiter'}>
-								<div> {t('Recruiters')} </div>
+								<div className={isActive('/recruiter') ? 'active' : ''}>{t('Recruiters')}</div>
 							</Link>
 							<Link href={'/community?articleCategory=FREE'}>
-								<div> {t('Community')} </div>
+								<div className={isActive('/community') ? 'active' : ''}>{t('Community')}</div>
 							</Link>
 							{user?._id && (
 								<Link href={'/mypage'}>
-									<div> {t('My Page')} </div>
+									<div className={isActive('/mypage') ? 'active' : ''}>{t('My Page')}</div>
 								</Link>
 							)}
 							<Link href={'/cs'}>
-								<div> {t('CS')} </div>
+								<div className={isActive('/cs') ? 'active' : ''}>{t('CS')}</div>
 							</Link>
 						</Box>
+
 						<Box component={'div'} className={'user-box'}>
 							{user?._id ? (
 								<>

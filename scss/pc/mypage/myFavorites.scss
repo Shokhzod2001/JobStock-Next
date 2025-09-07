@@ -38,164 +38,195 @@
 				height: auto;
 				flex-wrap: wrap;
 				flex-direction: row;
-				gap: 22px;
-				.card-config {
-					width: 296px;
-					height: 413px;
-					margin-bottom: 7px;
-					border-radius: 12px;
-					background: #fff;
-					box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
-					.top {
-						position: relative;
-						width: 100%;
-						height: 240px;
-						a {
-							height: 100%;
-						}
-						img {
-							width: 100%;
-							height: 100%;
-							object-fit: cover;
-							border-radius: 12px 12px 0 0;
-						}
-						.top-badge {
-							position: absolute;
-							top: 20px;
-							left: 16px;
-							display: flex;
-							width: 80px;
-							height: 30px;
-							justify-content: center;
-							align-items: center;
-							border-radius: 6px;
-							padding: 6px 20px;
-							background: #eb6753;
-							color: #fff;
-							text-align: center;
-							text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-							font-family: $font;
-							font-size: 12px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
-							img {
-								height: 16px;
-							}
-						}
-						.price-box {
-							position: absolute;
-							bottom: 20px;
-							left: 20px;
-							padding: 8px 15px;
-							align-items: center;
-							border-radius: 6px;
-							border: 1px solid rgba(255, 255, 255, 0.5);
-							background: #fff;
-							p {
-								color: #181a20;
-								font-family: $font;
-								font-size: 15px;
-								font-style: normal;
-								font-weight: 600;
-								line-height: normal;
-							}
+				gap: 21px;
+				.job-card-box {
+					width: 302px;
+					height: auto;
+					display: flex;
+					flex-direction: column;
+					margin: -2px;
+					border-radius: 16px;
+					overflow: hidden;
+					box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+					transition: all 0.3s ease;
+					background: white;
+					border: 1px solid #e2e8f0;
+
+					&:hover {
+						box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+						transform: translateY(-4px);
+
+						.card-img .type-badge {
+							opacity: 1;
+							transform: translateY(0);
 						}
 					}
-					.bottom {
+
+					.card-img {
 						width: 100%;
-						height: 173px;
-						padding: 20px 16px 10px 16px;
-						.name-address {
-							width: 100%;
-							height: 48px;
-							gap: 5px;
-							margin-bottom: 20px;
-							.name {
-								width: 100%;
-								height: 23px;
-								overflow: hidden;
-								p {
-									color: #181a20;
-									font-family: $font;
-									font-size: 15px;
-									font-style: normal;
-									font-weight: 600;
-									line-height: normal;
-									text-transform: capitalize;
-								}
+						height: 180px;
+						background-size: cover;
+						background-position: center;
+						border-radius: 16px 16px 0 0;
+						cursor: pointer;
+						position: relative;
+						transition: transform 0.3s ease;
+
+						&:hover {
+							transform: scale(1.05);
+						}
+
+						&::before {
+							content: '';
+							position: absolute;
+							top: 0;
+							left: 0;
+							right: 0;
+							bottom: 0;
+							background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 50%);
+						}
+
+						.salary-badge {
+							position: absolute;
+							left: 16px;
+							bottom: 16px;
+							padding: 8px 12px;
+							background: rgba(255, 255, 255, 0.95);
+							border-radius: 8px;
+							font-weight: 700;
+							font-size: 14px;
+							color: #181a20;
+							box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+							backdrop-filter: blur(4px);
+						}
+
+						.type-badge {
+							position: absolute;
+							top: 16px;
+							right: 16px;
+							background: rgba(0, 0, 0, 0.8);
+							color: white;
+							padding: 6px 12px;
+							border-radius: 20px;
+							font-size: 12px;
+							font-weight: 600;
+							text-transform: capitalize;
+							backdrop-filter: blur(4px);
+							opacity: 0;
+							transform: translateY(-10px);
+							transition: all 0.3s ease;
+						}
+					}
+
+					.info {
+						padding: 20px;
+						display: flex;
+						flex-direction: column;
+						background: #fff;
+
+						.company-info {
+							display: flex;
+							align-items: center;
+							margin-bottom: 8px;
+						}
+
+						.title {
+							font-weight: 700;
+							font-size: 18px;
+							color: #181a20;
+							cursor: pointer;
+							margin-bottom: 8px;
+							line-height: 1.4;
+							transition: color 0.2s;
+
+							&:hover {
+								color: #3b82f6;
 							}
-							.address {
-								width: 100%;
-								overflow: hidden;
-								p {
-									color: #717171;
-									font-family: $font;
-									font-size: 13px;
-									font-style: normal;
-									font-weight: 400;
-									line-height: normal;
+						}
+
+						.desc {
+							font-size: 14px;
+							color: #64748b;
+							line-height: 1.5;
+							margin-bottom: 16px;
+							display: -webkit-box;
+							-webkit-box-orient: vertical;
+							overflow: hidden;
+						}
+
+						.job-meta {
+							display: flex;
+							gap: 8px;
+							flex-wrap: wrap;
+							margin: 12px 0 16px;
+
+							.MuiChip-root {
+								height: 28px;
+								font-size: 12px;
+								font-weight: 500;
+
+								.MuiChip-icon {
+									margin-left: 6px;
+									font-size: 16px;
 								}
 							}
 						}
-						.options {
-							flex-direction: row;
-							width: 100%;
-							height: 20px;
-							gap: 20px;
+
+						.deadline-chip {
+							display: flex;
+							align-items: center;
+							gap: 8px;
+							background: #f8fafc;
+							padding: 8px 12px;
+							border-radius: 12px;
+							font-size: 13px;
+							color: #475569;
 							margin-bottom: 10px;
-							.option {
-								flex-direction: row;
-								gap: 5px;
-								align-items: center;
-								p {
-									color: #181a20;
-									font-family: $font;
-									font-size: 13px;
-									font-style: normal;
-									font-weight: 400;
-									line-height: normal;
+							border: 1px solid #e2e8f0;
+
+							.status-indicator {
+								width: 8px;
+								height: 8px;
+								border-radius: 50%;
+								margin-left: 8px;
+
+								&.active {
+									background-color: #4caf50;
+								}
+
+								&.inactive {
+									background-color: #f44336;
 								}
 							}
 						}
-						.divider {
-							width: 100%;
-							height: 1px;
-							background: #ddd;
-							margin-bottom: 17px;
-						}
-						.type-buttons {
-							flex-direction: row;
-							width: 100%;
+
+						.action-bar {
+							display: flex;
 							justify-content: space-between;
 							align-items: center;
-							.type {
-								flex-direction: row;
-								align-items: center;
-								gap: 7px;
-								p {
-									color: #181a20;
-									font-family: $font;
-									font-style: normal;
-									line-height: normal;
-								}
-								.disabled-type {
-									color: rgba(143, 143, 143, 0.54);
-									font-family: $font;
-									font-style: normal;
-									line-height: normal;
+
+							.view-like-box {
+								display: flex;
+								gap: 4px;
+
+								.action-button {
+									color: #64748b;
+									padding: 6px;
+									background-color: #f1f5f9;
+									border-radius: 8px;
+
+									&:hover {
+										background-color: #e2e8f0;
+									}
+
+									.MuiSvgIcon-root {
+										font-size: 16px;
+									}
 								}
 							}
-							.buttons {
-								flex-direction: row;
-								width: auto;
-								gap: 12px;
-								justify-content: center;
-								align-items: center;
-								padding-right: 10px;
-								svg {
-									cursor: pointer;
-								}
+
+							.status-chip {
+								text-transform: capitalize;
 							}
 						}
 					}

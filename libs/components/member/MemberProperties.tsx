@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { Pagination, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { PropertyCard } from '../mypage/PropertyCard';
+import { PropertyCard } from '../mypage/JobCard';
 import { Property } from '../../types/job/job';
 import { PropertiesInquiry } from '../../types/job/job.input';
 import { T } from '../../types/common';

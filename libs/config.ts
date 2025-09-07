@@ -6,7 +6,7 @@ export const REACT_APP_API_URL = `${process.env.REACT_APP_API_URL}`;
 export const availableOptions = ['jobRemote', 'jobVisaSponsor'];
 
 // Experience levels in years
-export const jobExperienceLevels = [0, 1, 2, 3, 5, 7, 10, 15];
+export const jobExperienceLevels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 20];
 
 // Salary ranges in USD
 export const jobSalaryRanges = [

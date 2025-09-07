@@ -10,8 +10,8 @@
 @import '/scss/pc/agent/agent';
 @import '/scss/pc/agent/detail.scss';
 @import '/scss/pc/mypage/mypage.scss';
-@import '/scss/pc/mypage/addNewProperty.scss';
-@import '/scss/pc/mypage/myProperties.scss';
+@import '/scss/pc/mypage/addNewJob.scss';
+@import '/scss/pc/mypage/myJobs.scss';
 @import '/scss/pc/mypage/myFavorites.scss';
 @import '/scss/pc/mypage/mySaved.scss';
 @import '/scss/pc/mypage/myProfile.scss';
@@ -102,22 +102,17 @@ body::-webkit-scrollbar {
 							font-size: 15px;
 							font-weight: 600;
 							cursor: pointer;
-							padding: 8px 0;
-							transition: all 0.3s ease;
+							padding: 8px 16px;
+							border-radius: 8px;
+							transition: background 0.3s ease, color 0.3s ease;
 
 							&:hover {
-								color: #ffffff;
+								background: rgba(255, 255, 255, 0.08);
+							}
 
-								&::after {
-									content: '';
-									position: absolute;
-									bottom: 0;
-									left: 0;
-									width: 100%;
-									height: 2px;
-									background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-									animation: underline 0.3s ease forwards;
-								}
+							&.active {
+								background: rgba(255, 255, 255, 0.12);
+								color: #fff;
 							}
 
 							.community_menu {
@@ -168,14 +163,14 @@ body::-webkit-scrollbar {
 							align-items: center;
 							justify-content: center;
 							border-radius: 30px;
-							background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+							background: linear-gradient(90deg, #4caf50 0%, #66bb6a 100%);
 							cursor: pointer;
 							transition: all 0.3s ease;
-							box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+							box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
 
 							&:hover {
 								transform: translateY(-2px);
-								box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+								box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
 							}
 
 							svg {
@@ -204,7 +199,7 @@ body::-webkit-scrollbar {
 								transition: all 0.3s ease;
 
 								&:hover {
-									border-color: #4facfe;
+									border-color: #4caf50;
 									transform: scale(1.05);
 								}
 							}
@@ -222,7 +217,7 @@ body::-webkit-scrollbar {
 								transition: all 0.3s ease;
 
 								&:hover {
-									color: #4facfe;
+									color: #4caf50;
 									transform: scale(1.1);
 								}
 							}
@@ -993,7 +988,7 @@ body::-webkit-scrollbar {
 							transition: color 0.3s ease;
 
 							&:hover {
-								color: #4facfe;
+								color: #4caf50; /* Changed from blue to green */
 							}
 						}
 
@@ -1009,7 +1004,7 @@ body::-webkit-scrollbar {
 								transition: all 0.3s ease;
 
 								&:hover {
-									color: #4facfe;
+									color: #4caf50; /* Changed from blue to green */
 									transform: translateY(-3px);
 								}
 							}
@@ -1048,8 +1043,8 @@ body::-webkit-scrollbar {
 							max-width: 600px;
 
 							&:hover {
-								border-color: rgba(79, 172, 254, 0.5);
-								box-shadow: 0 0 15px rgba(79, 172, 254, 0.2);
+								border-color: rgba(76, 175, 80, 0.5); /* Changed from blue to green */
+								box-shadow: 0 0 15px rgba(76, 175, 80, 0.2); /* Changed from blue to green */
 							}
 
 							input {
@@ -1070,7 +1065,7 @@ body::-webkit-scrollbar {
 								color: #fff;
 								font-size: 14px;
 								font-weight: 600;
-								background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+								background: linear-gradient(90deg, #4caf50 0%, #66bb6a 100%); /* Changed from blue to green */
 								padding: 12px 25px;
 								border-radius: 50px;
 								cursor: pointer;
@@ -1078,7 +1073,7 @@ body::-webkit-scrollbar {
 
 								&:hover {
 									transform: translateY(-2px);
-									box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+									box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4); /* Changed from blue to green */
 								}
 							}
 						}
@@ -1112,7 +1107,7 @@ body::-webkit-scrollbar {
 									left: 0;
 									width: 40px;
 									height: 2px;
-									background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+									background: linear-gradient(90deg, #4caf50 0%, #66bb6a 100%); /* Changed from blue to green */
 								}
 							}
 
@@ -1125,7 +1120,7 @@ body::-webkit-scrollbar {
 								padding: 5px 0;
 
 								&:hover {
-									color: #4facfe;
+									color: #4caf50; /* Changed from blue to green */
 									transform: translateX(5px);
 								}
 							}
@@ -1160,56 +1155,9 @@ body::-webkit-scrollbar {
 						transition: color 0.3s ease;
 
 						&:hover {
-							color: #4facfe;
+							color: #4caf50; /* Changed from blue to green */
 						}
 					}
-				}
-			}
-		}
-	}
-
-	// Mobile specific styles
-	@media (max-width: 768px) {
-		#footer {
-			padding: 50px 0 20px;
-
-			.footer-container {
-				padding: 0 20px;
-
-				.main {
-					flex-direction: column;
-					gap: 30px;
-
-					.left {
-						gap: 25px;
-						height: auto;
-
-						.footer-box {
-							gap: 10px;
-						}
-					}
-
-					.right {
-						.top {
-							div {
-								width: 100%;
-								max-width: none;
-							}
-						}
-
-						.bottom {
-							margin-top: 30px;
-							gap: 30px;
-						}
-					}
-				}
-
-				.second {
-					margin-top: 50px;
-					padding-top: 20px;
-					flex-direction: column;
-					align-items: flex-start;
-					gap: 10px;
 				}
 			}
 		}
