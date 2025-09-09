@@ -5,311 +5,380 @@
 			height: auto;
 			display: flex;
 			flex-direction: column;
-			gap: 20px;
+			gap: 30px;
+			padding: 30px;
+			background-color: #f8faf8;
+			font-family: 'Inter', 'Roboto', sans-serif;
+
 			.main-title-box {
 				width: auto;
 				height: auto;
 				flex-direction: row;
 				justify-content: space-between;
+				margin-bottom: 10px;
+
 				.right-box {
-					width: 315px;
+					width: 100%;
+
 					.main-title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 30px;
+						color: #1a3c2a;
+						font-size: 32px;
 						font-style: normal;
-						font-weight: 600;
+						font-weight: 700;
 						line-height: normal;
-						letter-spacing: 0.6px;
-						text-transform: capitalize;
+						letter-spacing: 0.5px;
+						margin-bottom: 8px;
 					}
+
 					.sub-title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 14px;
+						color: #4a725b;
+						font-size: 16px;
 						font-style: normal;
 						font-weight: 400;
-						line-height: 26px;
+						line-height: 1.5;
 					}
 				}
 			}
+
 			.top-box {
 				width: 100%;
-				padding: 30px;
-				margin-top: 35px;
-				gap: 25px;
-				border-radius: 12px;
-				border: 1px solid #c4c4c4;
+				padding: 40px;
+				gap: 35px;
+				border-radius: 16px;
+				border: none;
 				background: #fff;
-				box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+				box-shadow: 0 4px 20px rgba(34, 102, 68, 0.08);
+				display: flex;
+				flex-direction: column;
+
 				.photo-box {
-					gap: 23px;
+					gap: 25px;
+
 					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 17px;
+						color: #1a3c2a;
+						font-size: 18px;
 						font-style: normal;
 						font-weight: 600;
 						line-height: normal;
 					}
+
 					.image-big-box {
 						flex-direction: row;
-						gap: 50px;
+						gap: 60px;
+						align-items: center;
+
 						.image-box {
 							position: relative;
-							width: 194px;
+							width: 170px;
 							height: 157px;
+							border-radius: 25px;
+							overflow: hidden;
+							box-shadow: 0 4px 12px rgba(34, 102, 68, 0.15);
+							border: 3px solid #e8f5e9;
+
 							img {
 								width: 100%;
 								height: 100%;
 								object-fit: cover;
-								border-radius: 15px;
-								object-fit: cover;
-							}
-							.delete-box {
-								position: absolute;
-								top: 10px;
-								left: 10px;
-								width: 36px;
-								height: 32px;
-								background-color: #ffffff;
-								align-items: center;
-								justify-content: center;
-								border-radius: 12px;
 							}
 						}
+
 						.upload-big-box {
-							align-self: flex-end;
-							gap: 22px;
+							align-self: center;
+							gap: 20px;
+
 							.labeler {
 								display: flex;
-								width: 210.023px;
-								height: 40.135px;
+								width: 210px;
+								height: 44px;
 								justify-content: center;
 								align-items: center;
 								cursor: pointer;
-								border-radius: 12px;
-								border: 1px solid #181a20;
+								border-radius: 10px;
+								border: 2px dashed #2e7d32;
+								background-color: rgba(46, 125, 50, 0.05);
+								transition: all 0.2s ease;
+
+								&:hover {
+									background-color: rgba(46, 125, 50, 0.1);
+								}
+
 								p {
-									color: #181a20;
-									font-family: $font;
-									font-size: 13px;
+									color: #2e7d32;
+									font-size: 14px;
 									font-style: normal;
 									font-weight: 600;
 									line-height: normal;
 								}
 							}
+
 							.upload-text {
-								color: #181a20;
-								font-family: $font;
-								font-size: 12px;
+								color: #4a725b;
+								font-size: 13px;
 								font-style: normal;
 								font-weight: 400;
-								line-height: 26px;
+								line-height: 1.5;
+								max-width: 210px;
+								text-align: center;
 							}
 						}
 					}
 				}
+
 				.small-input-box {
 					width: 100%;
 					height: auto;
 					flex-direction: row;
 					flex-wrap: wrap;
 					gap: 30px;
+
 					.input-box {
 						width: 48%;
-						gap: 10px;
+						gap: 12px;
+
 						.title {
-							color: #181a20;
-							font-family: $font;
-							font-size: 12px;
+							color: #1a3c2a;
+							font-size: 14px;
 							font-style: normal;
 							font-weight: 600;
 							line-height: normal;
 						}
+
 						input {
-							height: 55px;
+							height: 56px;
 							outline: none;
-							padding: 0px 15px;
-							border-radius: 8px;
-							border: 1px solid #ddd;
-							::placeholder {
-								color: #717171;
-								font-family: $font;
-								font-size: 12px;
+							padding: 0px 18px;
+							border-radius: 10px;
+							border: 1px solid #c8e6c9;
+							font-size: 16px;
+							transition: all 0.2s ease;
+							background-color: #f8faf8;
+
+							&:focus {
+								border-color: #2e7d32;
+								box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+							}
+
+							&::placeholder {
+								color: #81c784;
+								font-size: 14px;
 								font-style: normal;
 								font-weight: 400;
-								line-height: 26px;
+								line-height: normal;
 							}
 						}
 					}
 				}
+
 				.address-box {
-					gap: 10px;
+					gap: 12px;
+
 					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 12px;
+						color: #1a3c2a;
+						font-size: 14px;
 						font-style: normal;
 						font-weight: 600;
 						line-height: normal;
 					}
+
 					input {
-						height: 55px;
+						height: 56px;
 						outline: none;
-						padding: 0px 15px;
-						border-radius: 8px;
-						border: 1px solid #ddd;
-						::placeholder {
-							color: #717171;
-							font-family: $font;
-							font-size: 12px;
+						padding: 0px 18px;
+						border-radius: 10px;
+						border: 1px solid #c8e6c9;
+						font-size: 16px;
+						transition: all 0.2s ease;
+						background-color: #f8faf8;
+
+						&:focus {
+							border-color: #2e7d32;
+							box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+						}
+
+						&::placeholder {
+							color: #81c784;
+							font-size: 14px;
 							font-style: normal;
 							font-weight: 400;
-							line-height: 26px;
+							line-height: normal;
 						}
 					}
 				}
+
 				.about-me-box {
-					gap: 10px;
-					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 12px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-					}
-					.about-textarea {
-						height: 170px;
-						padding: 20px 15px;
-						border-radius: 8px;
-						border: 1px solid #ddd;
-						color: #717171;
-						font-family: $font;
-						font-size: 12px;
-						font-style: normal;
-						font-weight: 400;
-						line-height: 26px;
-					}
+					gap: 12px;
+					align-items: flex-end;
+
 					.update-button {
 						display: flex;
-						width: 170px;
-						height: 38px;
+						width: 180px;
+						height: 48px;
 						justify-content: center;
 						align-items: center;
 						gap: 10px;
-						align-self: flex-end;
-						margin-top: 30px;
-						border-radius: 12px;
-						background-color: #000000;
+						margin-top: 20px;
+						border-radius: 10px;
+						background: linear-gradient(45deg, #2e7d32, #4caf50);
+						border: none;
+						cursor: pointer;
+						transition: all 0.2s ease;
+
+						&:hover {
+							background: linear-gradient(45deg, #1b5e20, #2e7d32);
+							transform: translateY(-2px);
+							box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+						}
+
 						p {
 							color: #fff;
-							font-family: $font;
-							font-size: 13px;
+							font-size: 15px;
 							font-style: normal;
 							font-weight: 600;
 							line-height: normal;
 						}
 					}
+
 					button:disabled {
-						background: #181a2045;
+						background: #a5d6a7;
+						cursor: not-allowed;
+						transform: none;
+						box-shadow: none;
+
+						&:hover {
+							background: #a5d6a7;
+							transform: none;
+							box-shadow: none;
+						}
 					}
 				}
 			}
+
 			.bottom-box {
 				width: 100%;
-				padding: 30px;
-				gap: 25px;
-				border-radius: 12px;
-				border: 1px solid #c4c4c4;
+				padding: 40px;
+				gap: 30px;
+				border-radius: 16px;
+				border: none;
 				background: #fff;
-				box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+				box-shadow: 0 4px 20px rgba(34, 102, 68, 0.08);
+
 				.top-inner-box {
-					gap: 20px;
+					gap: 24px;
+
 					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 15px;
+						color: #1a3c2a;
+						font-size: 18px;
 						font-style: normal;
 						font-weight: 600;
 						line-height: normal;
 					}
+
 					.old-password-box {
-						gap: 10px;
+						gap: 12px;
+
 						.title {
-							color: #181a20;
-							font-family: $font;
-							font-size: 12px;
+							color: #1a3c2a;
+							font-size: 14px;
 							font-style: normal;
 							font-weight: 600;
 							line-height: normal;
 						}
+
 						input {
 							width: 50%;
-							height: 55px;
+							height: 56px;
 							outline: none;
-							padding: 0px 15px;
-							border-radius: 8px;
-							border: 1px solid #ddd;
-							::placeholder {
-								color: #717171;
-								font-family: $font;
-								font-size: 12px;
+							padding: 0px 18px;
+							border-radius: 10px;
+							border: 1px solid #c8e6c9;
+							font-size: 16px;
+							transition: all 0.2s ease;
+							background-color: #f8faf8;
+
+							&:focus {
+								border-color: #2e7d32;
+								box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+							}
+
+							&::placeholder {
+								color: #81c784;
+								font-size: 14px;
 								font-style: normal;
 								font-weight: 400;
-								line-height: 26px;
+								line-height: normal;
 							}
 						}
 					}
 				}
+
 				.bottom-inner-box {
 					width: 100%;
 					flex-direction: row;
-					gap: 45px;
+					gap: 30px;
+
 					.new-password-box {
 						width: 100%;
-						gap: 10px;
+						gap: 12px;
+
 						.title {
-							color: #181a20;
-							font-family: $font;
-							font-size: 12px;
+							color: #1a3c2a;
+							font-size: 14px;
 							font-style: normal;
 							font-weight: 600;
 							line-height: normal;
 						}
+
 						input {
-							height: 55px;
+							height: 56px;
 							outline: none;
-							padding: 0px 15px;
-							border-radius: 8px;
-							border: 1px solid #ddd;
-							::placeholder {
-								color: #717171;
-								font-family: $font;
-								font-size: 12px;
+							padding: 0px 18px;
+							border-radius: 10px;
+							border: 1px solid #c8e6c9;
+							font-size: 16px;
+							transition: all 0.2s ease;
+							background-color: #f8faf8;
+
+							&:focus {
+								border-color: #2e7d32;
+								box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+							}
+
+							&::placeholder {
+								color: #81c784;
+								font-size: 14px;
 								font-style: normal;
 								font-weight: 400;
-								line-height: 26px;
+								line-height: normal;
 							}
 						}
 					}
 				}
+
 				.change-password {
 					display: flex;
-					width: 170px;
-					height: 38px;
+					width: 200px;
+					height: 48px;
 					justify-content: center;
 					align-items: center;
 					gap: 10px;
 					align-self: flex-end;
-					margin-top: 18px;
-					border-radius: 12px;
-					background-color: #000000;
+					margin-top: 20px;
+					border-radius: 10px;
+					background: linear-gradient(45deg, #388e3c, #4caf50);
+					border: none;
+					cursor: pointer;
+					transition: all 0.2s ease;
+
+					&:hover {
+						background: linear-gradient(45deg, #2e7d32, #388e3c);
+						transform: translateY(-2px);
+						box-shadow: 0 4px 12px rgba(56, 142, 60, 0.3);
+					}
+
 					p {
 						color: #fff;
-						font-family: $font;
-						font-size: 13px;
+						font-size: 15px;
 						font-style: normal;
 						font-weight: 600;
 						line-height: normal;

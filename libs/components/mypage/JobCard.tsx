@@ -8,7 +8,7 @@ import { Job } from '../../types/job/job';
 import { formatterStr } from '../../utils';
 import Moment from 'react-moment';
 import { useRouter } from 'next/router';
-import { JobStatus } from '../../enums/job.enum';
+import { JobStatus, SalaryType } from '../../enums/job.enum';
 
 interface JobCardProps {
 	job: Job;
@@ -50,6 +50,36 @@ export const JobCard = (props: JobCardProps) => {
 		setAnchorEl(null);
 	};
 
+	const formatSalary = (salary: number, type: SalaryType) => {
+		const formatter = new Intl.NumberFormat('en-US', {
+			style: 'currency',
+			currency: 'USD',
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0,
+		});
+
+		const amount = formatter.format(salary);
+
+		switch (type) {
+			case SalaryType.HOURLY:
+				return `${amount}/hr`;
+			case SalaryType.DAILY:
+				return `${amount}/day`;
+			case SalaryType.WEEKLY:
+				return `${amount}/week`;
+			case SalaryType.MONTHLY:
+				return `${amount}/month`;
+			case SalaryType.YEARLY:
+				return `${amount}/year`;
+			case SalaryType.PROJECT:
+				return `${amount}/project`;
+			case SalaryType.COMMISSION:
+				return `Commission: ${amount}`;
+			default:
+				return amount;
+		}
+	};
+
 	if (device === 'mobile') {
 		return <div>MOBILE JOB CARD</div>;
 	} else
@@ -62,7 +92,7 @@ export const JobCard = (props: JobCardProps) => {
 					<Typography className="name">{job.jobTitle}</Typography>
 					<Typography className="address">{job.jobAddress}</Typography>
 					<Typography className="price">
-						<strong>${formatterStr(job?.jobSalary)}</strong>
+						<strong>{formatSalary(job.jobSalary, job.salaryType)}</strong>
 					</Typography>
 				</Stack>
 				<Stack className="date-box">

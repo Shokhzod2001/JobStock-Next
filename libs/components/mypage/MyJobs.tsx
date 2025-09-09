@@ -75,7 +75,7 @@ const MyJobs: NextPage = ({ initialInput, ...props }: any) => {
 	}
 
 	if (device === 'mobile') {
-		return <div>NESTAR JOBS MOBILE</div>;
+		return <div>JOBSTOCK JOBS MOBILE</div>;
 	} else {
 		return (
 			<div id="my-job-page">

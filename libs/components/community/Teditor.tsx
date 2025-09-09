@@ -174,9 +174,35 @@ const TuiEditor = () => {
 
 			<Stack direction="row" justifyContent="center">
 				<Button
-					variant="contained"
-					color="primary"
-					style={{ margin: '30px', width: '250px', height: '45px' }}
+					className="register-button"
+					style={{
+						display: 'flex',
+						width: '280px',
+						height: '48px',
+						justifyContent: 'center',
+						alignItems: 'center',
+						gap: '10px',
+						margin: '30px 0',
+						borderRadius: '10px',
+						background: 'linear-gradient(45deg, #2e7d32, #4caf50)',
+						border: 'none',
+						cursor: 'pointer',
+						transition: 'all 0.2s ease',
+						textTransform: 'none',
+						color: '#fff',
+						fontSize: '15px',
+						fontWeight: '600',
+					}}
+					onMouseOver={(e: any) => {
+						e.target.style.background = 'linear-gradient(45deg, #1b5e20, #2e7d32)';
+						e.target.style.transform = 'translateY(-2px)';
+						e.target.style.boxShadow = '0 4px 12px rgba(46, 125, 50, 0.3)';
+					}}
+					onMouseOut={(e: any) => {
+						e.target.style.background = 'linear-gradient(45deg, #2e7d32, #4caf50)';
+						e.target.style.transform = 'translateY(0)';
+						e.target.style.boxShadow = 'none';
+					}}
 					onClick={handleRegisterButton}
 				>
 					Register

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Box, Typography, Chip, Tooltip, Button } from '@mui/material';
+import { Typography, Chip, Tooltip, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -9,15 +9,13 @@ import WorkIcon from '@mui/icons-material/Work';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import BusinessIcon from '@mui/icons-material/Business';
 import { Job } from '../../types/job/job';
-import Link from 'next/link';
-import { formatterStr } from '../../utils';
+
 import { REACT_APP_API_URL, topJobRank } from '../../config';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { useRouter } from 'next/router';
 import { JobType, SalaryType } from '../../enums/job.enum';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { color } from 'framer-motion';
 
 interface JobCardType {
 	job: Job;
@@ -150,24 +148,28 @@ const JobCard = (props: JobCardType) => {
 								</Typography>
 							</IconButton>
 						</Tooltip>
+						{!recentlyVisited && (
+							<Tooltip title={job?.meLiked?.[0]?.myFavorite ? 'Remove from favorites' : 'Add to favorites'}>
+								<IconButton size="small" className="action-button" onClick={() => likeJobHandler(user, job._id)}>
+									{myFavorites ? (
+										<FavoriteIcon color="error" />
+									) : job?.meLiked && job?.meLiked[0]?.myFavorite ? (
+										<FavoriteIcon color="error" />
+									) : (
+										<FavoriteBorderIcon />
+									)}
+									<Typography variant="caption" ml={0.5}>
+										{job.jobLikes}
+									</Typography>
+								</IconButton>
+							</Tooltip>
+						)}
 
-						<Tooltip title={job?.meLiked?.[0]?.myFavorite ? 'Remove from favorites' : 'Add to favorites'}>
-							<IconButton size="small" className="action-button" onClick={() => likeJobHandler(user, job._id)}>
-								{job?.meLiked?.[0]?.myFavorite ? (
-									<FavoriteIcon color="error" fontSize="small" />
-								) : (
-									<FavoriteIcon fontSize="small" />
-								)}
-								<Typography variant="caption" ml={0.5}>
-									{job.jobLikes}
-								</Typography>
-							</IconButton>
-						</Tooltip>
 						<Button
 							variant="contained"
 							size="medium"
 							className="apply-btn"
-							style={{ marginLeft: 60, color: 'white' }}
+							style={{ marginLeft: recentlyVisited ? 100 : 60, color: 'white' }}
 							onClick={() => pushDetailHandler(job._id)}
 						>
 							Apply
