@@ -62,24 +62,6 @@ export const Messages = {
 // Ranking threshold for top jobs
 export const topJobRank = 3;
 
-// Job categories with icons
-export const jobCategoryConfig = {
-	[JobCategory.IT]: { icon: 'code', color: 'primary' },
-	[JobCategory.FINANCE]: { icon: 'attach_money', color: 'success' },
-	[JobCategory.EDUCATION]: { icon: 'school', color: 'warning' },
-	[JobCategory.HEALTHCARE]: { icon: 'medical_services', color: 'error' },
-	[JobCategory.ENGINEERING]: { icon: 'engineering', color: 'info' },
-	[JobCategory.MARKETING]: { icon: 'campaign', color: 'secondary' },
-	[JobCategory.SALES]: { icon: 'point_of_sale', color: 'primary' },
-	[JobCategory.CUSTOMER_SERVICE]: { icon: 'support_agent', color: 'success' },
-	[JobCategory.HUMAN_RESOURCES]: { icon: 'groups', color: 'warning' },
-	[JobCategory.MANUFACTURING]: { icon: 'factory', color: 'error' },
-	[JobCategory.HOSPITALITY]: { icon: 'hotel', color: 'info' },
-	[JobCategory.CONSTRUCTION]: { icon: 'construction', color: 'secondary' },
-	[JobCategory.TRANSPORTATION]: { icon: 'local_shipping', color: 'primary' },
-	[JobCategory.OTHER]: { icon: 'category', color: 'default' },
-};
-
 // Maximum allowed job images
 export const MAX_JOB_IMAGES = 5;
 

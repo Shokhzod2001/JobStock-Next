@@ -249,8 +249,8 @@
 				}
 
 				.category-icon {
-					width: 80px;
-					height: 80px;
+					width: 170px;
+					height: 170px;
 					border-radius: 50%;
 					background: #ecfdf5;
 					display: flex;
@@ -403,6 +403,16 @@
 				margin: 0 auto;
 				display: flex;
 				flex-direction: column;
+
+				.left {
+					span {
+						color: #111827;
+						font-family: $font;
+						font-size: 32px;
+						font-weight: 700;
+						line-height: 1.2;
+					}
+				}
 
 				.card-box {
 					position: relative;
@@ -673,6 +683,50 @@
 				padding: 0 20px;
 				display: flex;
 				flex-direction: column;
+
+				.left {
+					span {
+						color: #111827;
+						font-family: $font;
+						font-size: 32px;
+						font-weight: 700;
+						line-height: 1.2;
+					}
+				}
+
+				.more-box {
+					display: flex;
+					align-items: center;
+					gap: 8px;
+					cursor: pointer;
+					transition: $transition-fast;
+					text-decoration: none;
+
+					&:hover {
+						transform: translateX(4px);
+						span {
+							color: green;
+						}
+						svg {
+							color: green;
+						}
+					}
+
+					span {
+						color: $text-color;
+						font-family: $font;
+						font-size: 16px;
+						font-weight: 500;
+						transition: $transition-fast;
+					}
+
+					svg {
+						width: 20px;
+						height: 20px;
+						color: $text-color;
+						transition: $transition-fast;
+					}
+				}
 
 				.card-box {
 					position: relative;
@@ -1019,6 +1073,16 @@
 				display: flex;
 				flex-direction: column;
 
+				.left {
+					span {
+						color: #111827;
+						font-family: $font;
+						font-size: 32px;
+						font-weight: 700;
+						line-height: 1.2;
+					}
+				}
+
 				.card-box {
 					position: relative;
 					margin-top: 50px;
@@ -1319,6 +1383,50 @@
 				padding: 0 20px;
 				width: 100%;
 
+				.left {
+					span {
+						color: #111827;
+						font-family: $font;
+						font-size: 32px;
+						font-weight: 700;
+						line-height: 1.2;
+					}
+				}
+
+				.more-box {
+					display: flex;
+					align-items: center;
+					gap: 8px;
+					cursor: pointer;
+					transition: $transition-fast;
+					text-decoration: none;
+
+					&:hover {
+						transform: translateX(4px);
+						span {
+							color: green;
+						}
+						svg {
+							color: green;
+						}
+					}
+
+					span {
+						color: $text-color;
+						font-family: $font;
+						font-size: 16px;
+						font-weight: 500;
+						transition: $transition-fast;
+					}
+
+					svg {
+						width: 20px;
+						height: 20px;
+						color: $text-color;
+						transition: $transition-fast;
+					}
+				}
+
 				.wrapper {
 					width: 100%;
 					margin-top: 60px;
@@ -1585,126 +1693,213 @@
 		}
 
 		.community-board {
-			position: relative;
-			padding: 100px 0px 80px;
+			padding: 80px 0;
 			width: 100%;
-			display: flex;
-			flex-direction: row;
-			background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+			background: $background-light;
 
 			.container {
-				width: 100%;
-				max-width: 1280px;
+				max-width: 1300px;
 				margin: 0 auto;
-				padding: 0 20px;
+				width: 100%;
+				padding: 0 15px;
+				display: flex;
 				flex-direction: column;
-				align-items: center;
 
-				.main-title {
-					font-family: $font;
-					font-weight: 700;
-					font-size: 2.5rem;
-					text-align: center;
-					background: linear-gradient(135deg, #01963f 0%, #284e0f 100%); // green gradient
-					-webkit-background-clip: text;
-					-webkit-text-fill-color: transparent;
-					background-clip: text;
-					color: transparent;
-					margin-bottom: 10px;
-				}
+				.info-box {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: space-between;
+					margin-bottom: 30px;
 
-				.subtitle {
-					font-family: $font;
-					font-weight: 400;
-					font-size: 1.1rem;
-					text-align: center;
-					color: #64748b;
-					margin-bottom: 60px;
+					.left {
+						span {
+							color: #111827;
+							font-family: $font;
+							font-size: 32px;
+							font-weight: 700;
+							line-height: 1.2;
+						}
+					}
+
+					.right {
+						.more-box {
+							display: flex;
+							align-items: center;
+							gap: 8px;
+							cursor: pointer;
+							transition: $transition-fast;
+							text-decoration: none;
+
+							&:hover {
+								transform: translateX(4px);
+								span {
+									color: green;
+								}
+								svg {
+									color: green;
+								}
+							}
+
+							span {
+								color: $text-color;
+								font-family: $font;
+								font-size: 16px;
+								font-weight: 500;
+								transition: $transition-fast;
+							}
+
+							svg {
+								width: 20px;
+								height: 20px;
+								color: $text-color;
+								transition: $transition-fast;
+							}
+						}
+					}
 				}
 
 				.community-main {
+					display: grid;
+					grid-template-columns: repeat(3, 1fr);
+					gap: 16px;
 					width: 100%;
-					display: flex;
-					flex-direction: row;
-					justify-content: space-between;
-					gap: 30px;
 
-					.divider {
-						width: 1px;
-						background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
-						margin: 0 10px;
-					}
-
-					.content-top {
-						margin-bottom: 26px;
+					.community-section {
+						background: $background-white;
+						border-radius: $border-radius-medium;
+						padding: 24px;
+						box-shadow: $shadow-light;
+						border: 1px solid $border-light;
 						width: 100%;
-						display: flex;
-						flex-direction: row;
-						justify-content: space-between;
-						align-items: center;
-						border-bottom: 2px solid #e2e8f0;
-						padding-bottom: 10px;
+						max-width: 400px;
 
-						.section-title {
+						.content-top {
 							display: flex;
 							align-items: center;
-							cursor: pointer;
+							justify-content: space-between;
+							margin-bottom: 20px;
 
-							span {
-								font-family: $font;
-								font-weight: 600;
-								font-size: 1.3rem;
-								color: #334155;
-								transition: all 0.3s ease;
-							}
+							a {
+								display: flex;
+								align-items: center;
+								text-decoration: none;
+								transition: transform 0.2s ease;
 
-							img {
-								margin-left: 10px;
-								width: 16px;
-								height: 16px;
-								transition: all 0.3s ease;
-							}
+								&:hover {
+									transform: translateX(4px);
 
-							&:hover {
+									span {
+										color: $primary-color;
+									}
+								}
+
 								span {
-									color: #01963f;
+									font-size: 18px;
+									font-weight: 600;
+									color: $text-color;
+									transition: color 0.2s ease;
+								}
+
+								img {
+									width: 16px;
+									height: 16px;
+									margin-left: 8px;
+									transition: transform 0.2s ease;
 								}
 							}
 						}
-					}
-
-					.community-left {
-						flex: 1;
-						max-width: 400px;
-						height: auto;
-						display: flex;
-						flex-direction: column;
 
 						.card-wrap {
-							display: grid;
-							grid-template-columns: repeat(2, 1fr);
-							gap: 20px;
-						}
-					}
-
-					.community-middle,
-					.community-right {
-						flex: 1;
-						max-width: 300px;
-						height: auto;
-						display: flex;
-						flex-direction: column;
-
-						.card-wrap.vertical {
 							display: flex;
 							flex-direction: column;
-							gap: 25px;
+							gap: 16px;
+
+							.community-card {
+								background: #fff;
+								border-radius: $border-radius-medium;
+								transition: $transition-smooth;
+								overflow: hidden;
+								display: flex;
+								text-decoration: none;
+								border: 1px solid $border-light;
+								box-shadow: $shadow-light;
+
+								&:hover {
+									transform: translateY(-4px);
+									box-shadow: $shadow-medium;
+									border-color: $primary-color;
+
+									.card-media img {
+										transform: scale(1.05);
+									}
+								}
+
+								.card-media {
+									width: 120px;
+									min-width: 120px;
+									height: 100px;
+									overflow: hidden;
+									img {
+										width: 100%;
+										height: 100%;
+										object-fit: cover;
+										transition: transform 0.3s ease;
+									}
+								}
+
+								.card-content {
+									padding: 16px;
+									flex: 1;
+									display: flex;
+									flex-direction: column;
+									min-height: 90px;
+									overflow: auto;
+									.article-title {
+										font-size: 14px;
+										font-weight: 600;
+										color: $text-color;
+										margin-bottom: 8px;
+										display: -webkit-box;
+										line-clamp: 2;
+										-webkit-line-clamp: 2;
+										-webkit-box-orient: vertical;
+										overflow: hidden;
+										line-height: 1.4;
+										white-space: pre-wrap;
+									}
+
+									.card-footer {
+										display: flex;
+										justify-content: space-between;
+										align-items: center;
+										margin-top: auto;
+
+										.meta-info {
+											display: flex;
+											align-items: center;
+											gap: 4px;
+											color: $text-muted;
+											font-size: 12px;
+
+											.views-icon {
+												width: 14px;
+												height: 14px;
+												color: $text-muted;
+											}
+
+											.date {
+												color: $text-muted;
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 				}
 			}
 		}
-
 		// Card Styles
 		.vertical-card {
 			width: 100%;

@@ -6,7 +6,6 @@ import { T } from '../../types/common';
 import { JobsInquiry } from '../../types/job/job.input';
 import { Job } from '../../types/job/job';
 import { GET_JOBS } from '../../../apollo/user/query';
-import { jobCategoryConfig } from '../../config';
 import { JobCategory } from '../../enums/job.enum';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Grid, Navigation } from 'swiper';
@@ -45,20 +44,50 @@ const Categories = (props: CategoriesProps) => {
 		}
 	}, [jobs]);
 
+	const getCategoryImage = (category: JobCategory) => {
+		const imageMap: Record<JobCategory, string> = {
+			[JobCategory.IT]: 'It.png',
+			[JobCategory.FINANCE]: 'Finance.png',
+			[JobCategory.EDUCATION]: 'Education.png',
+			[JobCategory.HEALTHCARE]: 'Healthcare.png',
+			[JobCategory.ENGINEERING]: 'Engineering.png',
+			[JobCategory.MARKETING]: 'Marketing.png',
+			[JobCategory.SALES]: 'Sales.png',
+			[JobCategory.CUSTOMER_SERVICE]: 'CustomerService.png',
+			[JobCategory.HUMAN_RESOURCES]: 'HR.png',
+			[JobCategory.MANUFACTURING]: 'Manufacturing.png',
+			[JobCategory.HOSPITALITY]: 'Hospitality.png',
+			[JobCategory.CONSTRUCTION]: 'Construction.png',
+			[JobCategory.TRANSPORTATION]: 'Transportation.png',
+			[JobCategory.OTHER]: 'Other.png',
+		};
+
+		return `/img/category/${imageMap[category]}`;
+	};
+
+	const formatCategoryName = (category: string) => {
+		return category
+			.replace(/_/g, ' ')
+			.toLowerCase()
+			.split(' ')
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+			.join(' ');
+	};
+
 	if (loading) return <div>Loading categories...</div>;
 	if (error) return <div>Error loading categories</div>;
 	if (!categoryCounts) return null;
 
 	const CategoryCard = ({ category }: { category: JobCategory }) => {
-		const config = jobCategoryConfig[category];
 		const count = categoryCounts[category];
-		const categoryName = category.replace(/_/g, ' ');
+		const categoryName = formatCategoryName(category);
+		const imagePath = getCategoryImage(category);
 
 		return (
 			<Box className="category-box">
 				<Box className="category-desc">
 					<Box className="category-icon">
-						<Icon baseClassName="material-icons-round">{config.icon}</Icon>
+						<img src={imagePath} alt={categoryName} style={{ width: '170px' }} />
 					</Box>
 					<Box className="category-detail">
 						<Typography variant="h6" className="category-title">
@@ -87,7 +116,6 @@ const Categories = (props: CategoriesProps) => {
 					</Box>
 				</Box>
 
-				{/* Swiper with 2 rows */}
 				<Swiper
 					modules={[Grid, Navigation]}
 					navigation={{
