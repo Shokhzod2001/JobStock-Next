@@ -66,7 +66,7 @@ const withLayoutBasic = (Component: any) => {
 				case '/account/join':
 					title = 'Login/Signup';
 					desc = 'Join thousands of job seekers';
-					bgImage = '/img/banner/auth.png';
+					bgImage = '/img/banner/auth1.jpg';
 					setAuthHeader(true);
 					break;
 				case '/member':
