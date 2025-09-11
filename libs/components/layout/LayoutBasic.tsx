@@ -36,12 +36,12 @@ const withLayoutBasic = (Component: any) => {
 				case '/recruiter':
 					title = 'Recruiters';
 					desc = 'Connect with top hiring managers';
-					bgImage = '/img/banner/recruiters1.jpg';
+					bgImage = '/img/banner/recruiters.jpg';
 					break;
 				case '/recruiter/detail':
 					title = 'Recruiter Profile';
 					desc = 'View recruiter details and contact information';
-					bgImage = '/img/banner/recruiters1.jpg';
+					bgImage = '/img/banner/recruiters.jpg';
 					break;
 				case '/mypage':
 					title = 'My Profile';
@@ -51,17 +51,17 @@ const withLayoutBasic = (Component: any) => {
 				case '/community':
 					title = 'Community';
 					desc = 'Tips and resources for job seekers';
-					bgImage = '/img/banner/community.webp';
+					bgImage = '/img/banner/community.jpg';
 					break;
 				case '/community/detail':
 					title = 'Community Detail';
 					desc = 'Expert advice for your job search';
-					bgImage = '/img/banner/community.webp';
+					bgImage = '/img/banner/community.jpg';
 					break;
 				case '/cs':
 					title = 'Support Center';
 					desc = 'Get help with your job search';
-					bgImage = '/img/banner/support.png';
+					bgImage = '/img/banner/support.jpg';
 					break;
 				case '/account/join':
 					title = 'Login/Signup';

@@ -561,16 +561,20 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 											<Link href={`/member?memberId=${job?.memberData?._id}`}>
 												<Typography className={'company-name'}>{job?.companyName}</Typography>
 											</Link>
-											<Typography className={'recruiter-name'}>{job?.memberData?.memberNick}</Typography>
+											<Link href={`/member?memberId=${job?.memberData?._id}`}>
+												<Typography className={'recruiter-name'}>{job?.memberData?.memberNick}</Typography>
+											</Link>
 											<Stack direction="row" alignItems="center" spacing={1} className={'contact-info'}>
 												<PhoneIcon fontSize="small" />
 												<Typography className={'phone-number'}>{job?.memberData?.memberPhone}</Typography>
 											</Stack>
 										</Box>
 									</Stack>
-									<Button variant="outlined" fullWidth className={'view-jobs-btn'} startIcon={<WorkOutlineIcon />}>
-										View All Jobs
-									</Button>
+									<Link href={`/member?memberId=${job?.memberData?._id}`}>
+										<Button variant="outlined" fullWidth className={'view-jobs-btn'} startIcon={<WorkOutlineIcon />}>
+											View All Jobs
+										</Button>
+									</Link>
 								</Box>
 
 								{/* Application Form Card */}

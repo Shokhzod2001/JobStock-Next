@@ -21,7 +21,6 @@ export default function Document() {
 						'JobStock에서 원하는 직업을 찾아보세요. 대한민국 및 전 세계의 IT, 개발자, 원격 근무 일자리를 확인하세요.'
 					}
 				/>
-				<title>JobStock - Find Jobs in South Korea & Worldwide | IT, MERN, Remote</title>
 			</Head>
 			<body>
 				<Main />

@@ -877,6 +877,10 @@
 									font-family: $font;
 									font-size: 14px;
 									margin-bottom: 8px;
+
+									&:hover {
+										color: #4caf50;
+									}
 								}
 
 								.contact-info {

@@ -25,7 +25,7 @@ const MyJobs: NextPage = ({ initialInput, ...props }: any) => {
 	/** APOLLO REQUESTS **/
 	const [updateJob] = useMutation(UPDATE_JOB);
 	const {
-		loading: getAgentJobsLoading,
+		loading: getEmployerJobsLoading,
 		data: getAgentJobsData,
 		error: getAgentJobsError,
 		refetch: getAgentJobsRefetch,

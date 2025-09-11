@@ -44,6 +44,7 @@ const AddJob = ({ initialValues, ...props }: any) => {
 			...insertJobData,
 			jobTitle: getJobData?.getJob ? getJobData?.getJob?.jobTitle : '',
 			jobSalary: getJobData?.getJob ? getJobData?.getJob?.jobSalary : 0,
+			salaryType: getJobData?.getJob ? getJobData?.getJob?.salaryType : '',
 			jobType: getJobData?.getJob ? getJobData?.getJob?.jobType : '',
 			jobCategory: getJobData?.getJob ? getJobData?.getJob?.jobCategory : '',
 			jobLocation: getJobData?.getJob ? getJobData?.getJob?.jobLocation : '',
@@ -118,9 +119,10 @@ const AddJob = ({ initialValues, ...props }: any) => {
 		if (
 			insertJobData.jobTitle === '' ||
 			insertJobData.jobSalary === 0 || // @ts-ignore
+			insertJobData.salaryType === '' || // @ts-ignore
 			insertJobData.jobType === '' || // @ts-ignore
 			insertJobData.jobCategory === '' || // @ts-ignore
-			insertJobData.jobLocation === '' || // @ts-ignore
+			insertJobData.jobLocation === '' ||
 			insertJobData.jobAddress === '' || // @ts-ignore
 			insertJobData.jobRemote === '' || // @ts-ignore
 			insertJobData.jobVisaSponsor === '' ||
@@ -564,11 +566,11 @@ const AddJob = ({ initialValues, ...props }: any) => {
 						<Stack className="buttons-row">
 							{router.query.jobId ? (
 								<Button className="next-button" disabled={doDisabledCheck()} onClick={updateJobHandler}>
-									<Typography className="next-button-text">Save</Typography>
+									<Typography className="next-button-text">Update</Typography>
 								</Button>
 							) : (
 								<Button className="next-button" disabled={doDisabledCheck()} onClick={insertJobHandler}>
-									<Typography className="next-button-text">Save</Typography>
+									<Typography className="next-button-text">Create</Typography>
 								</Button>
 							)}
 						</Stack>
