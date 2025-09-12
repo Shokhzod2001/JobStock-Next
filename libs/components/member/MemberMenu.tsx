@@ -74,7 +74,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 					) : (
 						<Button
 							variant="contained"
-							sx={{ background: '#ff5d18', ':hover': { background: '#ff5d18' } }}
+							sx={{ background: '#79d85c', ':hover': { background: '#6ac54e' } }}
 							onClick={() => subscribeHandler(member?._id, getMemberRefetch, memberId)}
 						>
 							Follow
@@ -88,23 +88,23 @@ const MemberMenu = (props: MemberMenuProps) => {
 						</Typography>
 						<List className={'sub-section'}>
 							{member?.memberType === 'RECRUITER' && (
-								<ListItem className={category === 'properties' ? 'focus' : ''}>
+								<ListItem className={category === 'jobs' ? 'focus' : ''}>
 									<Link
 										href={{
 											pathname: '/member',
-											query: { ...router.query, category: 'properties' },
+											query: { ...router.query, category: 'jobs' },
 										}}
 										scroll={false}
 										style={{ width: '100%' }}
 									>
 										<div className={'flex-box'}>
-											{category === 'properties' ? (
+											{category === 'jobs' ? (
 												<img className={'com-icon'} src={'/img/icons/homeWhite.svg'} alt={'com-icon'} />
 											) : (
 												<img className={'com-icon'} src={'/img/icons/home.svg'} alt={'com-icon'} />
 											)}
 											<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
-												Properties
+												Jobs
 											</Typography>
 											<Typography className="count-title" variant="subtitle1">
 												{member?.memberProperties}

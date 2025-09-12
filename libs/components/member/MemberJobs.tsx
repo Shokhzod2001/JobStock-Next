@@ -54,13 +54,13 @@ const MyJobs: NextPage = ({ initialInput, ...props }: any) => {
 		return <div>JOBSTOCK JOBS MOBILE</div>;
 	} else {
 		return (
-			<div id="member-properties-page">
+			<div id="member-jobs-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
 						<Typography className="main-title">Jobs</Typography>
 					</Stack>
 				</Stack>
-				<Stack className="properties-list-box">
+				<Stack className="jobs-list-box">
 					<Stack className="list-box">
 						{employerJobs?.length > 0 && (
 							<Stack className="listing-title-box">

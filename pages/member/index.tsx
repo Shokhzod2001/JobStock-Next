@@ -40,7 +40,7 @@ const MemberPage: NextPage = () => {
 			router.replace(
 				{
 					pathname: router.pathname,
-					query: { ...router.query, category: 'properties' },
+					query: { ...router.query, category: 'jobs' },
 				},
 				undefined,
 				{ shallow: true },

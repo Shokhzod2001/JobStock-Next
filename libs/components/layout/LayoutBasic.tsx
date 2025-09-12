@@ -70,9 +70,9 @@ const withLayoutBasic = (Component: any) => {
 					setAuthHeader(true);
 					break;
 				case '/member':
-					title = 'Dashboard';
-					desc = 'Track your job applications and profile';
-					bgImage = '/img/banner/dashboard.png';
+					title = 'Member Page';
+					desc = 'Track job applications and profile';
+					bgImage = '/img/banner/dashboard.jpg';
 					break;
 				default:
 					break;
