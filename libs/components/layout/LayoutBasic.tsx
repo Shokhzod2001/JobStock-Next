@@ -13,6 +13,7 @@ import { useTranslation } from 'next-i18next';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import ScrollToTop from '../common/ScrollToTop';
 
 const withLayoutBasic = (Component: any) => {
 	return (props: any) => {
@@ -143,7 +144,8 @@ const withLayoutBasic = (Component: any) => {
 							<Component {...props} />
 						</Stack>
 
-						<Chat />
+						{router.pathname === '/404' ? '' : <Chat />}
+						<ScrollToTop />
 
 						<Stack id={'footer'}>
 							<Footer />

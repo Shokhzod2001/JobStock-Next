@@ -79,7 +79,7 @@ const MyMenu = () => {
 												<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
 													Add Job
 												</Typography>
-												<IconButton aria-label="delete" sx={{ ml: '74px' }}>
+												<IconButton aria-label="delete" sx={{ ml: '76px' }}>
 													<PortraitIcon style={{ color: 'red' }} />
 												</IconButton>
 											</div>

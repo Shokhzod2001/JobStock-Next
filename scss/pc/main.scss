@@ -813,14 +813,16 @@ body::-webkit-scrollbar {
 			justify-content: center;
 			border-radius: 50%;
 			height: 50px;
-			background: #fff;
+			background: green;
+			color: white;
 			box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.2);
 			transition: transform 0.3s;
 			z-index: 999;
 			&:hover {
 				cursor: pointer;
 				transform: scale(1.1);
-				background-color: #fff;
+				background-color: green;
+				color: white;
 			}
 		}
 		.chat-frame {
@@ -997,7 +999,7 @@ body::-webkit-scrollbar {
 							transition: color 0.3s ease;
 
 							&:hover {
-								color: #4caf50; /* Changed from blue to green */
+								color: #4caf50;
 							}
 						}
 
@@ -1013,7 +1015,7 @@ body::-webkit-scrollbar {
 								transition: all 0.3s ease;
 
 								&:hover {
-									color: #4caf50; /* Changed from blue to green */
+									color: #4caf50;
 									transform: translateY(-3px);
 								}
 							}
@@ -1052,8 +1054,8 @@ body::-webkit-scrollbar {
 							max-width: 600px;
 
 							&:hover {
-								border-color: rgba(76, 175, 80, 0.5); /* Changed from blue to green */
-								box-shadow: 0 0 15px rgba(76, 175, 80, 0.2); /* Changed from blue to green */
+								border-color: rgba(76, 175, 80, 0.5);
+								box-shadow: 0 0 15px rgba(76, 175, 80, 0.2);
 							}
 
 							input {
@@ -1074,7 +1076,7 @@ body::-webkit-scrollbar {
 								color: #fff;
 								font-size: 14px;
 								font-weight: 600;
-								background: linear-gradient(90deg, #4caf50 0%, #66bb6a 100%); /* Changed from blue to green */
+								background: linear-gradient(90deg, #4caf50 0%, #66bb6a 100%);
 								padding: 12px 25px;
 								border-radius: 50px;
 								cursor: pointer;
@@ -1082,7 +1084,7 @@ body::-webkit-scrollbar {
 
 								&:hover {
 									transform: translateY(-2px);
-									box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4); /* Changed from blue to green */
+									box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
 								}
 							}
 						}
@@ -1116,7 +1118,7 @@ body::-webkit-scrollbar {
 									left: 0;
 									width: 40px;
 									height: 2px;
-									background: linear-gradient(90deg, #4caf50 0%, #66bb6a 100%); /* Changed from blue to green */
+									background: linear-gradient(90deg, #4caf50 0%, #66bb6a 100%);
 								}
 							}
 
@@ -1129,7 +1131,7 @@ body::-webkit-scrollbar {
 								padding: 5px 0;
 
 								&:hover {
-									color: #4caf50; /* Changed from blue to green */
+									color: #4caf50;
 									transform: translateX(5px);
 								}
 							}
@@ -1164,7 +1166,7 @@ body::-webkit-scrollbar {
 						transition: color 0.3s ease;
 
 						&:hover {
-							color: #4caf50; /* Changed from blue to green */
+							color: #4caf50;
 						}
 					}
 				}
