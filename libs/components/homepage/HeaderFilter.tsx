@@ -310,7 +310,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						{jobType.map((type: string) => {
 							return (
 								<div onClick={() => jobTypeSelectHandler(type)} key={type} className="type-item">
-									<span>{type.replace('_', ' ')}</span>
+									<img src={`img/banner/types/${type.toLowerCase()}.webp`} alt="" className="type-image" />
+									<span className="type-name">{type.replace('_', ' ')}</span>
 								</div>
 							);
 						})}
