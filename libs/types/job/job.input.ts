@@ -63,7 +63,7 @@ interface AllJISearch {
 	jobStatus?: JobStatus;
 	jobLocationList?: JobLocation[];
 	jobTypeList?: JobType[];
-	jobCategoryList: JobCategory[];
+	jobCategoryList?: JobCategory[];
 	salaryTypeList?: SalaryType[];
 	companyName?: string;
 }

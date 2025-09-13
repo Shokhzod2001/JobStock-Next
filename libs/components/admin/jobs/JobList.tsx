@@ -14,17 +14,17 @@ import {
 } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import { Stack } from '@mui/material';
-import { Property } from '../../../types/job/job';
 import { REACT_APP_API_URL } from '../../../config';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
-import { PropertyStatus } from '../../../enums/job.enum';
+import { Job } from '../../../types/job/job';
+import { JobStatus } from '../../../enums/job.enum';
 
 interface Data {
 	id: string;
 	title: string;
-	price: string;
-	agent: string;
+	salary: string;
+	recruiter: string;
 	location: string;
 	type: string;
 	status: string;
@@ -53,16 +53,16 @@ const headCells: readonly HeadCell[] = [
 		label: 'TITLE',
 	},
 	{
-		id: 'price',
+		id: 'salary',
 		numeric: false,
 		disablePadding: false,
-		label: 'PRICE',
+		label: 'SALARY',
 	},
 	{
-		id: 'agent',
+		id: 'recruiter',
 		numeric: false,
 		disablePadding: false,
-		label: 'AGENT',
+		label: 'RECRUITER',
 	},
 	{
 		id: 'location',
@@ -86,7 +86,7 @@ const headCells: readonly HeadCell[] = [
 
 interface EnhancedTableProps {
 	numSelected: number;
-	onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
+	onRequestSort: (event: React.MouseEvent<unknown>, job: keyof Data) => void;
 	onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	order: Order;
 	orderBy: string;
@@ -113,24 +113,17 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 	);
 }
 
-interface PropertyPanelListType {
-	properties: Property[];
+interface JobPanelListType {
+	jobs: Job[];
 	anchorEl: any;
 	menuIconClickHandler: any;
 	menuIconCloseHandler: any;
-	updatePropertyHandler: any;
-	removePropertyHandler: any;
+	updateJobHandler: any;
+	removeJobHandler: any;
 }
 
-export const PropertyPanelList = (props: PropertyPanelListType) => {
-	const {
-		properties,
-		anchorEl,
-		menuIconClickHandler,
-		menuIconCloseHandler,
-		updatePropertyHandler,
-		removePropertyHandler,
-	} = props;
+export const JobPanelList = (props: JobPanelListType) => {
+	const { jobs, anchorEl, menuIconClickHandler, menuIconCloseHandler, updateJobHandler, removeJobHandler } = props;
 
 	return (
 		<Stack>
@@ -139,7 +132,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 					{/*@ts-ignore*/}
 					<EnhancedTableHead />
 					<TableBody>
-						{properties.length === 0 && (
+						{jobs.length === 0 && (
 							<TableRow>
 								<TableCell align="center" colSpan={8}>
 									<span className={'no-data'}>data not found!</span>
@@ -147,57 +140,59 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 							</TableRow>
 						)}
 
-						{properties.length !== 0 &&
-							properties.map((property: Property, index: number) => {
-								const propertyImage = `${REACT_APP_API_URL}/${property?.propertyImages[0]}`;
+						{jobs.length !== 0 &&
+							jobs.map((job: Job, index: number) => {
+								const jobImage = `${REACT_APP_API_URL}/${job?.jobImages[0]}`;
 
 								return (
-									<TableRow hover key={property?._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-										<TableCell align="left">{property._id}</TableCell>
+									<TableRow hover key={job?._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+										<TableCell align="left">{job._id}</TableCell>
 										<TableCell align="left" className={'name'}>
-											{property.propertyStatus === PropertyStatus.ACTIVE ? (
+											{job.jobStatus === JobStatus.ACTIVE ? (
 												<Stack direction={'row'}>
-													<Link href={`/property/detail?id=${property?._id}`}>
+													<Link href={`/job/detail?id=${job?._id}`}>
 														<div>
-															<Avatar alt="Remy Sharp" src={propertyImage} sx={{ ml: '2px', mr: '10px' }} />
+															<Avatar alt="Remy Sharp" src={jobImage} sx={{ ml: '2px', mr: '10px' }} />
 														</div>
 													</Link>
-													<Link href={`/property/detail?id=${property?._id}`}>
-														<div>{property.propertyTitle}</div>
+													<Link href={`/job/detail?id=${job?._id}`}>
+														<div>{job.jobTitle}</div>
 													</Link>
 												</Stack>
 											) : (
 												<Stack direction={'row'}>
 													<div>
-														<Avatar alt="Remy Sharp" src={propertyImage} sx={{ ml: '2px', mr: '10px' }} />
+														<Avatar alt="Remy Sharp" src={jobImage} sx={{ ml: '2px', mr: '10px' }} />
 													</div>
-													<div style={{ marginTop: '10px' }}>{property.propertyTitle}</div>
+													<div style={{ marginTop: '10px' }}>{job.jobTitle}</div>
 												</Stack>
 											)}
 										</TableCell>
-										<TableCell align="center">{property.propertyPrice}</TableCell>
-										<TableCell align="center">{property.memberData?.memberNick}</TableCell>
-										<TableCell align="center">{property.propertyLocation}</TableCell>
-										<TableCell align="center">{property.propertyType}</TableCell>
 										<TableCell align="center">
-											{property.propertyStatus === PropertyStatus.DELETE && (
+											${job.jobSalary} / {job.salaryType}
+										</TableCell>
+										<TableCell align="center">{job.memberData?.memberNick}</TableCell>
+										<TableCell align="center">{job.jobLocation}</TableCell>
+										<TableCell align="center">{job.jobType}</TableCell>
+										<TableCell align="center">
+											{job.jobStatus === JobStatus.DELETE && (
 												<Button
 													variant="outlined"
 													sx={{ p: '3px', border: 'none', ':hover': { border: '1px solid #000000' } }}
-													onClick={() => removePropertyHandler(property._id)}
+													onClick={() => removeJobHandler(job._id)}
 												>
 													<DeleteIcon fontSize="small" />
 												</Button>
 											)}
 
-											{property.propertyStatus === PropertyStatus.SOLD && (
-												<Button className={'badge warning'}>{property.propertyStatus}</Button>
+											{job.jobStatus === JobStatus.CLOSED && (
+												<Button className={'badge warning'}>{job.jobStatus}</Button>
 											)}
 
-											{property.propertyStatus === PropertyStatus.ACTIVE && (
+											{job.jobStatus === JobStatus.ACTIVE && (
 												<>
 													<Button onClick={(e: any) => menuIconClickHandler(e, index)} className={'badge success'}>
-														{property.propertyStatus}
+														{job.jobStatus}
 													</Button>
 
 													<Menu
@@ -211,11 +206,11 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 														TransitionComponent={Fade}
 														sx={{ p: 1 }}
 													>
-														{Object.values(PropertyStatus)
-															.filter((ele) => ele !== property.propertyStatus)
+														{Object.values(JobStatus)
+															.filter((ele) => ele !== job.jobStatus)
 															.map((status: string) => (
 																<MenuItem
-																	onClick={() => updatePropertyHandler({ _id: property._id, propertyStatus: status })}
+																	onClick={() => updateJobHandler({ _id: job._id, jobStatus: status })}
 																	key={status}
 																>
 																	<Typography variant={'subtitle1'} component={'span'}>
