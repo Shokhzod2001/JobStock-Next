@@ -1,0 +1,171 @@
+#pc-wrap {
+	@import url('https://fonts.googleapis.com/css?family=Dosis:300,400,700,800');
+
+	// Variables
+	$font-family: 'Dosis', sans-serif;
+	$white: #fff;
+	$yellow: #ffbb39;
+	$bg-color: #24344c;
+
+	/** Styles for the 403 Page **/
+	.particle-error,
+	.permission_denied,
+	#particles-js {
+		padding-top: 100px;
+		width: 100%;
+		height: 920px;
+		margin: 0 !important;
+	}
+
+	#particles-js {
+		position: fixed !important;
+		opacity: 0.23;
+	}
+
+	.permission_denied {
+		background: $bg-color !important;
+
+		a {
+			text-decoration: none;
+		}
+
+		h1 {
+			text-align: center;
+			color: $white;
+			font-family: $font-family;
+			font-size: 100px;
+			margin-bottom: 0;
+			font-weight: 800;
+		}
+
+		h3 {
+			text-align: center;
+			color: $white;
+			font-size: 19px;
+			line-height: 23px;
+			max-width: 330px;
+			margin: 0 auto 30px;
+			font-family: $font-family;
+			font-weight: 400;
+
+			span {
+				position: relative;
+				width: 65px;
+				display: inline-block;
+
+				&::after {
+					content: '';
+					border-bottom: 3px solid $yellow;
+					position: absolute;
+					left: 0;
+					top: 43%;
+					width: 100%;
+				}
+			}
+		}
+
+		.stars {
+			animation: sparkle 1.6s infinite ease-in-out alternate;
+		}
+	}
+
+	.denied__wrapper {
+		max-width: 390px;
+		width: 100%;
+		height: 390px;
+		display: block;
+		margin: 8vh auto 0;
+		position: relative;
+	}
+
+	.denied__link {
+		background: none;
+		color: $white;
+		padding: 12px 0 10px;
+		border: 1px solid $white;
+		outline: none;
+		border-radius: 7px;
+		width: 150px;
+		font-size: 15px;
+		text-align: center;
+		margin: 25px auto 40px;
+		display: block;
+		font-family: $font-family;
+		font-weight: 400;
+
+		&:hover {
+			color: $yellow;
+			border-color: $yellow;
+			cursor: pointer;
+			opacity: 1;
+		}
+	}
+
+	#astronaut {
+		width: 43px;
+		position: absolute;
+		right: 20px;
+		top: 210px;
+		animation: spin 4.5s infinite linear;
+	}
+
+	// Animations
+	@keyframes sparkle {
+		0% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0.3;
+		}
+	}
+
+	@keyframes spin {
+		0% {
+			transform: rotateZ(0deg);
+		}
+		100% {
+			transform: rotateZ(360deg);
+		}
+	}
+
+	@keyframes hover {
+		0% {
+			transform: translateY(3px);
+		}
+		100% {
+			transform: translateY(-3px);
+		}
+	}
+
+	// Media Queries
+	@media (max-width: 600px) {
+		.permission_denied {
+			h1 {
+				font-size: 75px;
+			}
+
+			h3 {
+				font-size: 16px;
+				width: 200px;
+				margin: 0 auto;
+				line-height: 23px;
+
+				span {
+					width: 60px;
+				}
+			}
+		}
+
+		#astronaut {
+			width: 35px;
+			right: 40px;
+			top: 170px;
+		}
+	}
+
+	.saturn,
+	.saturn-2,
+	.hover {
+		animation: hover 2s infinite ease-in-out alternate;
+	}
+}

@@ -12,6 +12,7 @@ import { userVar } from '../../../apollo/store';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import ScrollToTop from '../common/ScrollToTop';
 
 const withLayoutFull = (Component: any) => {
 	return (props: any) => {
@@ -65,7 +66,8 @@ const withLayoutFull = (Component: any) => {
 							<Component {...props} />
 						</Stack>
 
-						<Chat />
+						{router.pathname === '/404' ? '' : <Chat />}
+						<ScrollToTop />
 
 						<Stack id={'footer'}>
 							<Footer />
