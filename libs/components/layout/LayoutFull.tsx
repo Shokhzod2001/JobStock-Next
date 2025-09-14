@@ -67,7 +67,7 @@ const withLayoutFull = (Component: any) => {
 						</Stack>
 
 						{router.pathname === '/404' ? '' : <Chat />}
-						<ScrollToTop />
+						{router.pathname === '/404' ? '' : <ScrollToTop />}
 
 						<Stack id={'footer'}>
 							<Footer />

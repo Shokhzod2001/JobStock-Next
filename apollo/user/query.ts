@@ -666,3 +666,43 @@ export const GET_MEMBER_FOLLOWINGS = gql`
 		}
 	}
 `;
+
+/**************************
+ *         NOTICE        *
+ *************************/
+
+export const GET_ALL_NOTICES = gql`
+	query GetAllNotices($input: AllNoticesInquiry!) {
+		getAllNotices(input: $input) {
+			list {
+				_id
+				noticeCategory
+				noticeStatus
+				noticeTitle
+				noticeContent
+				memberId
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				_id
+				count
+			}
+		}
+	}
+`;
+
+export const GET_NOTICE = gql`
+	query GetNotice($noticeId: String!) {
+		getNotice(noticeId: $noticeId) {
+			_id
+			noticeCategory
+			noticeStatus
+			noticeTitle
+			noticeContent
+			memberId
+			createdAt
+			updatedAt
+		}
+	}
+`;
