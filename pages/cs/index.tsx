@@ -1,12 +1,17 @@
 import React from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import Notice from '../../libs/components/cs/Notice';
 import Faq from '../../libs/components/cs/Faq';
+import Terms from '../../libs/components/cs/Terms';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import SupportIcon from '@mui/icons-material/Support';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import ArticleIcon from '@mui/icons-material/Article';
+import Link from 'next/link';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -14,11 +19,11 @@ export const getStaticProps = async ({ locale }: any) => ({
 	},
 });
 
-const CS: NextPage = () => {
+const CS: NextPage = (props: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
+	const tab = router.query.tab ?? 'notice';
 
-	/** HANDLERS **/
 	const changeTabHandler = (tab: string) => {
 		router.push(
 			{
@@ -29,48 +34,81 @@ const CS: NextPage = () => {
 			{ scroll: false },
 		);
 	};
-	const tab = router.query.tab ?? 'notice';
 
 	if (device === 'mobile') {
-		return <h1>CS PAGE MOBILE</h1>;
-	} else {
 		return (
-			<Stack className={'cs-page'}>
-				<Stack className={'container'}>
-					<Box component={'div'} className={'cs-main-info'}>
-						<Box component={'div'} className={'info'}>
-							<span>Cs center</span>
-							<p>I will answer your questions</p>
-						</Box>
-						<Box component={'div'} className={'btns'}>
-							<div
-								className={tab == 'notice' ? 'active' : ''}
-								onClick={() => {
-									changeTabHandler('notice');
-								}}
-							>
-								Notice
-							</div>
-							<div
-								className={tab == 'faq' ? 'active' : ''}
-								onClick={() => {
-									changeTabHandler('faq');
-								}}
-							>
-								FAQ
-							</div>
-						</Box>
-					</Box>
+			<div id="mobile-wrap">
+				<Stack className={'cs-page'}>
+					<Stack className={'container'}>
+						<Box className={'cs-main-info'}>
+							<Box className={'info'}>
+								<Typography component="span">Customer Support</Typography>
+								<Typography component="p">
+									<Link href="/">Home</Link> / Help
+								</Typography>
+							</Box>
 
-					<Box component={'div'} className={'cs-content'}>
-						{tab === 'notice' && <Notice />}
+							<Box className={'btns'}>
+								<div className={tab === 'notice' ? 'active' : ''} onClick={() => changeTabHandler('notice')}>
+									<SupportIcon />
+									Notices & Updates
+								</div>
+								<div className={tab === 'faq' ? 'active' : ''} onClick={() => changeTabHandler('faq')}>
+									<QuestionAnswerIcon />
+									FAQ
+								</div>
+								<div className={tab === 'terms' ? 'active' : ''} onClick={() => changeTabHandler('terms')}>
+									<ArticleIcon />
+									Terms & Conditions
+								</div>
+							</Box>
+						</Box>
 
-						{tab === 'faq' && <Faq />}
-					</Box>
+						<Box className={'cs-content'}>
+							{tab === 'notice' && <Notice />}
+							{tab === 'faq' && <Faq />}
+							{tab === 'terms' && <Terms />}
+						</Box>
+					</Stack>
 				</Stack>
-			</Stack>
+			</div>
 		);
-	}
+	} else
+		return (
+			<div id="pc-wrap">
+				<Stack className={'cs-page'}>
+					<Stack className={'container'}>
+						<Box className={'cs-main-info'}>
+							<Box className={'info'}>
+								<Typography component="span">Cs center</Typography>
+								<Typography component="p">I will help you with everything related to JobStock.</Typography>
+							</Box>
+
+							<Box className={'btns'}>
+								<div className={tab === 'notice' ? 'active' : ''} onClick={() => changeTabHandler('notice')}>
+									<SupportIcon />
+									Notices & Updates
+								</div>
+								<div className={tab === 'faq' ? 'active' : ''} onClick={() => changeTabHandler('faq')}>
+									<QuestionAnswerIcon />
+									FAQ
+								</div>
+								<div className={tab === 'terms' ? 'active' : ''} onClick={() => changeTabHandler('terms')}>
+									<ArticleIcon />
+									Terms & Conditions
+								</div>
+							</Box>
+						</Box>
+
+						<Box className={'cs-content'}>
+							{tab === 'notice' && <Notice />}
+							{tab === 'faq' && <Faq />}
+							{tab === 'terms' && <Terms />}
+						</Box>
+					</Stack>
+				</Stack>
+			</div>
+		);
 };
 
 export default withLayoutBasic(CS);
