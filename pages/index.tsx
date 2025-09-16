@@ -25,13 +25,13 @@ const Home: NextPage = () => {
 		return (
 			<Stack className={'home-page'}>
 				<Categories />
-				{/* <ChooseSection />
+				<ChooseSection />
 				<TrendJobs />
 				<PopularJobs />
 				<Advertisement />
 				<TopJobs />
-				<TopRecruiters />
-				<CommunityBoards /> */}
+				{/* <TopRecruiters /> */}
+				{/* <CommunityBoards /> */}
 			</Stack>
 		);
 	} else {

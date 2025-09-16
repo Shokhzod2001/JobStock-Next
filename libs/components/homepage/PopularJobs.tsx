@@ -58,7 +58,48 @@ const PopularJobs = (props: PopularJobsProps) => {
 	if (!popularJobs) return null;
 
 	if (device === 'mobile') {
-		return <Box>Mobile Popular jobs</Box>;
+		return (
+			<Stack className={'popular-jobs'}>
+				<Stack className={'container'}>
+					<Stack className={'info-box'}>
+						<Box component={'div'} className={'left'}>
+							<span>Popular jobs</span>
+						</Box>
+						<Box component={'div'} className={'right'}>
+							<div className={'more-box'}>
+								<Link href={'/job'}>
+									<span>See All Categories</span>
+								</Link>
+								<img src="/img/icons/rightup.svg" alt="" />
+							</div>
+						</Box>
+					</Stack>
+					<Stack className={'card-box'}>
+						<Swiper
+							className={'popular-property-swiper'}
+							slidesPerView={1}
+							spaceBetween={25}
+							modules={[Autoplay, Navigation, Pagination]}
+							navigation={{
+								nextEl: '.swiper-popular-next',
+								prevEl: '.swiper-popular-prev',
+							}}
+							pagination={{
+								el: '.swiper-popular-pagination',
+							}}
+						>
+							{popularJobs.map((job: Job) => {
+								return (
+									<SwiperSlide key={job._id} className={'popular-property-slide'}>
+										<PopularJobCard job={job} likeJobHandler={likeJobHandler} />
+									</SwiperSlide>
+								);
+							})}
+						</Swiper>
+					</Stack>
+				</Stack>
+			</Stack>
+		);
 	} else {
 		return (
 			<Stack className={'popular-jobs'}>

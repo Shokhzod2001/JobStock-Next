@@ -155,7 +155,7 @@ const TrendJobCard = (props: TrendJobCardProps) => {
 							variant="contained"
 							size="medium"
 							className="apply-btn"
-							style={{ marginLeft: 90, color: 'white' }}
+							style={{ marginLeft: 160, color: 'white' }}
 							onClick={() => pushDetailHandler(job._id)}
 						>
 							Apply

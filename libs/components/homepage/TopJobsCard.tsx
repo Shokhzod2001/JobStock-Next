@@ -70,112 +70,201 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 
 	if (device === 'mobile') {
 		return (
-			<Box sx={{ p: 2, border: '1px solid #e2e8f0', borderRadius: 2, mb: 2 }}>
-				<Typography variant="h6" gutterBottom>
-					{job.jobTitle}
-				</Typography>
-				<Typography variant="body2" color="text.secondary" gutterBottom>
-					{job.companyName}
-				</Typography>
-				<Typography variant="body2" gutterBottom>
-					{formatSalary(job.jobSalary, job.salaryType)}
-				</Typography>
-			</Box>
+			<div className="top-card-box">
+				<div className="card-img" style={{ backgroundImage: `url(${REACT_APP_API_URL}/${job.jobImages[0]})` }}>
+					<div className="salary-badge">{formatSalary(job.jobSalary, job.salaryType)}</div>
+					<div className="type-badge">{getJobTypeLabel(job.jobType)}</div>
+					{job.jobRemote && <div className="remote-badge">Remote</div>}
+				</div>
+
+				<div className="info">
+					{/* Company Name */}
+					<div className="company-info">
+						<BusinessIcon sx={{ fontSize: 16, color: 'primary.main', mr: 1 }} />
+						<Typography variant="subtitle2" color="primary" fontWeight="600">
+							{job.companyName}
+						</Typography>
+					</div>
+
+					{/* Job Title */}
+					<Typography className="title">{job.jobTitle}</Typography>
+
+					{/* Job Description */}
+					<Typography className="desc" variant="body2">
+						{job.jobDesc?.substring(0, 120) || 'No description available'}...
+					</Typography>
+
+					{/* Job Meta Information */}
+					<div className="job-meta">
+						<Tooltip title="Required experience">
+							<Chip icon={<WorkIcon />} label={`${job.jobExperience}+ yrs`} size="small" variant="outlined" />
+						</Tooltip>
+
+						<Tooltip title="Location">
+							<Chip
+								icon={<LocationOnIcon />}
+								label={job.jobLocation.replace('_', ' ')}
+								size="small"
+								variant="outlined"
+							/>
+						</Tooltip>
+
+						{job.jobVisaSponsor && (
+							<Tooltip title="Visa sponsorship available">
+								<Chip label="Visa Sponsor" size="small" color="secondary" variant="outlined" />
+							</Tooltip>
+						)}
+					</div>
+
+					{/* Application Deadline */}
+					<div className="deadline-chip">
+						<AccessTimeIcon fontSize="small" />
+						<Typography variant="caption">Apply by: {formatDate(job.jobApplicationDeadline)}</Typography>
+					</div>
+
+					<div className="view-like-box">
+						<Tooltip title="Views">
+							<IconButton size="small" className="action-button">
+								<RemoveRedEyeIcon fontSize="small" />
+								<Typography variant="caption" ml={0.5}>
+									{job.jobViews}
+								</Typography>
+							</IconButton>
+						</Tooltip>
+
+						<Tooltip title="Applications">
+							<IconButton size="small" className="action-button">
+								<WorkIcon fontSize="small" />
+								<Typography variant="caption" ml={0.5}>
+									{job.jobApplications}
+								</Typography>
+							</IconButton>
+						</Tooltip>
+
+						<Tooltip title={job?.meLiked?.[0]?.myFavorite ? 'Remove from favorites' : 'Add to favorites'}>
+							<IconButton size="small" className="action-button" onClick={() => likeJobHandler(user, job._id)}>
+								{job?.meLiked?.[0]?.myFavorite ? (
+									<FavoriteIcon color="error" fontSize="small" />
+								) : (
+									<FavoriteIcon fontSize="small" />
+								)}
+								<Typography variant="caption" ml={0.5}>
+									{job.jobLikes}
+								</Typography>
+							</IconButton>
+						</Tooltip>
+						<Button
+							variant="contained"
+							size="medium"
+							className="apply-btn"
+							style={{ marginLeft: 50, color: 'white' }}
+							onClick={() => pushDetailHandler(job._id)}
+						>
+							Apply
+						</Button>
+					</div>
+				</div>
+			</div>
+		);
+	} else {
+		return (
+			<div className="top-card-box">
+				<div className="card-img" style={{ backgroundImage: `url(${REACT_APP_API_URL}/${job.jobImages[0]})` }}>
+					<div className="salary-badge">{formatSalary(job.jobSalary, job.salaryType)}</div>
+					<div className="type-badge">{getJobTypeLabel(job.jobType)}</div>
+					{job.jobRemote && <div className="remote-badge">Remote</div>}
+				</div>
+
+				<div className="info">
+					{/* Company Name */}
+					<div className="company-info">
+						<BusinessIcon sx={{ fontSize: 16, color: 'primary.main', mr: 1 }} />
+						<Typography variant="subtitle2" color="primary" fontWeight="600">
+							{job.companyName}
+						</Typography>
+					</div>
+
+					{/* Job Title */}
+					<Typography className="title">{job.jobTitle}</Typography>
+
+					{/* Job Description */}
+					<Typography className="desc" variant="body2">
+						{job.jobDesc?.substring(0, 120) || 'No description available'}...
+					</Typography>
+
+					{/* Job Meta Information */}
+					<div className="job-meta">
+						<Tooltip title="Required experience">
+							<Chip icon={<WorkIcon />} label={`${job.jobExperience}+ yrs`} size="small" variant="outlined" />
+						</Tooltip>
+
+						<Tooltip title="Location">
+							<Chip
+								icon={<LocationOnIcon />}
+								label={job.jobLocation.replace('_', ' ')}
+								size="small"
+								variant="outlined"
+							/>
+						</Tooltip>
+
+						{job.jobVisaSponsor && (
+							<Tooltip title="Visa sponsorship available">
+								<Chip label="Visa Sponsor" size="small" color="secondary" variant="outlined" />
+							</Tooltip>
+						)}
+					</div>
+
+					{/* Application Deadline */}
+					<div className="deadline-chip">
+						<AccessTimeIcon fontSize="small" />
+						<Typography variant="caption">Apply by: {formatDate(job.jobApplicationDeadline)}</Typography>
+					</div>
+
+					<div className="view-like-box">
+						<Tooltip title="Views">
+							<IconButton size="small" className="action-button">
+								<RemoveRedEyeIcon fontSize="small" />
+								<Typography variant="caption" ml={0.5}>
+									{job.jobViews}
+								</Typography>
+							</IconButton>
+						</Tooltip>
+
+						<Tooltip title="Applications">
+							<IconButton size="small" className="action-button">
+								<WorkIcon fontSize="small" />
+								<Typography variant="caption" ml={0.5}>
+									{job.jobApplications}
+								</Typography>
+							</IconButton>
+						</Tooltip>
+
+						<Tooltip title={job?.meLiked?.[0]?.myFavorite ? 'Remove from favorites' : 'Add to favorites'}>
+							<IconButton size="small" className="action-button" onClick={() => likeJobHandler(user, job._id)}>
+								{job?.meLiked?.[0]?.myFavorite ? (
+									<FavoriteIcon color="error" fontSize="small" />
+								) : (
+									<FavoriteIcon fontSize="small" />
+								)}
+								<Typography variant="caption" ml={0.5}>
+									{job.jobLikes}
+								</Typography>
+							</IconButton>
+						</Tooltip>
+						<Button
+							variant="contained"
+							size="medium"
+							className="apply-btn"
+							style={{ marginLeft: 50, color: 'white' }}
+							onClick={() => pushDetailHandler(job._id)}
+						>
+							Apply
+						</Button>
+					</div>
+				</div>
+			</div>
 		);
 	}
-
-	return (
-		<div className="top-card-box">
-			<div className="card-img" style={{ backgroundImage: `url(${REACT_APP_API_URL}/${job.jobImages[0]})` }}>
-				<div className="salary-badge">{formatSalary(job.jobSalary, job.salaryType)}</div>
-				<div className="type-badge">{getJobTypeLabel(job.jobType)}</div>
-				{job.jobRemote && <div className="remote-badge">Remote</div>}
-			</div>
-
-			<div className="info">
-				{/* Company Name */}
-				<div className="company-info">
-					<BusinessIcon sx={{ fontSize: 16, color: 'primary.main', mr: 1 }} />
-					<Typography variant="subtitle2" color="primary" fontWeight="600">
-						{job.companyName}
-					</Typography>
-				</div>
-
-				{/* Job Title */}
-				<Typography className="title">{job.jobTitle}</Typography>
-
-				{/* Job Description */}
-				<Typography className="desc" variant="body2">
-					{job.jobDesc?.substring(0, 120) || 'No description available'}...
-				</Typography>
-
-				{/* Job Meta Information */}
-				<div className="job-meta">
-					<Tooltip title="Required experience">
-						<Chip icon={<WorkIcon />} label={`${job.jobExperience}+ yrs`} size="small" variant="outlined" />
-					</Tooltip>
-
-					<Tooltip title="Location">
-						<Chip icon={<LocationOnIcon />} label={job.jobLocation.replace('_', ' ')} size="small" variant="outlined" />
-					</Tooltip>
-
-					{job.jobVisaSponsor && (
-						<Tooltip title="Visa sponsorship available">
-							<Chip label="Visa Sponsor" size="small" color="secondary" variant="outlined" />
-						</Tooltip>
-					)}
-				</div>
-
-				{/* Application Deadline */}
-				<div className="deadline-chip">
-					<AccessTimeIcon fontSize="small" />
-					<Typography variant="caption">Apply by: {formatDate(job.jobApplicationDeadline)}</Typography>
-				</div>
-
-				<div className="view-like-box">
-					<Tooltip title="Views">
-						<IconButton size="small" className="action-button">
-							<RemoveRedEyeIcon fontSize="small" />
-							<Typography variant="caption" ml={0.5}>
-								{job.jobViews}
-							</Typography>
-						</IconButton>
-					</Tooltip>
-
-					<Tooltip title="Applications">
-						<IconButton size="small" className="action-button">
-							<WorkIcon fontSize="small" />
-							<Typography variant="caption" ml={0.5}>
-								{job.jobApplications}
-							</Typography>
-						</IconButton>
-					</Tooltip>
-
-					<Tooltip title={job?.meLiked?.[0]?.myFavorite ? 'Remove from favorites' : 'Add to favorites'}>
-						<IconButton size="small" className="action-button" onClick={() => likeJobHandler(user, job._id)}>
-							{job?.meLiked?.[0]?.myFavorite ? (
-								<FavoriteIcon color="error" fontSize="small" />
-							) : (
-								<FavoriteIcon fontSize="small" />
-							)}
-							<Typography variant="caption" ml={0.5}>
-								{job.jobLikes}
-							</Typography>
-						</IconButton>
-					</Tooltip>
-					<Button
-						variant="contained"
-						size="medium"
-						className="apply-btn"
-						style={{ marginLeft: 50, color: 'white' }}
-						onClick={() => pushDetailHandler(job._id)}
-					>
-						Apply
-					</Button>
-				</div>
-			</div>
-		</div>
-	);
 };
 
 export default TopJobCard;

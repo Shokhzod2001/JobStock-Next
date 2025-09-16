@@ -63,7 +63,6 @@ const TrendJobs = (props: TrendJobsProps) => {
 					<Stack className="info-box">
 						<Box component="div" className="left">
 							<span>Trending Job Opportunities</span>
-							<p>Discover the most sought-after positions in your field</p>
 						</Box>
 					</Stack>
 

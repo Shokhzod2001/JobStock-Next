@@ -56,7 +56,46 @@ const TopJobs = (props: TopJobsProps) => {
 	};
 
 	if (device === 'mobile') {
-		return <Box>Top Jobs</Box>;
+		return (
+			<Stack className={'top-jobs'}>
+				<Stack className={'container'}>
+					<Stack className={'info-box'}>
+						<Box component={'div'} className={'left'}>
+							<span>Top Jobs</span>
+						</Box>
+						<Box component={'div'} className={'right'}>
+							<div className={'pagination-box'}>
+								<WestIcon className={'swiper-top-prev'} />
+								<div className={'swiper-top-pagination'}></div>
+								<EastIcon className={'swiper-top-next'} />
+							</div>
+						</Box>
+					</Stack>
+					<Stack className={'card-box'}>
+						<Swiper
+							className={'top-property-swiper'}
+							slidesPerView={1}
+							modules={[Autoplay, Navigation, Pagination]}
+							navigation={{
+								nextEl: '.swiper-top-next',
+								prevEl: '.swiper-top-prev',
+							}}
+							pagination={{
+								el: '.swiper-top-pagination',
+							}}
+						>
+							{topJobs.map((job: Job) => {
+								return (
+									<SwiperSlide className={'top-property-slide'} key={job?._id}>
+										<TopJobCard job={job} likeJobHandler={likeJobHandler} />
+									</SwiperSlide>
+								);
+							})}
+						</Swiper>
+					</Stack>
+				</Stack>
+			</Stack>
+		);
 	} else {
 		return (
 			<Stack className={'top-jobs'}>
