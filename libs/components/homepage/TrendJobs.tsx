@@ -57,7 +57,46 @@ const TrendJobs = (props: TrendJobsProps) => {
 	if (!trendJobs) return null;
 
 	if (device === 'mobile') {
-		return <Box>Trend Jobs</Box>;
+		return (
+			<Stack className="trend-jobs">
+				<Stack className="container">
+					<Stack className="info-box">
+						<Box component="div" className="left">
+							<span>Trending Job Opportunities</span>
+							<p>Discover the most sought-after positions in your field</p>
+						</Box>
+					</Stack>
+
+					<Stack className="card-box">
+						{trendJobs.length === 0 ? (
+							<Box component="div" className="empty-list">
+								No trending jobs available at the moment
+							</Box>
+						) : (
+							<Swiper
+								className="trend-job-swiper"
+								slidesPerView={1}
+								modules={[Autoplay, Navigation, Pagination]}
+								navigation={{
+									nextEl: '.swiper-trend-next',
+									prevEl: '.swiper-trend-prev',
+								}}
+								pagination={{
+									el: '.swiper-trend-pagination',
+									clickable: true,
+								}}
+							>
+								{trendJobs.map((job: Job) => (
+									<SwiperSlide key={job._id} className="trend-job-slide">
+										<TrendJobCard job={job} likeJobHandler={likeJobHandler} />
+									</SwiperSlide>
+								))}
+							</Swiper>
+						)}
+					</Stack>
+				</Stack>
+			</Stack>
+		);
 	} else {
 		return (
 			<Stack className="trend-jobs">

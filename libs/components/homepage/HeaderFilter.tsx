@@ -264,7 +264,216 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>HEADER FILTER MOBILE</div>;
+		return (
+			<>
+				<Stack className={'search-box'}>
+					<Stack className={'select-box'}>
+						<Box component={'div'} className={`box ${openLocation ? 'on' : ''}`} onClick={locationStateChangeHandler}>
+							<span>{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : t('Location')} </span>
+							<ExpandMoreIcon />
+						</Box>
+						<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
+							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Job type')} </span>
+							<ExpandMoreIcon />
+						</Box>
+						<Box className={`box ${openCategory ? 'on' : ''}`} onClick={categoryStateChangeHandler}>
+							<span>{searchFilter?.search?.categoryList ? searchFilter?.search?.categoryList[0] : t('Category')}</span>
+							<ExpandMoreIcon />
+						</Box>
+					</Stack>
+					<Stack className={'search-box-other'}>
+						<Box className={'search-btn'} onClick={pushSearchHandler}>
+							<img src="/img/icons/search_white.svg" alt="" />
+							<span>{t('Search Jobs')}</span>
+						</Box>
+					</Stack>
+
+					{/* MENU DROPDOWNS */}
+					<div className={`filter-location ${openLocation ? 'on' : ''}`} ref={locationRef}>
+						{jobLocation.map((location: string) => {
+							return (
+								<div onClick={() => jobLocationSelectHandler(location)} key={location}>
+									<img src={`img/banner/cities/${location.toLowerCase()}.webp`} alt="" />
+									<span>{location}</span>
+								</div>
+							);
+						})}
+					</div>
+
+					<div className={`filter-type ${openType ? 'on' : ''}`} ref={typeRef}>
+						{jobType.map((type: string) => {
+							return (
+								<div onClick={() => jobTypeSelectHandler(type)} key={type}>
+									<img src={`img/banner/types/${type.toLowerCase()}.webp`} alt="" />
+									<span>{type.replace('_', ' ')}</span>
+								</div>
+							);
+						})}
+					</div>
+
+					<div className={`filter-category ${openCategory ? 'on' : ''}`} ref={categoryRef}>
+						{jobCategory.map((category: string) => {
+							return (
+								<span onClick={() => jobCategorySelectHandler(category)} key={category}>
+									{category.replace('_', ' ')}
+								</span>
+							);
+						})}
+					</div>
+				</Stack>
+
+				{/* ADVANCED FILTER MODAL */}
+				<Modal
+					open={openAdvancedFilter}
+					onClose={() => advancedFilterHandler(false)}
+					aria-labelledby="modal-modal-title"
+					aria-describedby="modal-modal-description"
+				>
+					{/* @ts-ignore */}
+					<Box sx={style}>
+						<Box className={'advanced-filter-modal'}>
+							<div className={'close'} onClick={() => advancedFilterHandler(false)}>
+								<CloseIcon />
+							</div>
+							<div className={'top'}>
+								<span>Find your job</span>
+								<div className={'search-input-box'}>
+									<img src="/img/icons/search.svg" alt="" />
+									<input
+										value={searchFilter?.search?.text ?? ''}
+										type="text"
+										placeholder={'What job are you looking for?'}
+										onChange={(e: any) => {
+											setSearchFilter({
+												...searchFilter,
+												search: { ...searchFilter.search, text: e.target.value },
+											});
+										}}
+									/>
+								</div>
+							</div>
+							<Divider sx={{ mt: '30px', mb: '35px' }} />
+							<div className={'middle'}>
+								<div className={'row-box'}>
+									<div className={'box'}>
+										<span>Job Type</span>
+										<div className={'inside'}>
+											<FormControl>
+												<Select
+													value={searchFilter?.search?.typeList?.[0] || 'all'}
+													onChange={(e) => jobTypeSelectHandler(e.target.value)}
+													displayEmpty
+													inputProps={{ 'aria-label': 'Without label' }}
+												>
+													<MenuItem value="all">All Job Types</MenuItem>
+													{jobType.map((type: string) => (
+														<MenuItem value={type} key={type}>
+															{type.replace('_', ' ')}
+														</MenuItem>
+													))}
+												</Select>
+											</FormControl>
+										</div>
+									</div>
+									<div className={'box'}>
+										<span>options</span>
+										<div className={'inside'}>
+											<FormControl>
+												<Select
+													value={optionCheck}
+													onChange={jobOptionSelectHandler}
+													displayEmpty
+													inputProps={{ 'aria-label': 'Without label' }}
+												>
+													<MenuItem value={'all'}>All Options</MenuItem>
+													<MenuItem value={'jobRemote'}>Remote</MenuItem>
+													<MenuItem value={'jobVisaSponsor'}>VisaSponsor</MenuItem>
+												</Select>
+											</FormControl>
+										</div>
+									</div>
+								</div>
+								<div className={'row-box'} style={{ marginTop: '44px' }}>
+									<div className={'box'}>
+										<span>Salary Range</span>
+										<div className={'inside space-between align-center'}>
+											<FormControl sx={{ width: '122px' }}>
+												<Select
+													value={salaryCheck.start.toString()}
+													onChange={salaryStartChangeHandler}
+													displayEmpty
+													inputProps={{ 'aria-label': 'Without label' }}
+													MenuProps={MenuProps}
+												>
+													{jobSalaryRanges?.map((salary: number) => (
+														<MenuItem value={salary} disabled={salaryCheck.end <= salary} key={salary}>
+															${salary.toLocaleString()}
+														</MenuItem>
+													))}
+												</Select>
+											</FormControl>
+											<div className={'minus-line'}></div>
+											<FormControl sx={{ width: '122px' }}>
+												<Select
+													value={salaryCheck.end.toString()}
+													onChange={salaryEndChangeHandler}
+													displayEmpty
+													inputProps={{ 'aria-label': 'Without label' }}
+													MenuProps={MenuProps}
+												>
+													{jobSalaryRanges
+														?.slice(0)
+														.reverse()
+														.map((salary: number) => (
+															<MenuItem value={salary} disabled={salaryCheck.start >= salary} key={salary}>
+																${salary.toLocaleString()}
+															</MenuItem>
+														))}
+												</Select>
+											</FormControl>
+										</div>
+									</div>
+									<div className={'box'}>
+										<span>Experience Level</span>
+										<div className={'inside'}>
+											<FormControl sx={{ width: '100%' }}>
+												<Select
+													value={searchFilter?.search?.experienceRange?.end || 0}
+													onChange={experienceChangeHandler}
+													displayEmpty
+													inputProps={{ 'aria-label': 'Without label' }}
+													MenuProps={MenuProps}
+												>
+													{jobExperienceLevels.map((exp: number) => (
+														<MenuItem value={exp} key={exp}>
+															{exp === 0 ? 'Any experience' : `${exp}+ years`}
+														</MenuItem>
+													))}
+												</Select>
+											</FormControl>
+										</div>
+									</div>
+								</div>
+							</div>
+							<Divider sx={{ mt: '60px', mb: '18px' }} />
+							<div className={'bottom'}>
+								<div onClick={resetFilterHandler}>
+									<img src="/img/icons/reset.svg" alt="" />
+									<span>Reset all filters</span>
+								</div>
+								<Button
+									startIcon={<img src={'/img/icons/search.svg'} />}
+									className={'search-btn'}
+									onClick={pushSearchHandler}
+								>
+									Search
+								</Button>
+							</div>
+						</Box>
+					</Box>
+				</Modal>
+			</>
+		);
 	} else {
 		return (
 			<>

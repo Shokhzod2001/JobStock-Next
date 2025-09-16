@@ -1,4 +1,5 @@
 import React from 'react';
+import useDeviceDetect from '../../hooks/useDeviceDetect';
 
 const steps = [
 	{
@@ -22,25 +23,48 @@ const steps = [
 ];
 
 const ChooseSection: React.FC = () => {
-	return (
-		<section className="choose-section">
-			<div className="container">
-				<h2 className="section-title">Choose What You Need</h2>
-				<p className="section-subtitle">
-					Find the right path to kickstart your journey — create an account, search jobs, and apply with ease.
-				</p>
-				<div className="card-grid">
-					{steps.map((step, index) => (
-						<div key={index} className="choose-card">
-							<h3 className="step-number">{step.number}.</h3>
-							<h4 className="step-title">{step.title}</h4>
-							<p className="step-desc">{step.description}</p>
-						</div>
-					))}
+	const device = useDeviceDetect();
+	if (device === 'mobile') {
+		return (
+			<section className="choose-section">
+				<div className="container">
+					<h2 className="section-title">Choose What You Need</h2>
+					<p className="section-subtitle">
+						Find the right path to kickstart your journey — create an account, search jobs, and apply with ease.
+					</p>
+					<div className="card-grid">
+						{steps.map((step, index) => (
+							<div key={index} className="choose-card">
+								<h3 className="step-number">{step.number}.</h3>
+								<h4 className="step-title">{step.title}</h4>
+								<p className="step-desc">{step.description}</p>
+							</div>
+						))}
+					</div>
 				</div>
-			</div>
-		</section>
-	);
+			</section>
+		);
+	} else {
+		return (
+			<section className="choose-section">
+				<div className="container">
+					<h2 className="section-title">Choose What You Need</h2>
+					<p className="section-subtitle">
+						Find the right path to kickstart your journey — create an account, search jobs, and apply with ease.
+					</p>
+					<div className="card-grid">
+						{steps.map((step, index) => (
+							<div key={index} className="choose-card">
+								<h3 className="step-number">{step.number}.</h3>
+								<h4 className="step-title">{step.title}</h4>
+								<p className="step-desc">{step.description}</p>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
+		);
+	}
 };
 
 export default ChooseSection;

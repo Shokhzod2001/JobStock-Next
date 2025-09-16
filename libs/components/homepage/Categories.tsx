@@ -11,16 +11,20 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Grid, Navigation } from 'swiper';
 import EastIcon from '@mui/icons-material/East';
 import WestIcon from '@mui/icons-material/West';
+import { useRouter } from 'next/router';
 
 import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/navigation';
+import useDeviceDetect from '../../hooks/useDeviceDetect';
 
 interface CategoriesProps {
 	initialInput: JobsInquiry;
 }
 
 const Categories = (props: CategoriesProps) => {
+	const device = useDeviceDetect();
+	const router = useRouter();
 	const { initialInput } = props;
 	const [jobs, setJobs] = useState<Job[]>([]);
 	const [categoryCounts, setCategoryCounts] = useState<Record<JobCategory, number>>();
@@ -83,8 +87,24 @@ const Categories = (props: CategoriesProps) => {
 		const categoryName = formatCategoryName(category);
 		const imagePath = getCategoryImage(category);
 
+		const handleClick = () => {
+			const input = {
+				page: 1,
+				limit: 9,
+				sort: 'postedAt',
+				direction: 'DESC',
+				search: {
+					salaryRange: { start: 0, end: 200000 },
+					experienceRange: { start: 0, end: 20 },
+					categoryList: [category],
+				},
+			};
+
+			router.push(`/job?input=${encodeURIComponent(JSON.stringify(input))}`);
+		};
+
 		return (
-			<Box className="category-box">
+			<Box className="category-box" onClick={handleClick} style={{ cursor: 'pointer' }}>
 				<Box className="category-desc">
 					<Box className="category-icon">
 						<img src={imagePath} alt={categoryName} style={{ width: '170px' }} />
@@ -100,48 +120,87 @@ const Categories = (props: CategoriesProps) => {
 		);
 	};
 
-	return (
-		<Box className="categories-section">
-			<Box className="categories-container">
-				<Box className="info-box">
-					<Box className="left">
-						<Typography className="section-title">Explore Best Categories</Typography>
-						<Typography className="section-subtitle">Browse jobs by category to find your perfect match</Typography>
-					</Box>
-					<Box className="right">
-						<Box className="pagination-box">
-							<WestIcon className="swiper-category-prev" />
-							<EastIcon className="swiper-category-next" />
+	if (device === 'mobile') {
+		return (
+			<Box className="categories-section">
+				<Box className="categories-container">
+					<Box className="info-box">
+						<Box className="left">
+							<Typography className="section-title">Explore Best Categories</Typography>
+							<Typography className="section-subtitle">Browse jobs by category to find your perfect match</Typography>
 						</Box>
 					</Box>
-				</Box>
 
-				<Swiper
-					modules={[Grid, Navigation]}
-					navigation={{
-						nextEl: '.swiper-category-next',
-						prevEl: '.swiper-category-prev',
-					}}
-					spaceBetween={30}
-					slidesPerView={4}
-					grid={{ rows: 2, fill: 'row' }}
-					breakpoints={{
-						1200: { slidesPerView: 4 },
-						992: { slidesPerView: 3 },
-						768: { slidesPerView: 2 },
-						480: { slidesPerView: 1 },
-					}}
-					className="categories-swiper"
-				>
-					{Object.values(JobCategory).map((category) => (
-						<SwiperSlide key={category}>
-							<CategoryCard category={category as JobCategory} />
-						</SwiperSlide>
-					))}
-				</Swiper>
+					<Swiper
+						modules={[Grid, Navigation]}
+						navigation={{
+							nextEl: '.swiper-category-next',
+							prevEl: '.swiper-category-prev',
+						}}
+						spaceBetween={15}
+						slidesPerView={2}
+						grid={{ rows: 2, fill: 'row' }}
+						breakpoints={{
+							1200: { slidesPerView: 4 },
+							992: { slidesPerView: 3 },
+							768: { slidesPerView: 2 },
+							480: { slidesPerView: 1 },
+						}}
+						className="categories-swiper"
+					>
+						{Object.values(JobCategory).map((category) => (
+							<SwiperSlide key={category}>
+								<CategoryCard category={category as JobCategory} />
+							</SwiperSlide>
+						))}
+					</Swiper>
+				</Box>
 			</Box>
-		</Box>
-	);
+		);
+	} else {
+		return (
+			<Box className="categories-section">
+				<Box className="categories-container">
+					<Box className="info-box">
+						<Box className="left">
+							<Typography className="section-title">Explore Best Categories</Typography>
+							<Typography className="section-subtitle">Browse jobs by category to find your perfect match</Typography>
+						</Box>
+						<Box className="right">
+							<Box className="pagination-box">
+								<WestIcon className="swiper-category-prev" />
+								<EastIcon className="swiper-category-next" />
+							</Box>
+						</Box>
+					</Box>
+
+					<Swiper
+						modules={[Grid, Navigation]}
+						navigation={{
+							nextEl: '.swiper-category-next',
+							prevEl: '.swiper-category-prev',
+						}}
+						spaceBetween={30}
+						slidesPerView={4}
+						grid={{ rows: 2, fill: 'row' }}
+						breakpoints={{
+							1200: { slidesPerView: 4 },
+							992: { slidesPerView: 3 },
+							768: { slidesPerView: 2 },
+							480: { slidesPerView: 1 },
+						}}
+						className="categories-swiper"
+					>
+						{Object.values(JobCategory).map((category) => (
+							<SwiperSlide key={category}>
+								<CategoryCard category={category as JobCategory} />
+							</SwiperSlide>
+						))}
+					</Swiper>
+				</Box>
+			</Box>
+		);
+	}
 };
 
 Categories.defaultProps = {
