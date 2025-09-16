@@ -164,7 +164,7 @@ const PopularJobCard = (props: PopularJobCardProps) => {
 							variant="contained"
 							size="large"
 							className="apply-btn"
-							style={{ marginLeft: 140, color: 'white' }}
+							style={{ marginLeft: 150, color: 'white' }}
 							onClick={() => pushDetailHandler(job._id)}
 						>
 							Apply

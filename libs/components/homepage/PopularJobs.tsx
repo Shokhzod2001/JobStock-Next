@@ -15,6 +15,7 @@ import PopularJobCard from './PopularJobsCard';
 import { LIKE_TARGET_JOB } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
+import { useTranslation } from 'next-i18next';
 
 interface PopularJobsProps {
 	initialInput: JobsInquiry;
@@ -24,6 +25,7 @@ const PopularJobs = (props: PopularJobsProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
 	const [popularJobs, setPopularJobs] = useState<Job[]>([]);
+	const { t, i18n } = useTranslation('common');
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetJob] = useMutation(LIKE_TARGET_JOB);
@@ -62,13 +64,13 @@ const PopularJobs = (props: PopularJobsProps) => {
 			<Stack className={'popular-jobs'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<Box component={'div'} className={'left'}>
-							<span>Popular jobs</span>
-						</Box>
+						<div className="left">
+							<h2>{t('Popular jobs')}</h2>
+						</div>
 						<Box component={'div'} className={'right'}>
 							<div className={'more-box'}>
 								<Link href={'/job'}>
-									<span>See All Categories</span>
+									<span style={{ paddingRight: '10px' }}>See All Categories</span>
 								</Link>
 								<img src="/img/icons/rightup.svg" alt="" />
 							</div>

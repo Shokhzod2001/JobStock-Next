@@ -14,6 +14,7 @@ import { LIKE_TARGET_JOB } from '../../../apollo/user/mutation';
 import { Message } from '../../enums/common.enum';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import TopJobCard from './TopJobsCard';
+import { useTranslation } from 'next-i18next';
 
 interface TopJobsProps {
 	initialInput: JobsInquiry;
@@ -23,6 +24,7 @@ const TopJobs = (props: TopJobsProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
 	const [topJobs, setTopJobs] = useState<Job[]>([]);
+	const { t, i18n } = useTranslation('common');
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetJob] = useMutation(LIKE_TARGET_JOB);
@@ -60,9 +62,9 @@ const TopJobs = (props: TopJobsProps) => {
 			<Stack className={'top-jobs'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<Box component={'div'} className={'left'}>
-							<span>Top Jobs</span>
-						</Box>
+						<div className="left">
+							<h2>{t('Top Jobs')}</h2>
+						</div>
 						<Box component={'div'} className={'right'}>
 							<div className={'pagination-box'}>
 								<WestIcon className={'swiper-top-prev'} />

@@ -14,6 +14,7 @@ import { LIKE_TARGET_JOB } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
 import TrendJobCard from './TrendJobsCard';
+import { useTranslation } from 'next-i18next';
 
 interface TrendJobsProps {
 	initialInput: JobsInquiry;
@@ -23,6 +24,7 @@ const TrendJobs = (props: TrendJobsProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
 	const [trendJobs, setTrendJobs] = useState<Job[]>([]);
+	const { t, i18n } = useTranslation('common');
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetJob] = useMutation(LIKE_TARGET_JOB);
@@ -60,11 +62,11 @@ const TrendJobs = (props: TrendJobsProps) => {
 		return (
 			<Stack className="trend-jobs">
 				<Stack className="container">
-					<Stack className="info-box">
-						<Box component="div" className="left">
-							<span>Trending Job Opportunities</span>
-						</Box>
-					</Stack>
+					<div className="info-box">
+						<div className="left">
+							<h2>{t('Trending Job Opportunities')}</h2>
+						</div>
+					</div>
 
 					<Stack className="card-box">
 						{trendJobs.length === 0 ? (

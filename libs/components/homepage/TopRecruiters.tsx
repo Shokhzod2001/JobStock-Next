@@ -14,6 +14,7 @@ import TopRecruiterCard from './TopRecruiterCard';
 import { LIKE_TARGET_MEMBER } from '../../../apollo/user/mutation';
 import { Message } from '../../enums/common.enum';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
+import { useTranslation } from 'next-i18next';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -31,6 +32,7 @@ const TopRecruiters = (props: TopRecruitersProps) => {
 	const [topRecruiters, setTopRecruiters] = useState<Member[]>([]);
 	const prevRef = useRef(null);
 	const nextRef = useRef(null);
+	const { t, i18n } = useTranslation('common');
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetMember] = useMutation(LIKE_TARGET_MEMBER);
@@ -65,7 +67,63 @@ const TopRecruiters = (props: TopRecruitersProps) => {
 	if (!topRecruiters) return null;
 
 	if (device === 'mobile') {
-		return <Box>Top Recruiters mobile</Box>;
+		return (
+			<Stack className={'top-recruiters'}>
+				<Stack className={'container'}>
+					<Stack className={'info-box'}>
+						<div className="left">
+							<h2>{t('Top Recruiters')}</h2>
+						</div>
+						<Box component={'div'} className={'right'}>
+							<div className={'more-box'}>
+								<a href="/recruiter">
+									<span>See All Recruiters</span>
+								</a>
+								<img src="/img/icons/rightup.svg" alt="" />
+							</div>
+						</Box>
+					</Stack>
+
+					<Stack className={'wrapper'}>
+						<Box component={'div'} className={'card-wrapper'}>
+							<Swiper
+								className={'top-agents-swiper'}
+								slidesPerView={2}
+								spaceBetween={15}
+								modules={[Autoplay, Navigation, Pagination]}
+								navigation={{
+									prevEl: prevRef.current,
+									nextEl: nextRef.current,
+								}}
+								onInit={(swiper) => {
+									// Override prevEl & nextEl after init
+									if (typeof swiper.params.navigation !== 'boolean') {
+										if (swiper.params.navigation) {
+											swiper.params.navigation.prevEl = prevRef.current;
+											swiper.params.navigation.nextEl = nextRef.current;
+										}
+									}
+									swiper.navigation.init();
+									swiper.navigation.update();
+								}}
+							>
+								{topRecruiters.map((recruiter: Member) => {
+									return (
+										<SwiperSlide className={'top-agents-slide'} key={recruiter?._id}>
+											<TopRecruiterCard
+												recruiter={recruiter}
+												key={recruiter?.memberNick}
+												likeMemberHandler={likeMemberHandler}
+											/>
+										</SwiperSlide>
+									);
+								})}
+							</Swiper>
+						</Box>
+					</Stack>
+				</Stack>
+			</Stack>
+		);
 	} else {
 		return (
 			<Stack className={'top-recruiters'}>
@@ -93,8 +151,8 @@ const TopRecruiters = (props: TopRecruitersProps) => {
 						<Box component={'div'} className={'card-wrapper'}>
 							<Swiper
 								className={'top-agents-swiper'}
-								slidesPerView={'auto'}
-								spaceBetween={25}
+								slidesPerView={2}
+								spaceBetween={15}
 								modules={[Autoplay, Navigation, Pagination]}
 								navigation={{
 									prevEl: prevRef.current,

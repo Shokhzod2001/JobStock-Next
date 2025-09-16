@@ -157,7 +157,7 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 							variant="contained"
 							size="medium"
 							className="apply-btn"
-							style={{ marginLeft: 50, color: 'white' }}
+							style={{ marginLeft: 160, color: 'white' }}
 							onClick={() => pushDetailHandler(job._id)}
 						>
 							Apply

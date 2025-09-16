@@ -30,8 +30,8 @@ const Home: NextPage = () => {
 				<PopularJobs />
 				<Advertisement />
 				<TopJobs />
-				{/* <TopRecruiters /> */}
-				{/* <CommunityBoards /> */}
+				<TopRecruiters />
+				<CommunityBoards />
 			</Stack>
 		);
 	} else {

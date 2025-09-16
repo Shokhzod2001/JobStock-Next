@@ -17,6 +17,7 @@ import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/navigation';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
+import { useTranslation } from 'next-i18next';
 
 interface CategoriesProps {
 	initialInput: JobsInquiry;
@@ -28,6 +29,7 @@ const Categories = (props: CategoriesProps) => {
 	const { initialInput } = props;
 	const [jobs, setJobs] = useState<Job[]>([]);
 	const [categoryCounts, setCategoryCounts] = useState<Record<JobCategory, number>>();
+	const { t, i18n } = useTranslation('common');
 
 	const { loading, data, error } = useQuery(GET_JOBS, {
 		variables: {
@@ -124,11 +126,11 @@ const Categories = (props: CategoriesProps) => {
 		return (
 			<Box className="categories-section">
 				<Box className="categories-container">
-					<Box className="info-box">
-						<Box className="left">
-							<Typography className="section-title">Explore Best Categories</Typography>
-						</Box>
-					</Box>
+					<div className="info-box">
+						<div className="left">
+							<h2>{t('Explore Best Categories')}</h2>
+						</div>
+					</div>
 
 					<Swiper
 						modules={[Grid, Navigation]}
