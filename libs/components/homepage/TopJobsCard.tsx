@@ -118,15 +118,17 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 
 					{/* Application Deadline */}
 					<div className="deadline-chip">
-						<AccessTimeIcon fontSize="small" />
-						<Typography variant="caption">Apply by: {formatDate(job.jobApplicationDeadline)}</Typography>
+						<AccessTimeIcon style={{ fontSize: '13px' }} />
+						<Typography variant="caption" style={{ fontSize: '10px' }}>
+							Apply by: {formatDate(job.jobApplicationDeadline)}
+						</Typography>
 					</div>
 
 					<div className="view-like-box">
 						<Tooltip title="Views">
 							<IconButton size="small" className="action-button">
-								<RemoveRedEyeIcon fontSize="small" />
-								<Typography variant="caption" ml={0.5}>
+								<RemoveRedEyeIcon style={{ fontSize: '12px' }} />
+								<Typography variant="caption" style={{ fontSize: '10px', marginLeft: '2px' }}>
 									{job.jobViews}
 								</Typography>
 							</IconButton>
@@ -134,8 +136,8 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 
 						<Tooltip title="Applications">
 							<IconButton size="small" className="action-button">
-								<WorkIcon fontSize="small" />
-								<Typography variant="caption" ml={0.5}>
+								<WorkIcon style={{ fontSize: '12px' }} />
+								<Typography variant="caption" style={{ fontSize: '10px', marginLeft: '2px' }}>
 									{job.jobApplications}
 								</Typography>
 							</IconButton>
@@ -144,20 +146,26 @@ const TopJobCard = ({ job, likeJobHandler }: TopJobCardProps) => {
 						<Tooltip title={job?.meLiked?.[0]?.myFavorite ? 'Remove from favorites' : 'Add to favorites'}>
 							<IconButton size="small" className="action-button" onClick={() => likeJobHandler(user, job._id)}>
 								{job?.meLiked?.[0]?.myFavorite ? (
-									<FavoriteIcon color="error" fontSize="small" />
+									<FavoriteIcon color="error" style={{ fontSize: '12px' }} />
 								) : (
-									<FavoriteIcon fontSize="small" />
+									<FavoriteIcon style={{ fontSize: '12px' }} />
 								)}
-								<Typography variant="caption" ml={0.5}>
+								<Typography variant="caption" style={{ fontSize: '10px', marginLeft: '2px' }}>
 									{job.jobLikes}
 								</Typography>
 							</IconButton>
 						</Tooltip>
 						<Button
 							variant="contained"
-							size="medium"
+							size="small"
 							className="apply-btn"
-							style={{ marginLeft: 160, color: 'white' }}
+							style={{
+								color: 'white',
+								fontSize: '11px',
+								padding: '4px 8px',
+								minWidth: 'auto',
+								marginLeft: '48px',
+							}}
 							onClick={() => pushDetailHandler(job._id)}
 						>
 							Apply

@@ -62,21 +62,22 @@ const TopJobs = (props: TopJobsProps) => {
 			<Stack className={'top-jobs'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<div className="left">
+						<div className="left" style={{ paddingLeft: '10px' }}>
 							<h2>{t('Top Jobs')}</h2>
 						</div>
-						<Box component={'div'} className={'right'}>
+						<Box component={'div'} className={'right'} style={{ paddingRight: '10px' }}>
 							<div className={'pagination-box'}>
-								<WestIcon className={'swiper-top-prev'} />
-								<div className={'swiper-top-pagination'}></div>
-								<EastIcon className={'swiper-top-next'} />
+								<WestIcon className={'swiper-top-prev'} style={{ fontSize: '15px' }} />
+								<div className={'swiper-top-pagination'} style={{ margin: '0 2px' }}></div>
+								<EastIcon className={'swiper-top-next'} style={{ fontSize: '15px' }} />
 							</div>
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
 							className={'top-property-swiper'}
-							slidesPerView={1}
+							slidesPerView={2}
+							spaceBetween={7}
 							modules={[Autoplay, Navigation, Pagination]}
 							navigation={{
 								nextEl: '.swiper-top-next',

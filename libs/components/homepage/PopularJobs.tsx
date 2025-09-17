@@ -64,23 +64,23 @@ const PopularJobs = (props: PopularJobsProps) => {
 			<Stack className={'popular-jobs'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<div className="left">
+						<div className="left" style={{ paddingLeft: '10px' }}>
 							<h2>{t('Popular jobs')}</h2>
 						</div>
 						<Box component={'div'} className={'right'}>
-							<div className={'more-box'}>
+							<div className={'more-box'} style={{ paddingRight: '10px' }}>
 								<Link href={'/job'}>
-									<span style={{ paddingRight: '10px' }}>See All Categories</span>
+									<span>See All Categories</span>
 								</Link>
-								<img src="/img/icons/rightup.svg" alt="" />
+								<img src="/img/icons/rightup.svg" alt="" style={{ paddingRight: '5px' }} />
 							</div>
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
 							className={'popular-property-swiper'}
-							slidesPerView={1}
-							spaceBetween={25}
+							slidesPerView={2}
+							spaceBetween={6}
 							modules={[Autoplay, Navigation, Pagination]}
 							navigation={{
 								nextEl: '.swiper-popular-next',
