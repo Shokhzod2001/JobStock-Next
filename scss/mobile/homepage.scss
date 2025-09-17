@@ -1334,7 +1334,7 @@
 
 		.top-recruiters {
 			position: relative;
-			padding: 60px 0 40px;
+			padding: 30px 0 20px;
 			width: 100%;
 			height: auto;
 			display: flex;
@@ -1347,16 +1347,16 @@
 				align-items: center;
 				max-width: 100%;
 				margin: 0 auto;
-				padding: 0 15px;
+				padding: 0 5px;
 				width: 100%;
 
 				.info-box {
 					.left {
 						h2 {
 							font-family: $font;
-							font-size: 24px;
+							font-size: 18px;
 							font-weight: 700;
-							margin-bottom: 24px;
+							margin-bottom: 12px;
 							text-align: center;
 							background: linear-gradient(135deg, rgb(2, 82, 2) 0%, lighten(rgb(2, 82, 2), 20%) 100%);
 							background-clip: text;
@@ -1370,8 +1370,8 @@
 					display: flex;
 					flex-direction: column;
 					align-items: center;
-					gap: 15px;
-					margin-bottom: 20px;
+					gap: 10px;
+					margin-bottom: 12px;
 
 					.left {
 						text-align: center;
@@ -1379,7 +1379,7 @@
 						span {
 							color: #111827;
 							font-family: $font;
-							font-size: 24px;
+							font-size: 18px;
 							font-weight: 700;
 							line-height: 1.2;
 						}
@@ -1388,7 +1388,7 @@
 					.more-box {
 						display: flex;
 						align-items: center;
-						gap: 6px;
+						gap: 3px;
 						cursor: pointer;
 						transition: $transition-fast;
 						text-decoration: none;
@@ -1406,14 +1406,14 @@
 						span {
 							color: $text-color;
 							font-family: $font;
-							font-size: 14px;
+							font-size: 11px;
 							font-weight: 500;
 							transition: $transition-fast;
 						}
 
 						svg {
-							width: 18px;
-							height: 18px;
+							width: 14px;
+							height: 14px;
 							color: $text-color;
 							transition: $transition-fast;
 						}
@@ -1422,11 +1422,11 @@
 
 				.wrapper {
 					width: 100%;
-					margin-top: 30px;
+					margin-top: 15px;
 					display: flex;
 					flex-direction: column;
 					align-items: center;
-					gap: 20px;
+					gap: 12px;
 					position: relative;
 
 					.switch-btn {
@@ -1443,7 +1443,7 @@
 						.top-agents-swiper {
 							width: 100%;
 							height: auto;
-							padding: 5px 0;
+							padding: 3px 0;
 
 							.top-agents-slide {
 								width: 100%;
@@ -1454,29 +1454,29 @@
 								.recruiter-card {
 									position: relative;
 									width: 100%;
-									max-width: 300px;
-									border-radius: 12px;
+									max-width: 260px;
+									border-radius: 8px;
 									background: #fff;
-									box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+									box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 									transition: all 0.3s ease;
 									overflow: hidden;
 									margin: 0 auto;
 
 									&:hover {
 										transform: translateY(-2px);
-										box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+										box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 									}
 
 									.card-header {
 										display: flex;
 										justify-content: space-between;
 										align-items: flex-start;
-										padding: 10px 12px 0;
+										padding: 6px 8px 0;
 
 										.status-badge {
-											font-size: 9px;
+											font-size: 7px;
 											font-weight: 600;
-											height: 20px;
+											height: 16px;
 										}
 
 										.recruiter-rank {
@@ -1486,19 +1486,19 @@
 
 											.MuiRating-root {
 												margin-bottom: 1px;
-												font-size: 16px;
+												font-size: 12px;
 											}
 
 											.MuiTypography-caption {
 												color: #6b7280;
 												font-weight: 500;
-												font-size: 11px;
+												font-size: 9px;
 											}
 										}
 									}
 
 									.agent-image {
-										height: 160px;
+										height: 120px;
 										background-size: cover;
 										background-position: center;
 										background-repeat: no-repeat;
@@ -1507,64 +1507,64 @@
 
 										.job-count-badge {
 											position: absolute;
-											bottom: 10px;
-											left: 10px;
+											bottom: 6px;
+											left: 6px;
 											display: flex;
 											align-items: center;
-											gap: 3px;
-											padding: 5px 8px;
-											border-radius: 16px;
+											gap: 2px;
+											padding: 3px 5px;
+											border-radius: 12px;
 											background: #4caf50;
 											color: #fff;
 											font-weight: 600;
 											opacity: 1; // Always visible on mobile
-											font-size: 11px;
+											font-size: 9px;
 
 											.MuiSvgIcon-root {
-												font-size: 12px;
+												font-size: 10px;
 											}
 										}
 									}
 
 									.card-content {
-										padding: 12px;
+										padding: 8px;
 
 										.agent-info {
-											margin-bottom: 12px;
+											margin-bottom: 8px;
 
 											.agent-name {
-												font-size: 16px;
+												font-size: 13px;
 												font-weight: 700;
 												color: #181a20;
-												margin-bottom: 3px;
+												margin-bottom: 2px;
 												cursor: pointer;
 												line-height: 1.2;
 											}
 
 											.agent-title {
 												color: #6b7280;
-												margin-bottom: 6px;
+												margin-bottom: 3px;
 												font-weight: 500;
-												font-size: 13px;
+												font-size: 11px;
 											}
 
 											.agent-location {
 												display: flex;
 												align-items: center;
-												gap: 3px;
-												margin-bottom: 8px;
+												gap: 2px;
+												margin-bottom: 5px;
 												color: #6b7280;
-												font-size: 12px;
+												font-size: 10px;
 
 												.MuiSvgIcon-root {
-													font-size: 14px;
+													font-size: 11px;
 												}
 											}
 
 											.agent-desc {
 												color: #4b5563;
 												line-height: 1.4;
-												font-size: 12px;
+												font-size: 10px;
 												display: -webkit-box;
 												-webkit-box-orient: vertical;
 												overflow: hidden;
@@ -1574,29 +1574,29 @@
 										.divider {
 											height: 1px;
 											background: #f3f4f6;
-											margin: 8px 0;
+											margin: 5px 0;
 										}
 
 										.agent-stats {
 											display: flex;
 											justify-content: space-around;
-											margin: 12px 0;
-											gap: 8px;
+											margin: 8px 0;
+											gap: 5px;
 
 											.stat {
 												text-align: center;
 												flex: 1;
 
 												h4 {
-													font-size: 16px;
+													font-size: 13px;
 													font-weight: 700;
 													color: #181a20;
-													margin-bottom: 2px;
+													margin-bottom: 1px;
 												}
 
 												.MuiTypography-body2 {
 													color: #6b7280;
-													font-size: 11px;
+													font-size: 9px;
 													font-weight: 500;
 												}
 											}
@@ -1606,14 +1606,14 @@
 											display: flex;
 											justify-content: space-around;
 											align-items: center;
-											gap: 5px;
+											gap: 3px;
 
 											.action-item {
 												display: flex;
 												align-items: center;
-												gap: 3px;
-												padding: 5px 8px;
-												border-radius: 6px;
+												gap: 2px;
+												padding: 3px 5px;
+												border-radius: 4px;
 												cursor: pointer;
 												transition: background-color 0.2s ease;
 												flex: 1;
@@ -1628,19 +1628,19 @@
 												}
 
 												.MuiSvgIcon-root {
-													font-size: 18px;
+													font-size: 14px;
 												}
 
 												.MuiTypography-body2 {
 													font-weight: 600;
 													color: #4b5563;
-													font-size: 11px;
+													font-size: 9px;
 												}
 											}
 
 											.MuiIconButton-root.action-item {
 												background: transparent;
-												padding: 6px;
+												padding: 4px;
 
 												&:hover {
 													background-color: #f9fafb;

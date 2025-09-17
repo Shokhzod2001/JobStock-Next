@@ -77,7 +77,7 @@ const TopJobs = (props: TopJobsProps) => {
 						<Swiper
 							className={'top-property-swiper'}
 							slidesPerView={2}
-							spaceBetween={7}
+							spaceBetween={8}
 							modules={[Autoplay, Navigation, Pagination]}
 							navigation={{
 								nextEl: '.swiper-top-next',

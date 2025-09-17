@@ -71,15 +71,15 @@ const TopRecruiters = (props: TopRecruitersProps) => {
 			<Stack className={'top-recruiters'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<div className="left">
+						<div className="left" style={{ paddingLeft: '10px' }}>
 							<h2>{t('Top Recruiters')}</h2>
 						</div>
-						<Box component={'div'} className={'right'}>
+						<Box component={'div'} className={'right'} style={{ paddingRight: '12px' }}>
 							<div className={'more-box'}>
 								<a href="/recruiter">
-									<span>See All Recruiters</span>
+									<span style={{ fontSize: '13px' }}>See All Recruiters</span>
 								</a>
-								<img src="/img/icons/rightup.svg" alt="" />
+								<img src="/img/icons/rightup.svg" alt="" style={{ paddingRight: '4px' }} />
 							</div>
 						</Box>
 					</Stack>
@@ -89,7 +89,7 @@ const TopRecruiters = (props: TopRecruitersProps) => {
 							<Swiper
 								className={'top-agents-swiper'}
 								slidesPerView={2}
-								spaceBetween={15}
+								spaceBetween={10}
 								modules={[Autoplay, Navigation, Pagination]}
 								navigation={{
 									prevEl: prevRef.current,
@@ -151,7 +151,7 @@ const TopRecruiters = (props: TopRecruitersProps) => {
 						<Box component={'div'} className={'card-wrapper'}>
 							<Swiper
 								className={'top-agents-swiper'}
-								slidesPerView={2}
+								slidesPerView={4}
 								spaceBetween={15}
 								modules={[Autoplay, Navigation, Pagination]}
 								navigation={{

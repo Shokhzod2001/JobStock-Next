@@ -39,7 +39,9 @@ const RecruiterCard = (props: RecruiterCardProps) => {
 					<Box className="agent-image" style={{ backgroundImage: `url(${imagePath})` }}>
 						<Box className="job-count-badge">
 							<WorkOutlineIcon fontSize="small" />
-							<Typography variant="body2">{recruiter?.memberProperties || 0}</Typography>
+							<Typography variant="body2" style={{ fontSize: '11px' }}>
+								{recruiter?.memberProperties || 0}
+							</Typography>
 						</Box>
 					</Box>
 				</Link>
@@ -63,7 +65,9 @@ const RecruiterCard = (props: RecruiterCardProps) => {
 						{recruiter?.memberAddress && (
 							<Box className="agent-location">
 								<LocationOnOutlinedIcon fontSize="small" />
-								<Typography variant="body2">{recruiter.memberAddress}</Typography>
+								<Typography variant="body2" style={{ fontSize: '11px' }}>
+									{recruiter.memberAddress}
+								</Typography>
 							</Box>
 						)}
 
