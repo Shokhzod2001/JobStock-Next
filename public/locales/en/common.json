@@ -104,18 +104,13 @@
 	"Customer Support": "Customer Support",
 	"Get help with your job search": "Get help with your job search",
 
-	"filter": {
-		"Find Your Job": "Find Your Job",
-		"What job are you looking": "What job are you looking",
-		"Location": "Location",
-		"Job Type": "Job Type",
-		"Category": "Category",
-		"Show More": "Show More",
-		"Show Less": "Show Less",
-		"Salary Type": "Salary Type",
-		"Select Salary Type": "Select Salary Type",
-		"Options": "Options",
-		"Salary Range": "Salary Range",
-		"Experience Range": "Experience Range"
-	}
+	"Find Your Job": "Find Your Job",
+	"What job are you looking": "What job are you looking",
+	"Show More": "Show More",
+	"Show Less": "Show Less",
+	"Salary Type": "Salary Type",
+	"Select Salary Type": "Select Salary Type",
+	"Options": "Options",
+	"Salary Range": "Salary Range",
+	"Experience Range": "Experience Range"
 }

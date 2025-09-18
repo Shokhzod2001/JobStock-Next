@@ -105,18 +105,13 @@
 	"Customer Support": "고객 지원",
 	"Get help with your job search": "구직 활동에 도움 받기",
 
-	"filter": {
-		"Find Your Job": "당신의 직업 찾기",
-		"What job are you looking": "어떤 직업을 찾고 계신가요",
-		"Location": "지역",
-		"Job Type": "직종",
-		"Category": "카테고리",
-		"Show More": "더 보기",
-		"Show Less": "간략히",
-		"Salary Type": "급여 유형",
-		"Select Salary Type": "급여 유형 선택",
-		"Options": "옵션",
-		"Salary Range": "급여 범위",
-		"Experience Range": "경력 범위"
-	}
+	"Find Your Job": "당신의 직업 찾기",
+	"What job are you looking": "어떤 직업을 찾고 계신가요",
+	"Show More": "더 보기",
+	"Show Less": "간략히",
+	"Salary Type": "급여 유형",
+	"Select Salary Type": "급여 유형 선택",
+	"Options": "옵션",
+	"Salary Range": "급여 범위",
+	"Experience Range": "경력 범위"
 }

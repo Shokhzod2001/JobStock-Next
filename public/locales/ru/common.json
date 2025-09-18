@@ -105,18 +105,13 @@
 	"Customer Support": "Поддержка клиентов",
 	"Get help with your job search": "Получите помощь в поиске работы",
 
-	"filter": {
-		"Find Your Job": "Найдите свою работу",
-		"What job are you looking": "Какую работу вы ищете",
-		"Location": "Местоположение",
-		"Job Type": "Тип работы",
-		"Category": "Категория",
-		"Show More": "Показать больше",
-		"Show Less": "Показать меньше",
-		"Salary Type": "Тип зарплаты",
-		"Select Salary Type": "Выберите тип зарплаты",
-		"Options": "Опции",
-		"Salary Range": "Диапазон зарплаты",
-		"Experience Range": "Диапазон опыта"
-	}
+	"Find Your Job": "Найдите свою работу",
+	"What job are you looking": "Какую работу вы ищете",
+	"Show More": "Показать больше",
+	"Show Less": "Показать меньше",
+	"Salary Type": "Тип зарплаты",
+	"Select Salary Type": "Выберите тип зарплаты",
+	"Options": "Опции",
+	"Salary Range": "Диапазон зарплаты",
+	"Experience Range": "Диапазон опыта"
 }
