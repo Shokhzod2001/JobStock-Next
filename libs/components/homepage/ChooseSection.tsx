@@ -1,5 +1,6 @@
 import React from 'react';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
+import { useTranslation } from 'next-i18next';
 
 const steps = [
 	{
@@ -24,13 +25,15 @@ const steps = [
 
 const ChooseSection: React.FC = () => {
 	const device = useDeviceDetect();
+	const { t, i18n } = useTranslation('common');
+
 	if (device === 'mobile') {
 		return (
 			<section className="choose-section">
 				<div className="container">
-					<h2 className="section-title">Choose What You Need</h2>
+					<h2 className="section-title">{t('Choose What You Need')}</h2>
 					<p className="section-subtitle">
-						Find the right path to kickstart your journey — create an account, search jobs, and apply with ease.
+						{t('Find the right path to kickstart your journey — create an account, search jobs, and apply with ease')}
 					</p>
 					<div className="card-grid">
 						{steps.map((step, index) => (
@@ -48,9 +51,9 @@ const ChooseSection: React.FC = () => {
 		return (
 			<section className="choose-section">
 				<div className="container">
-					<h2 className="section-title">Choose What You Need</h2>
+					<h2 className="section-title">{t('Choose What You Need')}</h2>
 					<p className="section-subtitle">
-						Find the right path to kickstart your journey — create an account, search jobs, and apply with ease.
+						{t('Find the right path to kickstart your journey — create an account, search jobs, and apply with ease')}
 					</p>
 					<div className="card-grid">
 						{steps.map((step, index) => (

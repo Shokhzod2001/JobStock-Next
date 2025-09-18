@@ -80,7 +80,7 @@ const CommunityBoards = () => {
 						<div className="community-section">
 							<div className="content-top">
 								<Link href="/community?articleCategory=NEWS">
-									<span>News</span>
+									<span>{t('News')}</span>
 									<img src="/img/icons/arrowBig.svg" alt="View all news" />
 								</Link>
 							</div>
@@ -93,7 +93,7 @@ const CommunityBoards = () => {
 						<div className="community-section">
 							<div className="content-top">
 								<Link href="/community?articleCategory=RECOMMEND">
-									<span>Recommended</span>
+									<span>{t('Recommended')}</span>
 									<img src="/img/icons/arrowBig.svg" alt="View recommended posts" />
 								</Link>
 							</div>
@@ -126,7 +126,7 @@ const CommunityBoards = () => {
 						<div className="community-section">
 							<div className="content-top">
 								<Link href="/community?articleCategory=NEWS">
-									<span>News</span>
+									<span>{t('News')}</span>
 									<img src="/img/icons/arrowBig.svg" alt="View all news" />
 								</Link>
 							</div>
@@ -139,7 +139,7 @@ const CommunityBoards = () => {
 						<div className="community-section">
 							<div className="content-top">
 								<Link href="/community?articleCategory=FREE">
-									<span>Free Board</span>
+									<span>{t('Free Board')}</span>
 									<img src="/img/icons/arrowBig.svg" alt="View all free posts" />
 								</Link>
 							</div>
@@ -152,7 +152,7 @@ const CommunityBoards = () => {
 						<div className="community-section">
 							<div className="content-top">
 								<Link href="/community?articleCategory=RECOMMEND">
-									<span>Recommended</span>
+									<span>{t('Recommended')}</span>
 									<img src="/img/icons/arrowBig.svg" alt="View recommended posts" />
 								</Link>
 							</div>

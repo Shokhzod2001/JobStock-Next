@@ -29,7 +29,8 @@ import { GET_JOBS } from '../../apollo/user/query';
 import Filter from '../../libs/components/job/Filter';
 import RemoteHiringCompanies from '../../libs/components/job/Companies';
 import JobCard from '../../libs/components/job/JobCard';
-import JobListItem from '../../libs/components/job/JobListItem'; // You'll need to create this
+import JobListItem from '../../libs/components/job/JobListItem';
+import { useTranslation } from 'next-i18next';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -50,6 +51,7 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 	const [sortingOpen, setSortingOpen] = useState(false);
 	const [filterSortName, setFilterSortName] = useState('New');
 	const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+	const { t, i18n } = useTranslation('common');
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetJob] = useMutation(LIKE_TARGET_JOB);
@@ -150,10 +152,10 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 				<RemoteHiringCompanies />
 				<div className="container">
 					<Box component={'div'} className={'view-controls'}>
-						<span>Sort by</span>
+						<span>{t('Sort by')}</span>
 						<div>
 							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
-								{filterSortName}
+								{t(filterSortName)}
 							</Button>
 							<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
 								<MenuItem
@@ -162,7 +164,7 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 									disableRipple
 									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
 								>
-									New
+									{t('New')}
 								</MenuItem>
 								<MenuItem
 									onClick={sortingHandler}
@@ -170,7 +172,7 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 									disableRipple
 									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
 								>
-									Lowest Salary
+									{t('Lowest Salary')}
 								</MenuItem>
 								<MenuItem
 									onClick={sortingHandler}
@@ -178,7 +180,7 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 									disableRipple
 									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
 								>
-									Highest Salary
+									{t('Highest Salary')}
 								</MenuItem>
 								<MenuItem
 									onClick={sortingHandler}
@@ -186,7 +188,7 @@ const JobList: NextPage = ({ initialInput, ...props }: any) => {
 									disableRipple
 									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
 								>
-									Deadline
+									{t('Deadline')}
 								</MenuItem>
 							</Menu>
 						</div>

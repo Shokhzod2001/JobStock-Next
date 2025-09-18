@@ -105,8 +105,8 @@ const TopJobs = (props: TopJobsProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Top Jobs</span>
-							<p> Featured opportunities this week</p>
+							<span>{t('Top Jobs')}</span>
+							<p> {t('Featured opportunities this week')}</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'pagination-box'}>

@@ -65,12 +65,12 @@ const PopularJobs = (props: PopularJobsProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<div className="left" style={{ paddingLeft: '10px' }}>
-							<h2>{t('Popular jobs')}</h2>
+							<h2>{t('Popular Jobs')}</h2>
 						</div>
 						<Box component={'div'} className={'right'}>
 							<div className={'more-box'} style={{ paddingRight: '10px' }}>
 								<Link href={'/job'}>
-									<span>See All Categories</span>
+									<span>{t('See All Categories')}</span>
 								</Link>
 								<img src="/img/icons/rightup.svg" alt="" style={{ paddingRight: '5px' }} />
 							</div>
@@ -108,13 +108,13 @@ const PopularJobs = (props: PopularJobsProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Popular jobs</span>
-							<p>Discover the most viewed opportunities in your field</p>
+							<span>{t('Popular Jobs')}</span>
+							<p>{t('Discover the most viewed opportunities in your field')}</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'more-box'}>
 								<Link href={'/job'}>
-									<span>See All Categories</span>
+									<span>{t('See All Categories')}</span>
 								</Link>
 								<img src="/img/icons/rightup.svg" alt="" />
 							</div>

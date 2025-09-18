@@ -164,8 +164,10 @@ const Categories = (props: CategoriesProps) => {
 				<Box className="categories-container">
 					<Box className="info-box">
 						<Box className="left">
-							<Typography className="section-title">Explore Best Categories</Typography>
-							<Typography className="section-subtitle">Browse jobs by category to find your perfect match</Typography>
+							<Typography className="section-title">{t('Explore Best Categories')}</Typography>
+							<Typography className="section-subtitle">
+								{t('Browse jobs by category to find your perfect match')}
+							</Typography>
 						</Box>
 						<Box className="right">
 							<Box className="pagination-box">

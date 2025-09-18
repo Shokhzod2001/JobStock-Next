@@ -2,10 +2,12 @@ import React from 'react';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Stack, Typography, Button } from '@mui/material';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'next-i18next';
 
 const Advertisement = () => {
 	const device = useDeviceDetect();
 	const videoSrc = '/video/ads.mp4';
+	const { t, i18n } = useTranslation('common');
 
 	if (device === 'mobile') {
 		return (
@@ -30,7 +32,7 @@ const Advertisement = () => {
 					<motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
 						<a href="/job">
 							<Button variant="contained" className={'ctaBtn'}>
-								Explore Jobs
+								{t('Explore Jobs')}
 							</Button>
 						</a>
 					</motion.div>
@@ -53,14 +55,14 @@ const Advertisement = () => {
 
 					<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 1 }}>
 						<Typography variant={device === 'mobile' ? 'body1' : 'h5'} className={'subtitle'}>
-							Find jobs that fit your passion, skills & future 🌱
+							{t('Find jobs that fit your passion, skills & future')}🌱
 						</Typography>
 					</motion.div>
 
 					<motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
 						<a href="/job">
 							<Button variant="contained" className={'ctaBtn'}>
-								Explore Jobs
+								{t('Explore Jobs')}
 							</Button>
 						</a>
 					</motion.div>

@@ -5,9 +5,11 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import useDeviceDetect from '../hooks/useDeviceDetect';
 import { Stack, Box } from '@mui/material';
 import moment from 'moment';
+import { useTranslation } from 'next-i18next';
 
 const Footer = () => {
 	const device = useDeviceDetect();
+	const { t, i18n } = useTranslation('common');
 
 	if (device == 'mobile') {
 		return (
@@ -18,7 +20,7 @@ const Footer = () => {
 							<img src="/img/logo/logoWhite.png" alt="" className={'logo'} />
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
-							<span>total free customer care</span>
+							<span>{t('Total Free Customer Care')}</span>
 							<p>+82 10 4390 2001</p>
 						</Box>
 					</Stack>
@@ -31,13 +33,13 @@ const Footer = () => {
 						</Box>
 						<Box component={'div'} className={'bottom'}>
 							<div className="footer-column">
-								<strong>Job Search</strong>
+								<strong>{t('Job Search')}</strong>
 								<span>Job for Remote</span>
 								<span>Job Low to Top</span>
 							</div>
 							<Box className="link-box">
 								<div className="footer-links">
-									<strong>Quick Links</strong>
+									<strong>{t('Quick Links')}</strong>
 									<span>Terms of Use</span>
 									<span>Privacy Policy</span>
 									<span>Pricing Plans</span>
@@ -46,7 +48,7 @@ const Footer = () => {
 									<span>FAQs</span>
 								</div>
 								<div className="footer-locations">
-									<strong>Discover</strong>
+									<strong>{t('Discover')}</strong>
 									<span>Seoul</span>
 									<span>Gyeongido</span>
 									<span>Busan</span>
@@ -75,16 +77,16 @@ const Footer = () => {
 							<img src="/img/logo/logoWhite.png" alt="" className={'logo'} />
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
-							<span>total free customer care</span>
+							<span>{t('Total Free Customer Care')}</span>
 							<p>+82 10 4390 2001</p>
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
-							<span>new live</span>
+							<span>{t('New Live')}</span>
 							<p>+82 10 5530 1112</p>
-							<span>Support?</span>
+							<span>{t('Support')}?</span>
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
-							<p>follow us on social media</p>
+							<p>{t('Follow Us On Social Media')}</p>
 							<div className={'media-box'}>
 								<FacebookOutlinedIcon />
 								<TelegramIcon />
@@ -95,7 +97,7 @@ const Footer = () => {
 					</Stack>
 					<Stack className={'right'}>
 						<Box component={'div'} className={'top'}>
-							<strong>keep yourself up to date</strong>
+							<strong>{t('Keep Yourself Up To Date')}</strong>
 							<div>
 								<input type="text" placeholder={'Your Email'} />
 								<span>Subscribe</span>
@@ -103,12 +105,12 @@ const Footer = () => {
 						</Box>
 						<Box component={'div'} className={'bottom'}>
 							<div>
-								<strong>Job Search</strong>
+								<strong>{t('Job Search')}</strong>
 								<span>Job for Remote</span>
 								<span>Job Low to Top</span>
 							</div>
 							<div>
-								<strong>Quick Links</strong>
+								<strong>{t('Quick Links')}</strong>
 								<span>Terms of Use</span>
 								<span>Privacy Policy</span>
 								<span>Pricing Plans</span>
@@ -117,7 +119,7 @@ const Footer = () => {
 								<span>FAQs</span>
 							</div>
 							<div>
-								<strong>Discover</strong>
+								<strong>{t('Discover')}</strong>
 								<span>Seoul</span>
 								<span>Gyeongido</span>
 								<span>Busan</span>

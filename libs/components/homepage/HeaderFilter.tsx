@@ -273,7 +273,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<ExpandMoreIcon />
 						</Box>
 						<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
-							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Job type')} </span>
+							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Job Type')} </span>
 							<ExpandMoreIcon />
 						</Box>
 						<Box className={`box ${openCategory ? 'on' : ''}`} onClick={categoryStateChangeHandler}>
@@ -284,7 +284,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					<Stack className={'search-box-other'}>
 						<Box className={'search-btn'} onClick={pushSearchHandler}>
 							<img src="/img/icons/search_white.svg" alt="" />
-							<span>{t('Search Jobs')}</span>
+							<span>{t('Search')}</span>
 						</Box>
 					</Stack>
 
@@ -484,7 +484,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<ExpandMoreIcon className={`icon ${openLocation ? 'rotate' : ''}`} />
 						</Box>
 						<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
-							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Job type')} </span>
+							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Job Type')} </span>
 							<ExpandMoreIcon className={`icon ${openType ? 'rotate' : ''}`} />
 						</Box>
 						<Box className={`box ${openCategory ? 'on' : ''}`} onClick={categoryStateChangeHandler}>

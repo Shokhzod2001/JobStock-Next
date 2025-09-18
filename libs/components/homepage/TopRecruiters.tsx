@@ -130,13 +130,13 @@ const TopRecruiters = (props: TopRecruitersProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'} style={{ padding: '0 40px' }}>
 						<Box component={'div'} className={'left'}>
-							<span>Top Recruiters</span>
-							<p>Our Top Recruiters always ready to serve you</p>
+							<span>{t('Top Recruiters')}</span>
+							<p>{t('Our Top Recruiters always ready to serve you')}</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'more-box'}>
 								<a href="/recruiter">
-									<span>See All Recruiters</span>
+									<span>{t('See All Recruiters')}</span>
 								</a>
 								<img src="/img/icons/rightup.svg" alt="" />
 							</div>

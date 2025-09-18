@@ -23,6 +23,7 @@ import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { useTranslation } from 'next-i18next';
 
 const MenuProps = {
 	PaperProps: {
@@ -49,6 +50,7 @@ const Filter = (props: FilterType) => {
 	const [searchText, setSearchText] = useState<string>('');
 	const [showMore, setShowMore] = useState<boolean>(false);
 	const [showMoreCategories, setShowMoreCategories] = useState<boolean>(false);
+	const { t, i18n } = useTranslation('common');
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -502,13 +504,13 @@ const Filter = (props: FilterType) => {
 		return (
 			<Stack className={'filter-main'}>
 				<Stack className={'find-your-job'} mb={'40px'}>
-					<Typography className={'title-main'}>Find Your Job</Typography>
+					<Typography className={'title-main'}>{t('Find Your Job')}</Typography>
 					<Stack className={'input-box'}>
 						<OutlinedInput
 							value={searchText}
 							type={'text'}
 							className={'search-input'}
-							placeholder={'What job are you looking for?'}
+							placeholder={t('What job are you looking for')}
 							onChange={(e: any) => setSearchText(e.target.value)}
 							onKeyDown={(event: any) => {
 								if (event.key == 'Enter') {
@@ -544,7 +546,7 @@ const Filter = (props: FilterType) => {
 				{/* Location Filter */}
 				<Stack className={'find-your-job'} mb={'30px'}>
 					<p className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
-						Location
+						{t('Location')}
 					</p>
 					<Stack
 						className={`job-location`}
@@ -579,7 +581,7 @@ const Filter = (props: FilterType) => {
 
 				{/* Job Type Filter */}
 				<Stack className={'find-your-job'} mb={'30px'}>
-					<Typography className={'title'}>Job Type</Typography>
+					<Typography className={'title'}>{t('Job Type')}</Typography>
 					{jobTypes.map((type: string) => (
 						<Stack className={'input-box'} key={type}>
 							<Checkbox
@@ -601,7 +603,7 @@ const Filter = (props: FilterType) => {
 				{/* Category Filter */}
 				<Stack className={'find-your-job'} mb={'30px'}>
 					<Box display="flex" justifyContent="space-between" alignItems="center">
-						<Typography className={'title'}>Category</Typography>
+						<Typography className={'title'}>{t('Category')}</Typography>
 						<Button
 							size="small"
 							endIcon={showMoreCategories ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -632,9 +634,9 @@ const Filter = (props: FilterType) => {
 
 				{/* Salary Type Filter */}
 				<Stack className={'find-your-job'} mb={'30px'}>
-					<Typography className={'title'}>Salary Type</Typography>
+					<Typography className={'title'}>{t('Salary Type')}</Typography>
 					<FormControl fullWidth size="small">
-						<InputLabel id="salary-type-label">Select Salary Type</InputLabel>
+						<InputLabel id="salary-type-label">{t('Select Salary Type')}</InputLabel>
 						<Select
 							labelId="salary-type-label"
 							id="salary-type-select"
@@ -657,7 +659,7 @@ const Filter = (props: FilterType) => {
 
 				{/* Options Filter */}
 				<Stack className={'find-your-job'} mb={'30px'}>
-					<Typography className={'title'}>Options</Typography>
+					<Typography className={'title'}>{t('Options')}</Typography>
 					<Stack className={'input-box'}>
 						<Checkbox
 							id={'Remote'}
@@ -690,7 +692,7 @@ const Filter = (props: FilterType) => {
 
 				{/* Salary Range Filter */}
 				<Stack className={'find-your-job'} mb={'30px'}>
-					<Typography className={'title'}>Salary Range</Typography>
+					<Typography className={'title'}>{t('Salary Range')}</Typography>
 					<Stack direction="row" alignItems="center" spacing={1}>
 						<FormControl fullWidth size="small">
 							<InputLabel htmlFor="min-salary">Min</InputLabel>
@@ -730,7 +732,7 @@ const Filter = (props: FilterType) => {
 
 				{/* Experience Range Filter */}
 				<Stack className={'find-your-job'}>
-					<Typography className={'title'}>Experience Range</Typography>
+					<Typography className={'title'}>{t('Experience Range')}</Typography>
 					<Stack direction="row" alignItems="center" spacing={1}>
 						<FormControl fullWidth size="small">
 							<InputLabel htmlFor="min-experience">Min</InputLabel>
