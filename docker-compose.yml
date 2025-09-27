@@ -1,5 +1,3 @@
-version: '3.3'
-
 services:
   jobStock-next:
     container_name: jobStock-next
