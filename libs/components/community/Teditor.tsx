@@ -146,7 +146,7 @@ const TuiEditor = () => {
 					/>
 				</Box>
 			</Stack>
-
+          {/* @ts-ignore */}
 			<Editor
 				initialValue={'Type here'}
 				placeholder={'Type here'}

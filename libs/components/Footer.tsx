@@ -37,7 +37,7 @@ const Footer = () => {
 								<span>Job for Remote</span>
 								<span>Job Low to Top</span>
 							</div>
-							<Box className="link-box">
+							<Box component={'div'} className="link-box">
 								<div className="footer-links">
 									<strong>{t('Quick Links')}</strong>
 									<span>Terms of Use</span>

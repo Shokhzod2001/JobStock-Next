@@ -19,6 +19,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 		<ApolloProvider client={client}>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
+				{/* @ts-ignore */}
 				<Component {...pageProps} />
 			</ThemeProvider>
 		</ApolloProvider>

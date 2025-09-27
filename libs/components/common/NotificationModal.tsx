@@ -240,7 +240,7 @@ const NotificationModal = ({
 					)}
 				</Stack>
 			</Box>
-
+            {/* @ts-ignore */}
 			<ScrollableFeed>
 				<Stack sx={{ maxHeight: '400px', overflow: 'auto' }}>
 					{notifications.length === 0 ? (

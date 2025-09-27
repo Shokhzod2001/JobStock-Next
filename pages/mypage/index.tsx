@@ -108,11 +108,17 @@ const MyPage: NextPage = () => {
 							<Stack className="main-config" mb={'76px'}>
 								<Stack className={'list-config'}>
 									{category === 'addJob' && <AddJob />}
+									{/* @ts-ignore */}
 									{category === 'myJobs' && <MyJobs />}
+									{/* @ts-ignore */}
 									{category === 'myFavorites' && <MyFavorites />}
+									{/* @ts-ignore */}
 									{category === 'recentlyVisited' && <RecentlyVisited />}
+									{/* @ts-ignore */}
 									{category === 'myArticles' && <MyArticles />}
+									{/* @ts-ignore */}
 									{category === 'writeArticle' && <WriteArticle />}
+									{/* @ts-ignore */}
 									{category === 'myProfile' && <MyProfile />}
 									{category === 'followers' && (
 										<MemberFollowers

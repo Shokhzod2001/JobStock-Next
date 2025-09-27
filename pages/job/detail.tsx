@@ -420,8 +420,8 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 										Job Requirements
 									</Typography>
 									<Divider className={'section-divider'} />
-									<Box className={'requirements-content'}>
-										<Box className={'requirements-text'}>
+									<Box component={'div'} className={'requirements-content'}>
+										<Box component={'div'} className={'requirements-text'}>
 											{job?.jobRequirements ? (
 												<Typography
 													variant="body1"
@@ -438,7 +438,7 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 											)}
 										</Box>
 										{job?.jobSkills && job.jobSkills.length > 0 && (
-											<Box className={'skills-tags'}>
+											<Box component={'div'} className={'skills-tags'}>
 												<Typography variant="h6" className={'skills-title'}>
 													Key Skills
 												</Typography>
@@ -517,7 +517,7 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 										}}
 										value={insertCommentData.commentContent}
 									></textarea>
-									<Box className={'submit-btn'} component={'div'}>
+									<Box component={'div'} className={'submit-btn'}>
 										<Button
 											className={'submit-review'}
 											disabled={insertCommentData.commentContent === '' || user?._id === ''}
@@ -543,7 +543,7 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 							</Stack>
 							<Stack className={'application-sidebar'}>
 								{/* Company Info Card */}
-								<Box className={'company-card'}>
+								<Box component={'div'} className={'company-card'}>
 									<Typography variant="h6" className={'card-title'}>
 										Hiring Company
 									</Typography>
@@ -557,7 +557,7 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 											}
 											alt={job?.companyName}
 										/>
-										<Box className={'company-details'}>
+										<Box component={'div'} className={'company-details'}>
 											<Link href={`/member?memberId=${job?.memberData?._id}`}>
 												<Typography className={'company-name'}>{job?.companyName}</Typography>
 											</Link>
@@ -578,7 +578,7 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 								</Box>
 
 								{/* Application Form Card */}
-								<Box className={'application-card'}>
+								<Box component={'div'} className={'application-card'}>
 									<Typography variant="h5" className={'card-main-title'}>
 										Apply for this Position
 									</Typography>
@@ -586,29 +586,29 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 										Complete the form below to submit your application
 									</Typography>
 
-									<Box component="form" className={'application-form'} spacing={3}>
-										<Box className={'form-group'}>
+									<Stack component="form" className={'application-form'} spacing={3}>
+										<Box component={'div'} className={'form-group'}>
 											<Typography variant="body2" className={'form-label'}>
 												Full Name *
 											</Typography>
 											<input type={'text'} placeholder={'Your full name'} className={'form-input'} required />
 										</Box>
 
-										<Box className={'form-group'}>
+										<Box component={'div'} className={'form-group'}>
 											<Typography variant="body2" className={'form-label'}>
 												Email Address *
 											</Typography>
 											<input type={'email'} placeholder={'your.email@example.com'} className={'form-input'} required />
 										</Box>
 
-										<Box className={'form-group'}>
+										<Box component={'div'} className={'form-group'}>
 											<Typography variant="body2" className={'form-label'}>
 												Phone Number *
 											</Typography>
 											<input type={'tel'} placeholder={'+1 (555) 000-0000'} className={'form-input'} required />
 										</Box>
 
-										<Box className={'form-group'}>
+										<Box component={'div'} className={'form-group'}>
 											<Typography variant="body2" className={'form-label'}>
 												Cover Message
 											</Typography>
@@ -619,11 +619,11 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 											/>
 										</Box>
 
-										<Box className={'form-group'}>
+										<Box component={'div'} className={'form-group'}>
 											<Typography variant="body2" className={'form-label'}>
 												Upload Resume *
 											</Typography>
-											<Box className={'file-upload'}>
+											<Box component={'div'} className={'file-upload'}>
 												<CloudUploadIcon className={'upload-icon'} />
 												<Typography variant="body2">Drop your resume here or click to browse</Typography>
 												<input type="file" className={'file-input'} accept=".pdf,.doc,.docx" />
@@ -640,7 +640,7 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 											<SendIcon className={'send-icon'} />
 											Submit Application
 										</Button>
-									</Box>
+									</Stack>
 
 									<Typography variant="caption" className={'privacy-note'}>
 										By applying, you agree to our Privacy Policy. Your data will be processed securely.
@@ -648,14 +648,14 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 								</Box>
 
 								{/* Quick Stats Card */}
-								<Box className={'stats-card'}>
+								<Box component={'div'} className={'stats-card'}>
 									<Typography variant="h6" className={'card-title'}>
 										Job Statistics
 									</Typography>
 									<Stack spacing={2} className={'stats-grid'}>
-										<Box className={'stat-item'}>
+										<Box component={'div'} className={'stat-item'}>
 											<RemoveRedEyeIcon className={'stat-icon'} />
-											<Box className={'stat-content'}>
+											<Box component={'div'} className={'stat-content'}>
 												<Typography variant="body2" className={'stat-label'}>
 													Views
 												</Typography>
@@ -665,9 +665,9 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 											</Box>
 										</Box>
 
-										<Box className={'stat-item'}>
+										<Box component={'div'} className={'stat-item'}>
 											<AssignmentIcon className={'stat-icon'} />
-											<Box className={'stat-content'}>
+											<Box component={'div'} className={'stat-content'}>
 												<Typography variant="body2" className={'stat-label'}>
 													Applications
 												</Typography>
@@ -677,9 +677,9 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 											</Box>
 										</Box>
 
-										<Box className={'stat-item'}>
+										<Box component={'div'} className={'stat-item'}>
 											<FavoriteIcon className={'stat-icon'} />
-											<Box className={'stat-content'}>
+											<Box component={'div'} className={'stat-content'}>
 												<Typography variant="body2" className={'stat-label'}>
 													Likes
 												</Typography>
@@ -689,9 +689,9 @@ const JobDetail: NextPage = ({ initialComment, ...props }: any) => {
 											</Box>
 										</Box>
 
-										<Box className={'stat-item'}>
+										<Box component={'div'} className={'stat-item'}>
 											<EventIcon className={'stat-icon'} />
-											<Box className={'stat-content'}>
+											<Box component={'div'} className={'stat-content'}>
 												<Typography variant="body2" className={'stat-label'}>
 													Posted
 												</Typography>

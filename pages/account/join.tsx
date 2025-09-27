@@ -70,7 +70,7 @@ const Join: NextPage = (props: any) => {
 			<Stack className={'join-page'}>
 				<Stack className={'container'}>
 					<Stack className={'main'}>
-						<Box className={'info'}>
+						<Box component={'div'} className={'info'}>
 							<span>{t(loginView ? 'Login' : 'Sign Up')}</span>
 							<p>
 								{t(
@@ -80,7 +80,7 @@ const Join: NextPage = (props: any) => {
 								)}
 							</p>
 						</Box>
-						<Box className={'input-wrap'}>
+						<Box component={'div'} className={'input-wrap'}>
 							<div className={'input-box'}>
 								<span>{t('Nickname')}</span>
 								<input
@@ -122,7 +122,7 @@ const Join: NextPage = (props: any) => {
 								</div>
 							)}
 						</Box>
-						<Box className={'register'}>
+						<Box component={'div'} className={'register'}>
 							{!loginView && (
 								<div className={'type-option'}>
 									<span className={'text'}>{t('I want to be registered as:')}</span>
@@ -173,7 +173,7 @@ const Join: NextPage = (props: any) => {
 								</Button>
 							)}
 						</Box>
-						<Box className={'ask-info'}>
+						<Box component={'div'} className={'ask-info'}>
 							{loginView ? (
 								<p>
 									{t('Not registered yet?')}
@@ -202,11 +202,11 @@ const Join: NextPage = (props: any) => {
 				<Stack className={'container'}>
 					<Stack className={'main'}>
 						<Stack className={'left'}>
-							<Box className={'logo'}>
+							<Box component={'div'} className={'logo'}>
 								<img src="/img/logo/favicon.png" alt="" />
 								<span>JobStock</span>
 							</Box>
-							<Box className={'info'}>
+							<Box component={'div'} className={'info'}>
 								<span>{t(loginView ? 'Login' : 'Sign Up')}</span>
 								<p>
 									{t(
@@ -216,7 +216,7 @@ const Join: NextPage = (props: any) => {
 									)}
 								</p>
 							</Box>
-							<Box className={'input-wrap'}>
+							<Box component={'div'} className={'input-wrap'}>
 								<div className={'input-box'}>
 									<span>{t('Nickname')}</span>
 									<input
@@ -258,7 +258,7 @@ const Join: NextPage = (props: any) => {
 									</div>
 								)}
 							</Box>
-							<Box className={'register'}>
+							<Box component={'div'} className={'register'}>
 								{!loginView && (
 									<div className={'type-option'}>
 										<span className={'text'}>{t('I want to be registered as:')}</span>
@@ -310,7 +310,7 @@ const Join: NextPage = (props: any) => {
 									</Button>
 								)}
 							</Box>
-							<Box className={'ask-info'}>
+							<Box component={'div'} className={'ask-info'}>
 								{loginView ? (
 									<p>
 										{t('Not registered yet?')}

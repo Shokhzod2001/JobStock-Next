@@ -99,6 +99,7 @@ const withLayoutBasic = (Component: any) => {
 					</Head>
 					<Stack id="mobile-wrap">
 						<Stack id={'top'}>
+							{/* @ts-ignore */}
 							<Top />
 						</Stack>
 
@@ -137,6 +138,7 @@ const withLayoutBasic = (Component: any) => {
 					</Head>
 					<Stack id="pc-wrap">
 						<Stack id={'top'}>
+							{/* @ts-ignore */}
 							<Top />
 						</Stack>
 

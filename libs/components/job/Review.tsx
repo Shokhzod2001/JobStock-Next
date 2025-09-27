@@ -3,7 +3,7 @@ import { Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Comment } from '../../types/comment/comment';
 import { REACT_APP_API_URL } from '../../config';
-import Moment from 'react-moment';
+import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
@@ -40,7 +40,7 @@ const Review = (props: ReviewProps) => {
 								{comment.memberData?.memberNick}
 							</Typography>
 							<Typography className={'date'}>
-								<Moment format={'DD MMMM, YYYY'}>{comment.createdAt}</Moment>
+								{moment(comment.createdAt).format('DD MMMM, YYYY')}
 							</Typography>
 						</Stack>
 					</Stack>

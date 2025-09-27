@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  jobStock-next:
+    container_name: jobStock-next
+    restart: always
+    image: node:22.17.0
+    ports:
+      - '4000:3000'
+    environment:
+      - PORT=3000
+    volumes:
+      - ./:/usr/src/jobStock-next
+    working_dir: /usr/src/jobStock-next
+
+    # For Production
+    command: bash -c "yarn && yarn run build && npm run start"
+    networks:
+      - client-network
+
+networks:
+  client-network:
+    driver: bridge
+# jobStock-next: localhost: 4000 => container: 3000
+# jobStock-api: localhost: 4001 => container: 3003
+# jobStock-batch: localhost: 4002 => container: 3004

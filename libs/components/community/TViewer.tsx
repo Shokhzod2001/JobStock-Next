@@ -19,6 +19,7 @@ const TViewer = (props: any) => {
 		<Stack sx={{ background: 'white', mt: '30px', borderRadius: '10px' }}>
 			<Box component={'div'} sx={{ m: '40px' }}>
 				{editorLoaded ? (
+					// @ts-ignore
 					<Viewer
 						initialValue={props.markdown}
 						customHTMLRenderer={{

@@ -39,6 +39,7 @@ const withLayoutMain = (Component: any) => {
 					</Head>
 					<Stack id="mobile-wrap">
 						<Stack id={'top'}>
+							{/* @ts-ignore */}
 							<Top />
 						</Stack>
 
@@ -68,6 +69,7 @@ const withLayoutMain = (Component: any) => {
 					</Head>
 					<Stack id="pc-wrap">
 						<Stack id={'top'}>
+							{/* @ts-ignore */}
 							<Top />
 						</Stack>
 

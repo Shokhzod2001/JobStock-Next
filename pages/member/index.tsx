@@ -112,6 +112,7 @@ const MemberPage: NextPage = () => {
 							</Stack>
 							<Stack className="main-config" mb={'76px'}>
 								<Stack className={'list-config'}>
+									{/* @ts-ignore */}
 									{category === 'jobs' && <MemberJobs />}
 									{category === 'followers' && (
 										<MemberFollowers
@@ -129,6 +130,7 @@ const MemberPage: NextPage = () => {
 											likeMemberHandler={likeMemberHandler}
 										/>
 									)}
+									{/* @ts-ignore */}
 									{category === 'articles' && <MemberArticles />}
 								</Stack>
 							</Stack>

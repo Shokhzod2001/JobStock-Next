@@ -167,7 +167,7 @@ const withAdminLayout = (Component: ComponentType) => {
 						</Toolbar>
 
 						<Divider />
-
+					{/* @ts-ignore */}
 						<MenuList />
 					</Drawer>
 

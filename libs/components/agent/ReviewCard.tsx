@@ -2,7 +2,7 @@ import React from 'react';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Stack, Box, Typography } from '@mui/material';
 import { Comment } from '../../types/comment/comment';
-import Moment from 'react-moment';
+import moment from 'moment';
 import { REACT_APP_API_URL } from '../../config';
 
 interface ReviewCardProps {
@@ -27,7 +27,7 @@ const ReviewCard = (props: ReviewCardProps) => {
 						<div>
 							<strong>{comment.memberData?.memberNick}</strong>
 							<span>
-								<Moment format={'DD MMMM'}>{comment.createdAt}</Moment>
+								{moment(comment.createdAt).format('DD MMMM')}
 							</span>
 						</div>
 					</div>

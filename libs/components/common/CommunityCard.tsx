@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Stack, Typography } from '@mui/material';
 import { BoardArticle } from '../../types/board-article/board-article';
-import Moment from 'react-moment';
+import moment from 'moment';
 import { REACT_APP_API_URL } from '../../config';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
@@ -85,11 +85,11 @@ const CommunityCard = (props: CommunityCardProps) => {
 					</Stack>
 				</Stack>
 				<Stack className="date-box">
-					<Moment className="month" format={'MMMM'}>
-						{boardArticle?.createdAt}
-					</Moment>
+					<span className="month">
+                        {moment(boardArticle?.createdAt).format('MMMM')}
+                    </span>
 					<Typography className="day">
-						<Moment format={'DD'}>{boardArticle?.createdAt}</Moment>
+						{moment(boardArticle?.createdAt).format('DD')}
 					</Typography>
 				</Stack>
 			</Stack>

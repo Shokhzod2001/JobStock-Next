@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Box, Skeleton } from '@mui/material';
-import Moment from 'react-moment';
+import moment from 'moment';
 import { BoardArticle } from '../../types/board-article/board-article';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
@@ -51,7 +51,7 @@ const CommunityCard = (props: CommunityCardProps) => {
 					<div className="card-footer">
 						<div className="meta-info">
 							<span className="date">
-								<Moment format="MMM DD, YYYY">{article?.createdAt}</Moment>
+								{moment(article?.createdAt).format('MMM DD, YYYY')}
 							</span>
 						</div>
 						<div className="meta-info">
@@ -93,7 +93,7 @@ const CommunityCard = (props: CommunityCardProps) => {
 					<div className="card-footer">
 						<div className="meta-info">
 							<span className="date">
-								<Moment format="MMM DD, YYYY">{article?.createdAt}</Moment>
+								{moment(article?.createdAt).format('MMM DD, YYYY')}
 							</span>
 						</div>
 						<div className="meta-info">

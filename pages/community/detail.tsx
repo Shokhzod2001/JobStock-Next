@@ -6,7 +6,7 @@ import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { Button, Stack, Typography, Tab, Tabs, IconButton, Backdrop, Pagination } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
-import Moment from 'react-moment';
+import moment from 'moment';
 import { userVar } from '../../apollo/store';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -301,9 +301,9 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 													{boardArticle?.memberData?.memberNick}
 												</Typography>
 												<Stack className="divider"></Stack>
-												<Moment className={'time-added'} format={'DD.MM.YY HH:mm'}>
-													{boardArticle?.createdAt}
-												</Moment>
+												<span className={'time-added'}>
+                                                    {moment(boardArticle?.createdAt).format('DD.MM.YY HH:mm')}
+                                                </span>
 											</Stack>
 										</Stack>
 										<Stack className="info">
@@ -333,6 +333,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 										</Stack>
 									</Stack>
 									<Stack>
+										{/* @ts-ignore */}
 										<ToastViewerComponent markdown={boardArticle?.articleContent} className={'ytb_play'} />
 									</Stack>
 									<Stack className="like-and-dislike">
@@ -392,9 +393,9 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 														<Stack className="name-date-column">
 															<Typography className="name">{commentData?.memberData?.memberNick}</Typography>
 															<Typography className="date">
-																<Moment className={'time-added'} format={'DD.MM.YY HH:mm'}>
-																	{commentData?.createdAt}
-																</Moment>
+																<span className={'time-added'}>
+                                                                   {moment(commentData?.createdAt).format('DD.MM.YY HH:mm')}
+                                                                </span>
 															</Typography>
 														</Stack>
 													</Stack>

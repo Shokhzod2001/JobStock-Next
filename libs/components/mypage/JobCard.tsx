@@ -6,7 +6,7 @@ import ModeIcon from '@mui/icons-material/Mode';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Job } from '../../types/job/job';
 import { formatterStr } from '../../utils';
-import Moment from 'react-moment';
+import moment from 'moment';
 import { useRouter } from 'next/router';
 import { JobStatus, SalaryType } from '../../enums/job.enum';
 
@@ -97,7 +97,7 @@ export const JobCard = (props: JobCardProps) => {
 				</Stack>
 				<Stack className="date-box">
 					<Typography className="date">
-						<Moment format="DD MMMM, YYYY">{job.createdAt}</Moment>
+						{moment(job.createdAt).format('DD MMMM, YYYY')}
 					</Typography>
 				</Stack>
 				<Stack className="status-box">
