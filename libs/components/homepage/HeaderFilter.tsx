@@ -293,7 +293,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						{jobLocation.map((location: string) => {
 							return (
 								<div onClick={() => jobLocationSelectHandler(location)} key={location}>
-									<img src={`img/banner/cities/${location.toLowerCase()}.webp`} alt="" />
+									<img src={`img/banner/cities/${location}.webp`} alt="" />
 									<span>{location}</span>
 								</div>
 							);
@@ -508,7 +508,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						{jobLocation.map((location: string) => {
 							return (
 								<div onClick={() => jobLocationSelectHandler(location)} key={location} className="location-item">
-									<img src={`img/banner/cities/${location.toLowerCase()}.webp`} alt="" className="location-image" />
+									<img src={`img/banner/cities/${location}.webp`} alt="" className="location-image" />
 									<span className="location-name">{location}</span>
 								</div>
 							);
