@@ -40,15 +40,15 @@ const CS: NextPage = (props: any) => {
 			<div id="mobile-wrap">
 				<Stack className={'cs-page'}>
 					<Stack className={'container'}>
-						<Box className={'cs-main-info'}>
-							<Box className={'info'}>
+						<Box component="div" className={'cs-main-info'}>
+							<Box component="div" className={'info'}>
 								<Typography component="span">Customer Support</Typography>
 								<Typography component="p">
 									<Link href="/">Home</Link> / Help
 								</Typography>
 							</Box>
 
-							<Box className={'btns'}>
+							<Box component="div" className={'btns'}>
 								<div className={tab === 'notice' ? 'active' : ''} onClick={() => changeTabHandler('notice')}>
 									<SupportIcon />
 									Notices & Updates
@@ -64,7 +64,7 @@ const CS: NextPage = (props: any) => {
 							</Box>
 						</Box>
 
-						<Box className={'cs-content'}>
+						<Box component="div" className={'cs-content'}>
 							{tab === 'notice' && <Notice />}
 							{tab === 'faq' && <Faq />}
 							{tab === 'terms' && <Terms />}
@@ -78,13 +78,13 @@ const CS: NextPage = (props: any) => {
 			<div id="pc-wrap">
 				<Stack className={'cs-page'}>
 					<Stack className={'container'}>
-						<Box className={'cs-main-info'}>
-							<Box className={'info'}>
+						<Box component="div" className={'cs-main-info'}>
+							<Box component="div" className={'info'}>
 								<Typography component="span">Cs center</Typography>
 								<Typography component="p">I will help you with everything related to JobStock.</Typography>
 							</Box>
 
-							<Box className={'btns'}>
+							<Box component="div" className={'btns'}>
 								<div className={tab === 'notice' ? 'active' : ''} onClick={() => changeTabHandler('notice')}>
 									<SupportIcon />
 									Notices & Updates
@@ -100,7 +100,7 @@ const CS: NextPage = (props: any) => {
 							</Box>
 						</Box>
 
-						<Box className={'cs-content'}>
+						<Box component="div" className={'cs-content'}>
 							{tab === 'notice' && <Notice />}
 							{tab === 'faq' && <Faq />}
 							{tab === 'terms' && <Terms />}
