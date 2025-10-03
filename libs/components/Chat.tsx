@@ -13,30 +13,6 @@ import { socketVar, userVar } from '../../apollo/store';
 import { Messages, REACT_APP_API_URL } from '../config';
 import { sweetErrorAlert } from '../sweetAlert';
 
-const NewMessage = (type: any) => {
-	if (type === 'right') {
-		return (
-			<Box
-				component={'div'}
-				flexDirection={'row'}
-				style={{ display: 'flex' }}
-				alignItems={'flex-end'}
-				justifyContent={'flex-end'}
-				sx={{ m: '10px 0px' }}
-			>
-				<div className={'msg_right'}></div>
-			</Box>
-		);
-	} else {
-		return (
-			<Box flexDirection={'row'} style={{ display: 'flex' }} sx={{ m: '10px 0px' }} component={'div'}>
-				<Avatar alt={'jonik'} src={'/img/profile/defaultUser.svg'} />
-				<div className={'msg_left'}></div>
-			</Box>
-		);
-	}
-};
-
 interface MessagePayload {
 	event: string;
 	text: string;
@@ -64,9 +40,11 @@ const Chat = () => {
 	/** LIFECYCLES **/
 
 	useEffect(() => {
-		socket.onmessage = (msg) => {
+		if (!socket) return;
+
+		const handleMessage = (msg: MessageEvent) => {
 			const data = JSON.parse(msg.data);
-			console.log('WebSocket message:', data);
+			console.log('Chat.tsx - WebSocket message:', data);
 
 			switch (data.event) {
 				case 'info':
@@ -79,12 +57,20 @@ const Chat = () => {
 					break;
 				case 'message':
 					const newMessage: MessagePayload = data;
-					messagesList.push(newMessage);
-					setMessagesList([...messagesList]);
+					console.log('Chat.tsx - Adding new message:', newMessage);
+					setMessagesList((prevMessages) => [...prevMessages, newMessage]);
 					break;
 			}
 		};
-	}, [socket, messagesList]);
+
+		// Add event listener instead of replacing onmessage
+		socket.addEventListener('message', handleMessage);
+
+		// Cleanup function
+		return () => {
+			socket.removeEventListener('message', handleMessage);
+		};
+	}, [socket]);
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
@@ -123,6 +109,7 @@ const Chat = () => {
 	const onClickHandler = () => {
 		if (!messageInput) sweetErrorAlert(Messages.error4);
 		else {
+			console.log('Sending message:', messageInput);
 			socket.send(JSON.stringify({ event: 'message', data: messageInput }));
 			setMessageInput('');
 		}

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Stack, Typography, Badge, IconButton, Menu, MenuItem } from '@mui/material';
+import { Box, Stack, Typography, Menu, MenuItem } from '@mui/material';
 import { format } from 'date-fns';
 import { useReactiveVar } from '@apollo/client';
 import { socketVar, userVar } from '../../../apollo/store';
 import ScrollableFeed from 'react-scrollable-feed';
 import { useSwipeable } from 'react-swipeable';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 interface Notification {
 	id: string;
@@ -53,7 +52,7 @@ const NotificationItem = ({ notification, onRead }: { notification: Notification
 				}}
 			>
 				<Stack spacing={1} sx={{ width: '100%' }}>
-					<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+					<Box component="div" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
 						<Typography variant="body2" sx={{ fontSize: '20px' }}>
 							{getNotificationIcon(notification.type)}
 						</Typography>
@@ -118,79 +117,71 @@ const NotificationModal = ({
 				console.error('NotificationModal: Socket not ready to request notifications');
 			}
 		}
-	}, [open, user?._id]);
+	}, [open, user?._id, socket]);
 
 	// Mark notifications as read when modal opens
 	useEffect(() => {
 		if (open && notifications.length > 0 && socket?.readyState === WebSocket.OPEN) {
 			console.log('NotificationModal: Marking notifications as read');
 
-			// Get IDs of unread notifications
 			const unreadNotificationIds = notifications.filter((n) => n.status === 'WAIT').map((n) => n.id);
 
 			if (unreadNotificationIds.length > 0) {
 				console.log('Sending markNotificationsAsRead with IDs:', unreadNotificationIds);
-				// Send markNotificationsAsRead event with just the array of IDs
 				socket.send(
 					JSON.stringify({
 						event: 'markNotificationsAsRead',
-						// Send just the array of IDs as the backend expects
 						data: unreadNotificationIds,
 					}),
 				);
 			}
 		}
-	}, [open, notifications]);
+	}, [open, notifications, socket]);
 
+	// FIXED: Use addEventListener instead of onmessage
 	useEffect(() => {
-		if (socket && user?._id) {
-			socket.onmessage = (msg) => {
-				try {
-					const data = JSON.parse(msg.data);
-					console.log('Received websocket message:', data);
+		if (!socket || !user?._id) return;
 
-					if (data.event === 'notification') {
-						// Handle new notification
-						const notification = data.payload;
-						setNotifications((prev) => {
-							const isDuplicate = prev.some((n) => n.id === notification.id);
-							if (isDuplicate) return prev;
+		const handleMessage = (event: MessageEvent) => {
+			try {
+				const data = JSON.parse(event.data);
+				console.log('NotificationModal: Received websocket message:', data);
 
-							const newNotifications = [notification, ...prev];
-							setUnreadCount(newNotifications.filter((n) => n.status === 'WAIT').length);
-							return newNotifications;
-						});
-					} else if (data.event === 'notifications_list') {
-						// Handle notifications list (now only contains unread notifications)
-						console.log('NotificationModal: Received notifications list:', data.data);
-						setNotifications(data.data);
-						setUnreadCount(data.data.length); // All notifications in the list are unread
-					} else if (data.event === 'notificationStatus') {
-						// Handle status updates
-						console.log('NotificationModal: Received status update:', data.payload);
-						const { id, status } = data.payload;
+				// Only handle notification-related events
+				if (data.event === 'notification') {
+					const notification = data.payload;
+					setNotifications((prev) => {
+						const isDuplicate = prev.some((n) => n.id === notification.id);
+						if (isDuplicate) return prev;
 
-						setNotifications((prev) => {
-							const updatedNotifications = prev.map((n) => (n.id === id ? { ...n, status } : n));
-							setUnreadCount(updatedNotifications.filter((n) => n.status === 'WAIT').length);
-							return updatedNotifications;
-						});
-					}
-				} catch (error) {
-					console.error('Error processing notification:', error);
+						const newNotifications = [notification, ...prev];
+						setUnreadCount(newNotifications.filter((n) => n.status === 'WAIT').length);
+						return newNotifications;
+					});
+				} else if (data.event === 'notifications_list') {
+					console.log('NotificationModal: Received notifications list:', data.data);
+					setNotifications(data.data);
+					setUnreadCount(data.data.length);
+				} else if (data.event === 'notificationStatus') {
+					console.log('NotificationModal: Received status update:', data.payload);
+					const { id, status } = data.payload;
+
+					setNotifications((prev) => {
+						const updatedNotifications = prev.map((n) => (n.id === id ? { ...n, status } : n));
+						setUnreadCount(updatedNotifications.filter((n) => n.status === 'WAIT').length);
+						return updatedNotifications;
+					});
 				}
-			};
+			} catch (error) {
+				console.error('NotificationModal: Error processing notification:', error);
+			}
+		};
 
-			socket.onerror = (error) => {
-				console.error('WebSocket error:', error);
-			};
-		}
+		// Use addEventListener so it doesn't overwrite Chat.tsx handler
+		socket.addEventListener('message', handleMessage);
 
 		return () => {
-			if (socket) {
-				socket.onmessage = null;
-				socket.onerror = null;
-			}
+			socket.removeEventListener('message', handleMessage);
 		};
 	}, [socket, user]);
 
@@ -218,9 +209,8 @@ const NotificationModal = ({
 				},
 			}}
 		>
-			{/* @ts-ignore */}
 			<Box
-				// @ts-ignore
+				component="div"
 				sx={{
 					p: 2,
 					borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
@@ -240,20 +230,16 @@ const NotificationModal = ({
 					)}
 				</Stack>
 			</Box>
-            {/* @ts-ignore */}
+			{/*@ts-ignore*/}
 			<ScrollableFeed>
 				<Stack sx={{ maxHeight: '400px', overflow: 'auto' }}>
 					{notifications.length === 0 ? (
-						<Box sx={{ p: 3, textAlign: 'center' }}>
+						<Box component="div" sx={{ p: 3, textAlign: 'center' }}>
 							<Typography color="text.secondary">No notifications yet</Typography>
 						</Box>
 					) : (
 						notifications.map((notification) => (
-							<NotificationItem
-								key={notification.id}
-								notification={notification}
-								onRead={() => {}} // Empty function since we handle read status when modal opens
-							/>
+							<NotificationItem key={notification.id} notification={notification} onRead={() => {}} />
 						))
 					)}
 				</Stack>

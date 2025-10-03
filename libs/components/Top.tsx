@@ -71,9 +71,9 @@ const Top = () => {
 				userId: user._id,
 			});
 
-			socket.onmessage = (msg) => {
+			const handleMessage = (event: MessageEvent) => {
 				try {
-					const data = JSON.parse(msg.data);
+					const data = JSON.parse(event.data);
 					console.log('Top: Received message:', data);
 
 					if (data.event === 'notification') {
@@ -94,18 +94,13 @@ const Top = () => {
 				}
 			};
 
-			socket.onerror = (error) => {
-				console.error('Top: WebSocket error:', error);
+			socket.addEventListener('message', handleMessage);
+
+			return () => {
+				console.log('Top: Cleaning up notification listener');
+				socket.removeEventListener('message', handleMessage);
 			};
 		}
-
-		return () => {
-			if (socket) {
-				console.log('Top: Cleaning up notification listener');
-				socket.onmessage = null;
-				socket.onerror = null;
-			}
-		};
 	}, [socket, user]);
 
 	/** HANDLERS **/
